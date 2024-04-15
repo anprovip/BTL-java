@@ -47,26 +47,6 @@
                      </children>
                   </HBox>
                   <Pane prefHeight="200.0" prefWidth="200.0" stylesheets="@application2.css" HBox.hgrow="ALWAYS" />
-                  <HBox fx:id="user" alignment="CENTER" onMouseClicked="#switchtoUserInformation" prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <Label prefHeight="43.0" prefWidth="162.0" text="\@username">
-                           <font>
-                              <Font name="Berlin Sans FB" size="18.0" />
-                           </font>
-                        </Label>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../img/banana.png" />
-                           </image>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </ImageView>
-                     </children>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </HBox>
                </children>
                <BorderPane.margin>
                   <Insets />
@@ -79,41 +59,16 @@
          <left>
             <VBox prefHeight="200.0" prefWidth="250.0" spacing="10.0" styleClass="white-background" stylesheets="@application2.css" BorderPane.alignment="CENTER">
                <children>
-                  <VBox prefHeight="220.0" prefWidth="250.0" spacing="5.0">
+                  <VBox prefHeight="211.0" prefWidth="250.0" spacing="15.0">
                      <children>
-                        <Label prefHeight="43.0" prefWidth="162.0" text="Browse">
-                           <font>
-                              <Font name="Berlin Sans FB" size="18.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets left="10.0" />
-                           </VBox.margin>
-                        </Label>
-                        <HBox fx:id="topBooks" alignment="CENTER" onMouseClicked="#switchBox" prefHeight="50.0" prefWidth="200.0" spacing="15.0" styleClass="mouse-moved" stylesheets="@application2.css">
-                           <children>
-                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../img/favorite.png" />
-                                 </image>
-                              </ImageView>
-                              <Label prefHeight="43.0" prefWidth="140.0" text="Top Books">
-                                 <font>
-                                    <Font name="Berlin Sans FB" size="18.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </HBox>
-                        <HBox fx:id="browse" alignment="CENTER" onMouseClicked="#switchBox" prefHeight="50.0" prefWidth="200.0" spacing="15.0" stylesheets="@application2.css">
+                        <HBox fx:id="home" alignment="CENTER" onMouseClicked="#switchBox" prefHeight="50.0" prefWidth="200.0" spacing="15.0" stylesheets="@application2.css">
                            <children>
                               <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../img/compass.png" />
                                  </image>
                               </ImageView>
-                              <Label prefHeight="43.0" prefWidth="140.0" text="Browse">
+                              <Label prefHeight="43.0" prefWidth="140.0" text="Home">
                                  <font>
                                     <Font name="Berlin Sans FB" size="18.0" />
                                  </font>
@@ -127,14 +82,14 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </HBox>
-                        <HBox fx:id="categories" alignment="CENTER" onMouseClicked="#switchBox" prefHeight="50.0" prefWidth="200.0" spacing="15.0" styleClass="mouse-moved" stylesheets="@application2.css">
+                        <HBox fx:id="search" alignment="CENTER" onMouseClicked="#switchBox" prefHeight="50.0" prefWidth="200.0" spacing="15.0" styleClass="mouse-moved" stylesheets="@application2.css">
                            <children>
                               <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../img/sort.png" />
+                                    <Image url="@../img/search.png" />
                                  </image>
                               </ImageView>
-                              <Label prefHeight="43.0" prefWidth="140.0" text="Categories">
+                              <Label prefHeight="43.0" prefWidth="140.0" text="Search">
                                  <font>
                                     <Font name="Berlin Sans FB" size="18.0" />
                                  </font>
@@ -144,66 +99,6 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </HBox>
-                     </children>
-                  </VBox>
-                  <Separator prefWidth="200.0" />
-                  <VBox prefHeight="161.0" prefWidth="250.0" spacing="5.0">
-                     <children>
-                        <Label prefHeight="43.0" prefWidth="162.0" text="Your books">
-                           <font>
-                              <Font name="Berlin Sans FB" size="18.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets left="10.0" />
-                           </VBox.margin>
-                        </Label>
-                        <HBox fx:id="reading" alignment="CENTER" onMouseClicked="#switchBox" prefHeight="50.0" prefWidth="200.0" spacing="15.0" styleClass="mouse-moved" stylesheets="@application2.css">
-                           <children>
-                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../img/book.png" />
-                                 </image>
-                              </ImageView>
-                              <Label prefHeight="43.0" prefWidth="140.0" text="Reading">
-                                 <font>
-                                    <Font name="Berlin Sans FB" size="18.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </HBox>
-                        <HBox fx:id="saved" alignment="CENTER" onMouseClicked="#switchBox" prefHeight="50.0" prefWidth="200.0" spacing="15.0" styleClass="mouse-moved" stylesheets="@application2.css">
-                           <children>
-                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../img/bookmark.png" />
-                                 </image>
-                              </ImageView>
-                              <Label prefHeight="43.0" prefWidth="140.0" text="Saved">
-                                 <font>
-                                    <Font name="Berlin Sans FB" size="18.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </HBox>
-                     </children>
-                  </VBox>
-                  <Separator prefHeight="0.0" prefWidth="250.0" />
-                  <VBox prefHeight="203.0" prefWidth="250.0" spacing="5.0">
-                     <children>
-                        <Label prefHeight="43.0" prefWidth="162.0" text="Shelves">
-                           <font>
-                              <Font name="Berlin Sans FB" size="18.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets left="10.0" />
-                           </VBox.margin>
-                        </Label>
                         <HBox fx:id="myShelves" alignment="CENTER" onMouseClicked="#switchBox" prefHeight="50.0" prefWidth="200.0" spacing="15.0" styleClass="mouse-moved" stylesheets="@application2.css">
                            <children>
                               <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
@@ -221,6 +116,10 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </HBox>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="47.0" prefWidth="250.0" spacing="5.0">
+                     <children>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
                               <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="131.0" style="-fx-background-color: #FF5056;" stylesheets="@application.css" text="Create a shelf" textFill="WHITE">
@@ -232,7 +131,31 @@
                         </HBox>
                      </children>
                   </VBox>
-                  <Separator prefWidth="200.0" />
+                  <Separator prefHeight="0.0" prefWidth="250.0" />
+                  <VBox alignment="BOTTOM_CENTER" prefHeight="402.0" prefWidth="250.0">
+                     <children>
+                        <HBox fx:id="user" alignment="CENTER" onMouseClicked="#switchtoUserInformation" prefHeight="49.0" prefWidth="250.0">
+                           <children>
+                              <Label prefHeight="43.0" prefWidth="162.0" text="\@username">
+                                 <font>
+                                    <Font name="Berlin Sans FB" size="18.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/banana.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </ImageView>
+                           </children>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </HBox>
+                     </children>
+                  </VBox>
                </children>
                <padding>
                   <Insets top="20.0" />
@@ -242,7 +165,7 @@
          <center>
             <AnchorPane BorderPane.alignment="CENTER">
                <children>
-                  <VBox fx:id="browseBox" prefHeight="716.8" prefWidth="1064.8" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <VBox fx:id="homeBox" prefHeight="716.8" prefWidth="1064.8" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <Label prefHeight="18.0" prefWidth="272.0" text="Recommended for you">
                            <font>
@@ -276,43 +199,9 @@
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </padding>
                   </VBox>
-                  <VBox fx:id="topBooksBox" layoutX="10.0" layoutY="10.0" prefHeight="734.4" prefWidth="1078.4" spacing="10.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <VBox fx:id="searchBox" layoutX="10.0" layoutY="10.0" prefHeight="734.4" prefWidth="1078.4" spacing="10.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Label prefHeight="18.0" prefWidth="272.0" text="Top Books">
-                           <font>
-                              <Font name="Berlin Sans FB" size="24.0" />
-                           </font>
-                        </Label>
-                        <ScrollPane prefHeight="225.0" prefWidth="200.0" styleClass="transparent" stylesheets="@application2.css">
-                           <content>
-                              <HBox fx:id="cardLayout1" alignment="CENTER_LEFT" prefHeight="213.0" prefWidth="1342.0" spacing="20.0" styleClass="transparent" stylesheets="@application2.css" />
-                           </content>
-                        </ScrollPane>
-                        <Label prefHeight="18.0" prefWidth="272.0" text="Recently added">
-                           <font>
-                              <Font name="Berlin Sans FB" size="24.0" />
-                           </font>
-                        </Label>
-                        <ScrollPane prefHeight="200.0" prefWidth="200.0" styleClass="transparent" stylesheets="@application2.css" VBox.vgrow="ALWAYS">
-                           <content>
-                              <GridPane fx:id="bookContainer1">
-                                 <rowConstraints>
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                 </rowConstraints>
-                              </GridPane>
-                           </content>
-                        </ScrollPane>
-                     </children>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <padding>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                     </padding>
-                  </VBox>
-                  <VBox fx:id="categoriesBox" layoutX="10.0" layoutY="10.0" prefHeight="734.4" prefWidth="1078.4" spacing="10.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <Label prefHeight="18.0" prefWidth="272.0" text="Categories">
+                        <Label prefHeight="18.0" prefWidth="272.0" text="Search">
                            <font>
                               <Font name="Berlin Sans FB" size="24.0" />
                            </font>
@@ -330,74 +219,6 @@
                         <ScrollPane prefHeight="200.0" prefWidth="200.0" styleClass="transparent" stylesheets="@application2.css" VBox.vgrow="ALWAYS">
                            <content>
                               <GridPane fx:id="bookContainer2">
-                                 <rowConstraints>
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                 </rowConstraints>
-                              </GridPane>
-                           </content>
-                        </ScrollPane>
-                     </children>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <padding>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                     </padding>
-                  </VBox>
-                  <VBox fx:id="readingBox" layoutX="10.0" layoutY="10.0" prefHeight="734.4" prefWidth="1078.4" spacing="10.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <Label prefHeight="18.0" prefWidth="272.0" text="Reading">
-                           <font>
-                              <Font name="Berlin Sans FB" size="24.0" />
-                           </font>
-                        </Label>
-                        <ScrollPane prefHeight="225.0" prefWidth="200.0" styleClass="transparent" stylesheets="@application2.css">
-                           <content>
-                              <HBox fx:id="cardLayout3" alignment="CENTER_LEFT" prefHeight="213.0" prefWidth="1342.0" spacing="20.0" styleClass="transparent" stylesheets="@application2.css" />
-                           </content>
-                        </ScrollPane>
-                        <Label prefHeight="18.0" prefWidth="272.0" text="Recently added">
-                           <font>
-                              <Font name="Berlin Sans FB" size="24.0" />
-                           </font>
-                        </Label>
-                        <ScrollPane prefHeight="200.0" prefWidth="200.0" styleClass="transparent" stylesheets="@application2.css" VBox.vgrow="ALWAYS">
-                           <content>
-                              <GridPane fx:id="bookContainer3">
-                                 <rowConstraints>
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                 </rowConstraints>
-                              </GridPane>
-                           </content>
-                        </ScrollPane>
-                     </children>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <padding>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                     </padding>
-                  </VBox>
-                  <VBox fx:id="savedBox" layoutX="10.0" layoutY="10.0" prefHeight="734.4" prefWidth="1078.4" spacing="10.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <Label prefHeight="18.0" prefWidth="272.0" text="Saved">
-                           <font>
-                              <Font name="Berlin Sans FB" size="24.0" />
-                           </font>
-                        </Label>
-                        <ScrollPane prefHeight="225.0" prefWidth="200.0" styleClass="transparent" stylesheets="@application2.css">
-                           <content>
-                              <HBox fx:id="cardLayout4" alignment="CENTER_LEFT" prefHeight="213.0" prefWidth="1342.0" spacing="20.0" styleClass="transparent" stylesheets="@application2.css" />
-                           </content>
-                        </ScrollPane>
-                        <Label prefHeight="18.0" prefWidth="272.0" text="Recently added">
-                           <font>
-                              <Font name="Berlin Sans FB" size="24.0" />
-                           </font>
-                        </Label>
-                        <ScrollPane prefHeight="200.0" prefWidth="200.0" styleClass="transparent" stylesheets="@application2.css" VBox.vgrow="ALWAYS">
-                           <content>
-                              <GridPane fx:id="bookContainer4">
                                  <rowConstraints>
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
