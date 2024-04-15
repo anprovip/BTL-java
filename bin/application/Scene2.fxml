@@ -51,7 +51,7 @@
                            <children>
                               <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../img/compass.png" />
+                                    <Image url="@../../../src/img/home.png" />
                                  </image>
                               </ImageView>
                               <Label prefHeight="43.0" prefWidth="140.0" text="Home">
