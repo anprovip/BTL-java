@@ -36,34 +36,16 @@ public class Controller2 implements Initializable{
 	private List<Book> recommended;
 	
     @FXML
-    private HBox browse;
+    private HBox home;
 
     @FXML
-    private VBox browseBox;
+    private VBox homeBox;
 
     @FXML
-    private HBox categories;
+    private HBox search;
 
     @FXML
-    private VBox categoriesBox;
-
-    @FXML
-    private HBox reading;
-
-    @FXML
-    private VBox readingBox;
-
-    @FXML
-    private HBox topBooks;
-
-    @FXML
-    private VBox topBooksBox;
-    
-    @FXML
-    private HBox saved;
-
-    @FXML
-    private VBox savedBox;
+    private VBox searchBox;
     
     @FXML
     private HBox myShelves;
@@ -75,52 +57,19 @@ public class Controller2 implements Initializable{
     private HBox user;
     
     public void switchBox(MouseEvent event) {
-    	if(event.getSource() == browse) {
-    		browseBox.setVisible(true);
-    		topBooksBox.setVisible(false);
-    		categoriesBox.setVisible(false);
-    		readingBox.setVisible(false);
-    		savedBox.setVisible(false);
+    	if(event.getSource() == home) {
+    		homeBox.setVisible(true);
+    		searchBox.setVisible(false);
     		myShelvesBox.setVisible(false);
     	}
-    	if(event.getSource() == topBooks) {
-    		browseBox.setVisible(false);
-    		topBooksBox.setVisible(true);
-    		categoriesBox.setVisible(false);
-    		readingBox.setVisible(false);
-    		savedBox.setVisible(false);
-    		myShelvesBox.setVisible(false);
-    	}
-    	if(event.getSource() == categories) {
-    		browseBox.setVisible(false);
-    		topBooksBox.setVisible(false);
-    		categoriesBox.setVisible(true);
-    		readingBox.setVisible(false);
-    		savedBox.setVisible(false);
-    		myShelvesBox.setVisible(false);
-    	}
-    	if(event.getSource() == reading) {
-    		browseBox.setVisible(false);
-    		topBooksBox.setVisible(false);
-    		categoriesBox.setVisible(false);
-    		readingBox.setVisible(true);
-    		savedBox.setVisible(false);
-    		myShelvesBox.setVisible(false);
-    	}
-    	if(event.getSource() == saved) {
-    		browseBox.setVisible(false);
-    		topBooksBox.setVisible(false);
-    		categoriesBox.setVisible(false);
-    		readingBox.setVisible(false);
-    		savedBox.setVisible(true);
+    	if(event.getSource() == search) {
+    		homeBox.setVisible(false);
+    		searchBox.setVisible(true);
     		myShelvesBox.setVisible(false);
     	}
     	if(event.getSource() == myShelves) {
-    		browseBox.setVisible(false);
-    		topBooksBox.setVisible(false);
-    		categoriesBox.setVisible(false);
-    		readingBox.setVisible(false);
-    		savedBox.setVisible(false);
+    		homeBox.setVisible(false);
+    		searchBox.setVisible(false);
     		myShelvesBox.setVisible(true);
     	}
     }
