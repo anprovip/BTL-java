@@ -1,5 +1,6 @@
 package database;
 
+import java.awt.HeadlessException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -20,7 +21,7 @@ import javafx.stage.Stage;
 
 public class JDBCUtil {
 	private Connection connect;
-	private PreparedStatement statement;
+	private PreparedStatement statement, check;
 	private ResultSet result;
 	private Controller c;
 	
@@ -70,7 +71,7 @@ public class JDBCUtil {
 		
 		connect = connectDB();
 		
-		try {
+		
 			if(c.getSu_email().getText().isEmpty() || c.getSu_username().getText().isEmpty() || c.getSu_password().getText().isEmpty() || c.getSu_phone().getText().isEmpty()) {
 				JOptionPane.showMessageDialog(null,
 						"All fields are necessary to be filled", "Admin Message", JOptionPane.WARNING_MESSAGE);
@@ -81,21 +82,38 @@ public class JDBCUtil {
 						"Password does not match", "Admin Message", JOptionPane.WARNING_MESSAGE);
 				return false;
 			}
-				String sql = "INSERT INTO user(username, password, email, phoneNumber) VALUES(?,SHA2(?, 256),?, ?)";
-				
-				statement = connect.prepareStatement(sql);
-				statement.setString(1, c.getSu_username().getText());
-				statement.setString(2, c.getSu_password().getText());
-				statement.setString(3, c.getSu_email().getText());
-				statement.setString(4, c.getSu_phone().getText());
-				statement.execute();
-				return true;
-			
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+			else {
+				try {
+					String checkUserName = "SELECT * FROM user WHERE username = ?";
+					check = connect.prepareStatement(checkUserName);
+					check.setString(1, c.getSu_username().getText());
+					result = check.executeQuery();
+					if(result.next()) {
+						JOptionPane.showMessageDialog(null,
+								"This username is already taken.", "Admin Message", JOptionPane.WARNING_MESSAGE);
+						return false;
+					}
+					else {
+					String sql = "INSERT INTO user(username, password, email, phoneNumber) VALUES(?,SHA2(?, 256),?, ?)";
+					
+					statement = connect.prepareStatement(sql);
+					statement.setString(1, c.getSu_username().getText());
+					statement.setString(2, c.getSu_password().getText());
+					statement.setString(3, c.getSu_email().getText());
+					statement.setString(4, c.getSu_phone().getText());
+					statement.execute();
+					return true;
+
+					}
+				} catch (HeadlessException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
 		return false;
-		
+		}
 	}
-}
+
