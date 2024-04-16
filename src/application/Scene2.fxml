@@ -179,8 +179,14 @@
                         </ScrollPane>
                         <HBox alignment="CENTER" prefHeight="28.0" prefWidth="1225.0" spacing="20.0">
                            <children>
-                              <Button fx:id="backButton" mnemonicParsing="false" onAction="#goBack" stylesheets="@application2.css" text="Back" />
-                              <Button fx:id="loadMoreButton" mnemonicParsing="false" onAction="#loadMore" stylesheets="@application2.css" text="Load More..." />
+                              <Button fx:id="backButton" mnemonicParsing="false" onAction="#goBack" stylesheets="@application2.css" text="Back">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font></Button>
+                              <Button fx:id="loadMoreButton" mnemonicParsing="false" onAction="#loadMore" stylesheets="@application2.css" text="Next">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font></Button>
                            </children>
                         </HBox>
                      </children>
