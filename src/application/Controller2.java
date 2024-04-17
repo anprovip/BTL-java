@@ -318,4 +318,5 @@ public class Controller2 implements Initializable{
 			stage.show();
 		}
 	}
+	
 }

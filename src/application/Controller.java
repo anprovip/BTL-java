@@ -127,7 +127,7 @@ public class Controller {
 	public void login(ActionEvent e) throws IOException {
 		JDBCUtil jdbcUtil = new JDBCUtil();
 		
-		jdbcUtil.setController(this);
+		jdbcUtil.setController(this, null);
 		
 		if(jdbcUtil.loginDB(e)) {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("Scene2.fxml"));
@@ -143,7 +143,7 @@ public class Controller {
 	}
 	public void signup(ActionEvent e) throws IOException {
 		JDBCUtil jdbcUtil = new JDBCUtil();
-		jdbcUtil.setController(this);
+		jdbcUtil.setController(this, null);
 		if(jdbcUtil.signupDB(e)) {
 			JOptionPane.showMessageDialog(null,
 					"Successfully Create new account", "Admin Message", JOptionPane.INFORMATION_MESSAGE);

@@ -12,21 +12,25 @@ import javax.swing.JOptionPane;
 
 import application.Controller;
 import application.Controller2;
+import application.Controller3;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import model.User;
 
 public class JDBCUtil {
 	private Connection connect;
 	private PreparedStatement statement, check;
 	private ResultSet result;
 	private Controller c;
+	private Controller3 c3;
 	
-	public void setController(Controller controller) {
+	public void setController(Controller controller, Controller3 controller3) {
         this.c = controller;
+        this.c3 = controller3;
     }
 	
 	public Connection connectDB() {
@@ -51,6 +55,11 @@ public class JDBCUtil {
 			result = statement.executeQuery();
 			
 			if(result.next()) {
+				String username = result.getString("username");
+                String password = result.getString("password");
+                String email = result.getString("email");
+                String phoneNumber = result.getString("phoneNumber");
+                User user = new User(username, password, email, phoneNumber);
 				JOptionPane.showMessageDialog(null, "Successfully Login.",
 						"Admin Message", JOptionPane.INFORMATION_MESSAGE);
 				return true;
@@ -89,6 +98,12 @@ public class JDBCUtil {
 					check.setString(1, c.getSu_username().getText());
 					result = check.executeQuery();
 					if(result.next()) {
+						 String username = result.getString("username");
+			             String password = result.getString("password");
+			             String email = result.getString("email");
+			             String phoneNumber = result.getString("phoneNumber");
+			             User user = new User(username, password, email, phoneNumber);
+			             
 						JOptionPane.showMessageDialog(null,
 								"This username is already taken.", "Admin Message", JOptionPane.WARNING_MESSAGE);
 						return false;
@@ -115,5 +130,72 @@ public class JDBCUtil {
 			}
 		return false;
 		}
+	/*
+	public User getUserInfo() {
+        User user = new User();
+
+        try {
+            connect = connectDB();
+            String sql = "SELECT * FROM user WHERE username = ?";
+            statement = connect.prepareStatement(sql);
+            statement.setString(1, c.getUsername().getText()); 
+            result = statement.executeQuery();
+
+            if (result.next()) {
+                user.setUsername(result.getString("username"));
+                user.setPassword(result.getString("password"));
+                user.setEmail(result.getString("email"));
+                user.setPhoneNumber(result.getString("phoneNumber"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (result != null) result.close();
+                if (statement != null) statement.close();
+                if (connect != null) connect.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return user;
+    }
+
+	public boolean saveUserInfo(User user) {
+        connect = connectDB();
+        
+        try {
+            String sql = "UPDATE user SET username=?, password=SHA2(?, 256), email=?, phoneNumber=? WHERE username=?";
+            statement = connect.prepareStatement(sql);
+            statement.setString(1, user.getUsername());
+            statement.setString(2, user.getPassword());
+            statement.setString(3, user.getEmail());
+            statement.setString(4, user.getPhoneNumber());
+            statement.setString(5, user.getUsername());
+            
+            int rowsAffected = statement.executeUpdate();
+            
+            if (rowsAffected > 0) {
+                System.out.println("User info updated successfully!");
+                return true;
+            } else {
+                System.out.println("Failed to update user info!");
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (result != null) result.close();
+                if (statement != null) statement.close();
+                if (connect != null) connect.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+    */
 	}
 

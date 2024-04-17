@@ -168,7 +168,7 @@
                               <Font name="Berlin Sans FB" size="24.0" />
                            </font>
                         </Label>
-                        <ScrollPane fx:id="scrollPane" prefHeight="200.0" prefWidth="1225.0" styleClass="transparent" stylesheets="@application2.css" VBox.vgrow="ALWAYS">
+                        <ScrollPane fx:id="scrollPane" prefHeight="326.0" prefWidth="1225.0" styleClass="transparent" stylesheets="@application2.css" VBox.vgrow="ALWAYS">
                            <content>
                               <GridPane fx:id="bookContainer">
                                 <rowConstraints>
@@ -177,7 +177,7 @@
                               </GridPane>
                            </content>
                         </ScrollPane>
-                        <HBox alignment="CENTER" prefHeight="28.0" prefWidth="1225.0" spacing="20.0">
+                        <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="20.0" prefWidth="1225.0" spacing="20.0">
                            <children>
                               <Button fx:id="backButton" mnemonicParsing="false" onAction="#goBack" stylesheets="@application2.css" text="Back">
                                  <font>
@@ -188,6 +188,12 @@
                                     <Font size="14.0" />
                                  </font></Button>
                            </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding>
                         </HBox>
                      </children>
                      <opaqueInsets>
