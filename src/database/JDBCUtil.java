@@ -26,7 +26,7 @@ public class JDBCUtil {
 	
 	public Connection connectDB() {
 		 try {
-			connect = DriverManager.getConnection("jdbc:mySQL://localhost:3306/sach", "root", "123456");
+			connect = DriverManager.getConnection("jdbc:mySQL://localhost:3306/sach", "root", "An123456789@");
 			 return connect;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
