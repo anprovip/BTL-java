@@ -1,4 +1,3 @@
-
 package controller;
 
 import java.awt.HeadlessException;
@@ -32,7 +31,7 @@ public class LoginController {
 	private Connection connect;
 	private PreparedStatement statement, check;
 	private ResultSet result;
-	
+	private JDBCUtil jdbcUtil = new JDBCUtil();
 	@FXML
     private Button loginButton;
 
@@ -133,7 +132,7 @@ public class LoginController {
 		this.su_username = su_username;
 	}
 	
-	private JDBCUtil jdbcUtil = new JDBCUtil();
+	
 	public void login(ActionEvent e) throws IOException {
 		connect = jdbcUtil.connectDB();
 		
@@ -153,7 +152,7 @@ public class LoginController {
                 User user = new User(username, password, email, phoneNumber);
 				JOptionPane.showMessageDialog(null, "Successfully Login.",
 						"Admin Message", JOptionPane.INFORMATION_MESSAGE);
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("HomePageScene.fxml"));
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/HomePageScene.fxml"));
 				root = loader.load();
 				HomePageController hpc = loader.getController();
 				
@@ -214,7 +213,8 @@ public class LoginController {
 					statement.setString(3, su_email.getText());
 					statement.setString(4, su_phone.getText());
 					statement.execute();
-					
+					JOptionPane.showMessageDialog(null,
+							"Successfully Create new account", "Admin Message", JOptionPane.INFORMATION_MESSAGE);
 
 					}
 				} catch (HeadlessException e1) {

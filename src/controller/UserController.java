@@ -99,7 +99,7 @@ public class UserController implements Initializable{
     
     public void switchToHome(MouseEvent e) throws IOException {
     	if(e.getSource() == backBox) {
-    		FXMLLoader loader = new FXMLLoader(getClass().getResource("Scene2.fxml"));
+    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/HomePageScene.fxml"));
     		root = loader.load();
     		stage = (Stage)((Node)e.getSource()).getScene().getWindow();
     		scene = new Scene(root);
@@ -111,7 +111,7 @@ public class UserController implements Initializable{
     	if(e.getSource() == logoutBox) {
     		int choice = JOptionPane.showConfirmDialog(null, "Do you want to log out?", "Log Out", JOptionPane.YES_NO_OPTION);
     		if(choice == JOptionPane.YES_OPTION) {
-	    		FXMLLoader loader = new FXMLLoader(getClass().getResource("Scene.fxml"));
+	    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/LoginScene.fxml"));
 	    		root = loader.load();
 	    		stage = (Stage)((Node)e.getSource()).getScene().getWindow();
 	    		scene = new Scene(root, 1515, 770);

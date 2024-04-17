@@ -108,7 +108,7 @@ public class HomePageController implements Initializable{
         try {
             for (Book value : recentlyAdded) {
                 FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("card.fxml"));
+                loader.setLocation(getClass().getResource("/views/card.fxml"));
                 HBox cardBox = loader.load();
                 CardController cardController = loader.getController();
                 cardController.setData(value);
@@ -128,7 +128,7 @@ public class HomePageController implements Initializable{
         int row = 1;
         for (int i = startIndex; i < Math.min(startIndex + count, allBooks.size()); i++) {
             Book book = allBooks.get(i);
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("book.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/book.fxml"));
             try {
                 VBox bookBox = loader.load();
                 BookController bookController = loader.getController();
@@ -305,7 +305,7 @@ public class HomePageController implements Initializable{
 	
 	public void switchtoUserInformation(MouseEvent e) throws IOException {
 		if(e.getSource() == user) {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("UserScene.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/UserScene.fxml"));
 			root = loader.load();
 			stage = (Stage)((Node)e.getSource()).getScene().getWindow();
 			scene = new Scene(root, 1515, 770);
