@@ -25,13 +25,8 @@ public class JDBCUtil {
 	private Connection connect;
 	private PreparedStatement statement, check;
 	private ResultSet result;
-	private Controller c;
-	private Controller3 c3;
 	
-	public void setController(Controller controller, Controller3 controller3) {
-        this.c = controller;
-        this.c3 = controller3;
-    }
+	
 	
 	public Connection connectDB() {
 		 try {
@@ -44,37 +39,7 @@ public class JDBCUtil {
 		return null;
 	}
 	
-	public boolean loginDB(ActionEvent e) throws IOException {
-		connect = connectDB();
-		
-		try {
-			String sql = "SELECT * FROM user WHERE username = ? and password = SHA2(?, 256)";
-			statement = connect.prepareStatement(sql);
-			statement.setString(1, c.getUsername().getText());
-			statement.setString(2, c.getPassword().getText());
-			result = statement.executeQuery();
-			
-			if(result.next()) {
-				String username = result.getString("username");
-                String password = result.getString("password");
-                String email = result.getString("email");
-                String phoneNumber = result.getString("phoneNumber");
-                User user = new User(username, password, email, phoneNumber);
-				JOptionPane.showMessageDialog(null, "Successfully Login.",
-						"Admin Message", JOptionPane.INFORMATION_MESSAGE);
-				return true;
-				
-			}
-			else {
-				JOptionPane.showMessageDialog(null, "Wrong username or password. Please enter again.",
-						"Admin Message", JOptionPane.ERROR_MESSAGE);
-			}
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		return false;
-	}
+	
 	
 	public boolean signupDB(ActionEvent e) {
 		
@@ -131,21 +96,21 @@ public class JDBCUtil {
 		return false;
 		}
 	/*
-	public User getUserInfo() {
-        User user = new User();
+	public void getUserInfo() {
+		this.user = user;
 
         try {
             connect = connectDB();
             String sql = "SELECT * FROM user WHERE username = ?";
             statement = connect.prepareStatement(sql);
-            statement.setString(1, c.getUsername().getText()); 
+            statement.setString(1, currentUsername); 
             result = statement.executeQuery();
 
             if (result.next()) {
-                user.setUsername(result.getString("username"));
-                user.setPassword(result.getString("password"));
-                user.setEmail(result.getString("email"));
-                user.setPhoneNumber(result.getString("phoneNumber"));
+                c3.getUsernameInfo().setText((result.getString("username")));
+                c3.getPasswordInfo().setText((result.getString("password")));
+                c3.getEmailInfo().setText((result.getString("email")));
+                c3.getPhoneInfo().setText((result.getString("phoneNumber")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -159,9 +124,9 @@ public class JDBCUtil {
             }
         }
 
-        return user;
+        
     }
-
+	/*
 	public boolean saveUserInfo(User user) {
         connect = connectDB();
         

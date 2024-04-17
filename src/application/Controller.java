@@ -2,6 +2,10 @@
 package application;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
@@ -16,13 +20,18 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import model.User;
 
 public class Controller {
 	
 	private Stage stage;
 	private Scene scene;
 	private Parent root;
-
+	
+	private Connection connect;
+	private PreparedStatement statement, check;
+	private ResultSet result;
+	
 	@FXML
     private Button loginButton;
 
@@ -123,24 +132,40 @@ public class Controller {
 		this.su_username = su_username;
 	}
 	
-
-	public void login(ActionEvent e) throws IOException {
-		JDBCUtil jdbcUtil = new JDBCUtil();
+	private JDBCUtil jdbcUtil = new JDBCUtil();
+	public boolean loginDB(ActionEvent e) throws IOException {
+		connect = jdbcUtil.connectDB();
 		
-		jdbcUtil.setController(this, null);
-		
-		if(jdbcUtil.loginDB(e)) {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("Scene2.fxml"));
-			root = loader.load();
-			Controller2 c2 = loader.getController();
+		try {
+			String sql = "SELECT * FROM user WHERE username = ? and password = SHA2(?, 256)";
+			statement = connect.prepareStatement(sql);
+			statement.setString(1, username.getText());
+			statement.setString(2, password.getText());
+			result = statement.executeQuery();
 			
-			stage = (Stage)((Node)e.getSource()).getScene().getWindow();
-			scene = new Scene(root, 1515, 770);
-			stage.setTitle("Goodreads");
-			stage.setScene(scene);
-			stage.show();
+			if(result.next()) {
+				
+				String username = result.getString("username");
+                String password = result.getString("password");
+                String email = result.getString("email");
+                String phoneNumber = result.getString("phoneNumber");
+                User user = new User(username, password, email, phoneNumber);
+				JOptionPane.showMessageDialog(null, "Successfully Login.",
+						"Admin Message", JOptionPane.INFORMATION_MESSAGE);
+				return true;
+				
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "Wrong username or password. Please enter again.",
+						"Admin Message", JOptionPane.ERROR_MESSAGE);
+			}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
+		return false;
 	}
+	/*
 	public void signup(ActionEvent e) throws IOException {
 		JDBCUtil jdbcUtil = new JDBCUtil();
 		jdbcUtil.setController(this, null);
@@ -151,4 +176,5 @@ public class Controller {
 		
 	
 	}
+	*/
 }

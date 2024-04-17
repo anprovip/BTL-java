@@ -3,6 +3,8 @@ package application;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
 
@@ -10,6 +12,7 @@ import database.JDBCUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -24,7 +27,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.User;
 
-public class Controller3 {
+public class Controller3 implements Initializable{
 	
 	private Stage stage;
 	private Scene scene;
@@ -45,7 +48,37 @@ public class Controller3 {
     @FXML
     private TextField passwordInfo;
 
-    @FXML
+    public TextField getEmailInfo() {
+		return emailInfo;
+	}
+	public void setEmailInfo(TextField emailInfo) {
+		this.emailInfo = emailInfo;
+	}
+	public TextField getPasswordInfo() {
+		return passwordInfo;
+	}
+	public void setPasswordInfo(TextField passwordInfo) {
+		this.passwordInfo = passwordInfo;
+	}
+	public TextField getPhoneInfo() {
+		return phoneInfo;
+	}
+	public void setPhoneInfo(TextField phoneInfo) {
+		this.phoneInfo = phoneInfo;
+	}
+	public TextField getUsernameInfo() {
+		return usernameInfo;
+	}
+	public void setUsernameInfo(TextField usernameInfo) {
+		this.usernameInfo = usernameInfo;
+	}
+	public ImageView getImageInfo() {
+		return imageInfo;
+	}
+	public void setImageInfo(ImageView imageInfo) {
+		this.imageInfo = imageInfo;
+	}
+	@FXML
     private TextField phoneInfo;
 
     @FXML
@@ -115,15 +148,13 @@ public class Controller3 {
             }
         }
     }
-/*
+
     private void displayUserInfo() {
-        // Hiển thị thông tin của người dùng lên giao diện
-        usernameInfo.setText(currentUser.getUsername());
-        passwordInfo.setText(currentUser.getPassword());
-        emailInfo.setText(currentUser.getEmail());
-        phoneInfo.setText(currentUser.getPhoneNumber());
-        // Có thể hiển thị thông tin khác nếu cần
+        jdbcUtil.setController(null, this);
+        jdbcUtil.getUserInfo();
+        	
     }
+    /*
     @FXML
     public void saveUserInfo(ActionEvent event) {
         currentUser.setPassword(passwordInfo.getText());
@@ -132,5 +163,13 @@ public class Controller3 {
         jdbcUtil.saveUserInfo(currentUser);
     }
     */
+    
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		jdbcUtil.setController(null, this);
+		displayUserInfo();
+		
+	}
+	
 }
 
