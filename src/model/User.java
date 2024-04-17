@@ -9,7 +9,7 @@ public class User {
     private String phoneNumber;
     private Blob imageUser;
     
-    public User() {};    
+    public User() {super();};    
 	public User(String username, String password, String email, String phoneNumber) {
 		super();
 		this.username = username;

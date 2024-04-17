@@ -5,6 +5,7 @@ module BTL {
 	requires javafx.base;
 	requires java.sql;
 	requires java.desktop;
+	requires mysql.connector.java;
 	
 	opens application to javafx.graphics, javafx.fxml;
 	opens controller to javafx.graphics, javafx.fxml,java.sql;

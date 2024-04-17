@@ -134,7 +134,7 @@ public class LoginController {
 	
 	
 	public void login(ActionEvent e) throws IOException {
-		connect = jdbcUtil.connectDB();
+		connect = jdbcUtil.getConnection();
 		
 		try {
 			String sql = "SELECT * FROM user WHERE username = ? and password = SHA2(?, 256)";
@@ -174,7 +174,7 @@ public class LoginController {
 	}
 	public void signup(ActionEvent e) {
 		
-		connect = jdbcUtil.connectDB();
+		connect = jdbcUtil.getConnection();
 		
 		
 			if(su_email.getText().isEmpty() || su_username.getText().isEmpty() || su_password.getText().isEmpty() || su_phone.getText().isEmpty()) {

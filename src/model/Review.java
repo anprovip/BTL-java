@@ -8,7 +8,7 @@ public class Review {
     private int reviewRating;
     private Date dateSubmitted;
 	
-  
+    public Review() {super();} 
 
 	public Review(int reviewId, String reviewContent, int reviewRating, Date dateSubmitted) {
 		super();

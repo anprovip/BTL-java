@@ -18,22 +18,32 @@ import javafx.stage.Stage;
 import model.User;
 
 public class JDBCUtil {
-	private Connection connect;
-	private PreparedStatement statement, check;
-	private ResultSet result;
 	
-	
-	
-	public Connection connectDB() {
-		 try {
-			connect = DriverManager.getConnection("jdbc:mySQL://localhost:3306/sach", "root", "An123456789@");
-			 return connect;
+	public static Connection getConnection() {
+		Connection connection = null; 
+		try {
+			DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+			String url = "jdbc:mySQL://localhost:3306/sach";
+			String username = "root";
+			String password = "An123456789@";
+			
+			connection = DriverManager.getConnection(url,username,password);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return connection;
 	}
+	public static void 	closeConnection(Connection connection) {
+		try {
+			if(connection!=null) {
+				connection.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	
 	/*
 	public void getUserInfo() {
