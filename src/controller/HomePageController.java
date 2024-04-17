@@ -1,4 +1,4 @@
-package application;
+package controller;
 
 import java.io.IOException;
 import java.net.URL;
@@ -26,7 +26,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.Book;
 
-public class Controller2 implements Initializable{
+public class HomePageController implements Initializable{
 	
 	private Stage stage;
 	private Scene scene;
@@ -177,10 +177,6 @@ public class Controller2 implements Initializable{
             loadMoreButton.setDisable(false);
         }
     }
-
-
-
-
 
 	private List<Book> recentlyAdded(){
 		List<Book> ls = new ArrayList<>();

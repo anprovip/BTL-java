@@ -9,10 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
-
-import application.Controller;
-import application.Controller2;
-import application.Controller3;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -39,62 +35,6 @@ public class JDBCUtil {
 		return null;
 	}
 	
-	
-	
-	public boolean signupDB(ActionEvent e) {
-		
-		connect = connectDB();
-		
-		
-			if(c.getSu_email().getText().isEmpty() || c.getSu_username().getText().isEmpty() || c.getSu_password().getText().isEmpty() || c.getSu_phone().getText().isEmpty()) {
-				JOptionPane.showMessageDialog(null,
-						"All fields are necessary to be filled", "Admin Message", JOptionPane.WARNING_MESSAGE);
-				return false;
-			}
-			else if(!c.getSu_password().getText().equals(c.getSu_reenter().getText())) {
-				JOptionPane.showMessageDialog(null,
-						"Password does not match", "Admin Message", JOptionPane.WARNING_MESSAGE);
-				return false;
-			}
-			else {
-				try {
-					String checkUserName = "SELECT * FROM user WHERE username = ?";
-					check = connect.prepareStatement(checkUserName);
-					check.setString(1, c.getSu_username().getText());
-					result = check.executeQuery();
-					if(result.next()) {
-						 String username = result.getString("username");
-			             String password = result.getString("password");
-			             String email = result.getString("email");
-			             String phoneNumber = result.getString("phoneNumber");
-			             User user = new User(username, password, email, phoneNumber);
-			             
-						JOptionPane.showMessageDialog(null,
-								"This username is already taken.", "Admin Message", JOptionPane.WARNING_MESSAGE);
-						return false;
-					}
-					else {
-					String sql = "INSERT INTO user(username, password, email, phoneNumber) VALUES(?,SHA2(?, 256),?, ?)";
-					
-					statement = connect.prepareStatement(sql);
-					statement.setString(1, c.getSu_username().getText());
-					statement.setString(2, c.getSu_password().getText());
-					statement.setString(3, c.getSu_email().getText());
-					statement.setString(4, c.getSu_phone().getText());
-					statement.execute();
-					return true;
-
-					}
-				} catch (HeadlessException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-		return false;
-		}
 	/*
 	public void getUserInfo() {
 		this.user = user;

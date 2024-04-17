@@ -1,4 +1,4 @@
-package application;
+package controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,7 +27,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.User;
 
-public class Controller3 implements Initializable{
+public class UserController implements Initializable{
 	
 	private Stage stage;
 	private Scene scene;
@@ -93,8 +93,6 @@ public class Controller3 implements Initializable{
     @FXML
     private ImageView imageInfo;
     
-    private Controller c;
-    
     private User currentUser;
     private JDBCUtil jdbcUtil = new JDBCUtil();
 
@@ -148,10 +146,8 @@ public class Controller3 implements Initializable{
             }
         }
     }
-
+    /*
     private void displayUserInfo() {
-        jdbcUtil.setController(null, this);
-        jdbcUtil.getUserInfo();
         	
     }
     /*
@@ -163,11 +159,9 @@ public class Controller3 implements Initializable{
         jdbcUtil.saveUserInfo(currentUser);
     }
     */
-    
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		jdbcUtil.setController(null, this);
-		displayUserInfo();
+		// TODO Auto-generated method stub
 		
 	}
 	

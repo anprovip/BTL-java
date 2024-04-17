@@ -1,6 +1,7 @@
 
-package application;
+package controller;
 
+import java.awt.HeadlessException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,7 +23,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.User;
 
-public class Controller {
+public class LoginController {
 	
 	private Stage stage;
 	private Scene scene;
@@ -133,7 +134,7 @@ public class Controller {
 	}
 	
 	private JDBCUtil jdbcUtil = new JDBCUtil();
-	public boolean loginDB(ActionEvent e) throws IOException {
+	public void login(ActionEvent e) throws IOException {
 		connect = jdbcUtil.connectDB();
 		
 		try {
@@ -152,7 +153,15 @@ public class Controller {
                 User user = new User(username, password, email, phoneNumber);
 				JOptionPane.showMessageDialog(null, "Successfully Login.",
 						"Admin Message", JOptionPane.INFORMATION_MESSAGE);
-				return true;
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("HomePageScene.fxml"));
+				root = loader.load();
+				HomePageController hpc = loader.getController();
+				
+				stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+				scene = new Scene(root, 1515, 770);
+				stage.setTitle("Goodreads");
+				stage.setScene(scene);
+				stage.show();
 				
 			}
 			else {
@@ -163,18 +172,59 @@ public class Controller {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		return false;
 	}
-	/*
-	public void signup(ActionEvent e) throws IOException {
-		JDBCUtil jdbcUtil = new JDBCUtil();
-		jdbcUtil.setController(this, null);
-		if(jdbcUtil.signupDB(e)) {
-			JOptionPane.showMessageDialog(null,
-					"Successfully Create new account", "Admin Message", JOptionPane.INFORMATION_MESSAGE);
-		}
+	public void signup(ActionEvent e) {
 		
-	
-	}
-	*/
+		connect = jdbcUtil.connectDB();
+		
+		
+			if(su_email.getText().isEmpty() || su_username.getText().isEmpty() || su_password.getText().isEmpty() || su_phone.getText().isEmpty()) {
+				JOptionPane.showMessageDialog(null,
+						"All fields are necessary to be filled", "Admin Message", JOptionPane.WARNING_MESSAGE);
+				
+			}
+			else if(!su_password.getText().equals(su_reenter.getText())) {
+				JOptionPane.showMessageDialog(null,
+						"Password does not match", "Admin Message", JOptionPane.WARNING_MESSAGE);
+				
+			}
+			else {
+				try {
+					String checkUserName = "SELECT * FROM user WHERE username = ?";
+					check = connect.prepareStatement(checkUserName);
+					check.setString(1, su_username.getText());
+					result = check.executeQuery();
+					if(result.next()) {
+						 String username = result.getString("username");
+			             String password = result.getString("password");
+			             String email = result.getString("email");
+			             String phoneNumber = result.getString("phoneNumber");
+			             User user = new User(username, password, email, phoneNumber);
+			             
+						JOptionPane.showMessageDialog(null,
+								"This username is already taken.", "Admin Message", JOptionPane.WARNING_MESSAGE);
+						
+					}
+					else {
+					String sql = "INSERT INTO user(username, password, email, phoneNumber) VALUES(?,SHA2(?, 256),?, ?)";
+					
+					statement = connect.prepareStatement(sql);
+					statement.setString(1, su_username.getText());
+					statement.setString(2, su_password.getText());
+					statement.setString(3, su_email.getText());
+					statement.setString(4, su_phone.getText());
+					statement.execute();
+					
+
+					}
+				} catch (HeadlessException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		
+		}
 }
