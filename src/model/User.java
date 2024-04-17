@@ -8,7 +8,10 @@ public class User {
     private String email;
     private String phoneNumber;
     private Blob imageUser;
-    
+    private static final User instance = new User();
+    public static User getInstance() {
+        return instance;
+    }
     public User() {super();};    
 	public User(String username, String password, String email, String phoneNumber) {
 		super();

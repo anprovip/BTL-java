@@ -22,19 +22,14 @@ public class JDBCUtil {
 	public static Connection getConnection() {
 		Connection connection = null; 
 		try {
-			DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-			String url = "jdbc:mySQL://localhost:3306/sach";
-			String username = "root";
-			String password = "An123456789@";
-			
-			connection = DriverManager.getConnection(url,username,password);
+			connection = DriverManager.getConnection("jdbc:mySQL://localhost:3306/sach", "root", "123456");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return connection;
 	}
-	public static void 	closeConnection(Connection connection) {
+	public static void closeConnection(Connection connection) {
 		try {
 			if(connection!=null) {
 				connection.close();
@@ -44,38 +39,6 @@ public class JDBCUtil {
 		}
 	}
 	
-	
-	/*
-	public void getUserInfo() {
-		this.user = user;
-
-        try {
-            connect = connectDB();
-            String sql = "SELECT * FROM user WHERE username = ?";
-            statement = connect.prepareStatement(sql);
-            statement.setString(1, currentUsername); 
-            result = statement.executeQuery();
-
-            if (result.next()) {
-                c3.getUsernameInfo().setText((result.getString("username")));
-                c3.getPasswordInfo().setText((result.getString("password")));
-                c3.getEmailInfo().setText((result.getString("email")));
-                c3.getPhoneInfo().setText((result.getString("phoneNumber")));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (result != null) result.close();
-                if (statement != null) statement.close();
-                if (connect != null) connect.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-
-        
-    }
 	/*
 	public boolean saveUserInfo(User user) {
         connect = connectDB();

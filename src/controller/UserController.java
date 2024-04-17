@@ -4,10 +4,15 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
 
+import database.DAOUser;
 import database.JDBCUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -92,11 +97,12 @@ public class UserController implements Initializable{
     
     @FXML
     private ImageView imageInfo;
-    
-    private User currentUser;
+    User user = User.getInstance();
     private JDBCUtil jdbcUtil = new JDBCUtil();
-
-    
+    private Connection connect;
+	private PreparedStatement statement, check;
+	private ResultSet result;
+	
     public void switchToHome(MouseEvent e) throws IOException {
     	if(e.getSource() == backBox) {
     		FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/HomePageScene.fxml"));
@@ -146,6 +152,23 @@ public class UserController implements Initializable{
             }
         }
     }
+    
+    private void getUserInfo(String currentUsername) {
+        DAOUser daoUser = DAOUser.getInstance();
+        User user = daoUser.selectByUsername(currentUsername);
+
+        if (user != null) {
+            usernameInfo.setText(user.getUsername());
+            passwordInfo.setText(user.getPassword());
+            emailInfo.setText(user.getEmail());
+            phoneInfo.setText(user.getPhoneNumber());
+            // Để hiển thị hình ảnh, bạn cần thêm xử lý riêng cho phần này
+        } else {
+            // Xử lý trường hợp không tìm thấy thông tin người dùng
+            System.out.println("User not found!");
+        }
+    }
+
     /*
     private void displayUserInfo() {
         	
@@ -161,9 +184,11 @@ public class UserController implements Initializable{
     */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
+		
+		String currentUsername = user.getUsername();
+		getUserInfo(currentUsername);
+		System.out.println(user.toString());
 		
 	}
 	
 }
-

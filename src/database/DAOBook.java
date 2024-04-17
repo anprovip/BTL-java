@@ -16,8 +16,8 @@ public class DAOBook implements DAOInterface<Book> {
 	}
 
 	@Override
-	public int insert(Book t) {
-		try {//buoc 1: Tao ket noi den CSDL
+	public void insert(Book t) {
+		try {
 		Connection connection = JDBCUtil.getConnection();
 		//b2
 		String sql = "INSERT INTO book(isbn ,book_title ,publication_year)"
@@ -34,24 +34,24 @@ public class DAOBook implements DAOInterface<Book> {
 			
 			e.printStackTrace();
 		}
-		return 0;
+		
 	}
 
 	@Override
-	public int update(Book t) {
+	public void update(Book t) {
 		try {
 		Connection connection = JDBCUtil.getConnection();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return 0;
+		
 	}
 
 	@Override
-	public int delete(Book t) {
+	public void delete(Book t) {
 		// TODO Auto-generated method stub
-		return 0;
+		
 	}
 
 	@Override
