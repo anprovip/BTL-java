@@ -1,0 +1,23 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+.primary-color{
+	-fx-background-color: #3e5c74;
+}
+.radius{
+	-fx-background-radius: 30;
+}
+.transparent{
+	-fx-background-color: rgba(0, 0, 0, 0);
+}
+.white-background{
+	-fx-background-color: #fff;
+}
+.input{
+	-fx-border-width: 0 0 1 0;
+	-fx-border-color: #7c8184;
+}
+.custom-text-field{
+	-fx-text-inner-color: #ece99b;
+}
+.button{
+	-fx-cursor: hand;
+}
