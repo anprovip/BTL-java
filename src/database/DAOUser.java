@@ -143,6 +143,22 @@ public class DAOUser implements DAOInterface<User> {
         }
         return user;
     }
+    public boolean updateUserInfo(User user, String oldUsername) {
+        try {
+            String sql = "UPDATE user SET username = ?, password = SHA2(?, 256), email = ?, phoneNumber = ? WHERE username = ?";
+            statement = connect.prepareStatement(sql);
+            statement.setString(1, user.getUsername());
+            statement.setString(2, user.getPassword());
+            statement.setString(3, user.getEmail());
+            statement.setString(4, user.getPhoneNumber());
+            statement.setString(5, oldUsername); // Thêm username cũ vào để xác định dòng cần cập nhật
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
 
 }	

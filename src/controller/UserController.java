@@ -97,6 +97,7 @@ public class UserController implements Initializable{
     
     @FXML
     private ImageView imageInfo;
+    DAOUser daoUser = DAOUser.getInstance();
     User user = User.getInstance();
     private JDBCUtil jdbcUtil = new JDBCUtil();
     private Connection connect;
@@ -154,7 +155,6 @@ public class UserController implements Initializable{
     }
     
     private void getUserInfo(String currentUsername) {
-        DAOUser daoUser = DAOUser.getInstance();
         User user = daoUser.selectByUsername(currentUsername);
 
         if (user != null) {
@@ -164,30 +164,48 @@ public class UserController implements Initializable{
             phoneInfo.setText(user.getPhoneNumber());
             // Để hiển thị hình ảnh, bạn cần thêm xử lý riêng cho phần này
         } else {
-            // Xử lý trường hợp không tìm thấy thông tin người dùng
+            
             System.out.println("User not found!");
         }
     }
-
-    /*
-    private void displayUserInfo() {
-        	
-    }
-    /*
+    
     @FXML
     public void saveUserInfo(ActionEvent event) {
-        currentUser.setPassword(passwordInfo.getText());
-        currentUser.setEmail(emailInfo.getText());
-        currentUser.setPhoneNumber(phoneInfo.getText());
-        jdbcUtil.saveUserInfo(currentUser);
+        // Lấy thông tin từ các TextField
+        String newUsername = usernameInfo.getText();
+        String password = passwordInfo.getText();
+        String email = emailInfo.getText();
+        String phoneNumber = phoneInfo.getText();
+        
+        // Kiểm tra sự tồn tại của username mới trong cơ sở dữ liệu
+        boolean usernameExists = daoUser.checkUsernameExist(newUsername);
+        
+        if (!usernameExists) {
+            // Tạo đối tượng User mới với thông tin được điền mới
+            User updatedUser = new User(newUsername, password, email, phoneNumber);
+            
+            // Gọi phương thức updateUserInfo từ DAOUser để cập nhật thông tin trong cơ sở dữ liệu
+            boolean success = daoUser.updateUserInfo(updatedUser, user.getUsername());
+            
+            if (success) {
+                // Thông báo cho người dùng rằng thông tin đã được cập nhật thành công
+                JOptionPane.showMessageDialog(null, "User information updated successfully!");
+            } else {
+                // Thông báo lỗi nếu không thể cập nhật thông tin
+                JOptionPane.showMessageDialog(null, "Failed to update user information!");
+            }
+        } else {
+            // Thông báo lỗi nếu username mới đã tồn tại trong cơ sở dữ liệu
+            JOptionPane.showMessageDialog(null, "Username already exists!");
+        }
     }
-    */
+
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		
 		String currentUsername = user.getUsername();
 		getUserInfo(currentUsername);
-		System.out.println(user.toString());
 		
 	}
 	

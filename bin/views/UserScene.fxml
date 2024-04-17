@@ -196,7 +196,7 @@
                   </HBox>
                </children>
             </VBox>
-            <Button fx:id="saveButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="155.0" styleClass="selected" stylesheets="@application3.css" text="Save Changes" textFill="WHITE">
+            <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveUserInfo" prefHeight="50.0" prefWidth="155.0" styleClass="selected" stylesheets="@application3.css" text="Save Changes" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
