@@ -99,10 +99,6 @@ public class UserController implements Initializable{
     private ImageView imageInfo;
     DAOUser daoUser = DAOUser.getInstance();
     User user = User.getInstance();
-    private JDBCUtil jdbcUtil = new JDBCUtil();
-    private Connection connect;
-	private PreparedStatement statement, check;
-	private ResultSet result;
 	
     public void switchToHome(MouseEvent e) throws IOException {
     	if(e.getSource() == backBox) {

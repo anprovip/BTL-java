@@ -97,8 +97,6 @@ public class HomePageController implements Initializable{
     public void initialize(URL arg0, ResourceBundle arg1) {
         recentlyAdded = new ArrayList<>(recentlyAdded());
         recommended = new ArrayList<>(books());
-        int column = 0;
-        int row = 1;
         
         // Thêm sự kiện cho nút "Xem thêm"
         loadMoreButton.setOnAction(this::loadMore);

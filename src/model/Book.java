@@ -3,7 +3,7 @@ package model;
 import java.sql.Blob;
 
 public class Book {
-	private int bookID;
+	private String bookID;
 	private String name;
 	private String ImageSrc;
 	private String author;
@@ -12,7 +12,7 @@ public class Book {
 	
 	
 
-	public Book(int bookID, String name, String imageSrc, String author, Blob imageBook, int publishDate) {
+	public Book(String bookID, String name, String imageSrc, String author, Blob imageBook, int publishDate) {
 		super();
 		this.bookID = bookID;
 		this.name = name;
@@ -24,11 +24,11 @@ public class Book {
 	
 	public Book() {super();}
 
-	public int getBookID() {
+	public String getBookID() {
 		return bookID;
 	}
 
-	public void setBookID(int bookID) {
+	public void setBookID(String bookID) {
 		this.bookID = bookID;
 	}
 

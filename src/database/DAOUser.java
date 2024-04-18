@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+
 import model.User;
 
 public class DAOUser implements DAOInterface<User> {
@@ -47,7 +49,7 @@ public class DAOUser implements DAOInterface<User> {
 
     @Override
     public ArrayList<User> selectAll() {
-        ArrayList<User> userList = new ArrayList<>();
+        List<User> userList = new ArrayList<>();
         try {
             String sql = "SELECT * FROM user";
             statement = connect.prepareStatement(sql);
@@ -64,7 +66,7 @@ public class DAOUser implements DAOInterface<User> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return userList;
+        return (ArrayList<User>) userList;
     }
 
     @Override
