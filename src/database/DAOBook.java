@@ -35,7 +35,6 @@ public class DAOBook implements DAOInterface<Book> {
 			
 		JDBCUtil.closeConnection(connection);
 		} catch (SQLException e) {
-			
 			e.printStackTrace();
 		}
 		
@@ -131,7 +130,7 @@ public class DAOBook implements DAOInterface<Book> {
 			    Book book = new Book();
 			    book.setName(rs.getString("book_title"));
 			    book.setAuthor(rs.getString("author_name"));
-			    
+			    book.setBookID(rs.getString("isbn"));
 			    // Đọc dữ liệu ảnh từ cột "book_image"
 			    Blob imageBlob = rs.getBlob("book_image");
 			    if (imageBlob != null) {
@@ -155,10 +154,36 @@ public class DAOBook implements DAOInterface<Book> {
 	}
 
 	@Override
-	public Book selectByID(Book t) {
-		// TODO Auto-generated method stub
-		return null;
+	public Book selectByID(Book book) {
+	    try {
+	        Connection connection = JDBCUtil.getConnection();
+	        String sql = "SELECT * FROM book JOIN book_author ON book.isbn = book_author.isbn " +
+	                     "JOIN author ON book_author.author_id = author.author_id " +
+	                     "WHERE book.isbn = ?";
+
+	        PreparedStatement st = connection.prepareStatement(sql);
+	        st.setString(1, book.getBookID());
+	        ResultSet rs = st.executeQuery();
+	        while (rs.next()) {
+	            book.setName(rs.getString("book_title"));
+	            book.setAuthor(rs.getString("author_name"));
+	            book.setBookID(rs.getString("isbn"));
+	            // Đọc dữ liệu ảnh từ cột "book_image"
+	            Blob imageBlob = rs.getBlob("book_image");
+	            if (imageBlob != null) {
+	                // Chuyển đổi Blob thành mảng byte
+	                byte[] imageData = imageBlob.getBytes(1, (int) imageBlob.length());
+	                // Lưu dữ liệu ảnh vào thuộc tính imageBook của đối tượng Book
+	                book.setImageBook(new SerialBlob(imageData));
+	            }
+	        }
+	        JDBCUtil.closeConnection(connection);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return book;
 	}
+
 
 	@Override
 	public ArrayList<Book> selectByCondition(String condition) {

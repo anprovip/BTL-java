@@ -37,9 +37,7 @@ import model.User;
 public class UserController implements Initializable{
 	
 	private Stage stage;
-	private Scene scene;
-	private Parent root;
-	
+
 	@FXML
     private HBox backBox;
 

@@ -2,6 +2,8 @@ package database;
 
 import java.util.ArrayList;
 
+import model.Book;
+
 public interface DAOInterface<T> {
 	public void insert(T t);
 	
@@ -14,4 +16,5 @@ public interface DAOInterface<T> {
 	public T selectByID(T t);
 	
 	public ArrayList<T> selectByCondition(String condition);
+
 }

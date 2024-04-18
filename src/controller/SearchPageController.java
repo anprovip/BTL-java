@@ -13,10 +13,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
@@ -24,16 +22,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import javafx.util.Callback;
 import model.Book;
 import model.ChangeScene;
 
 public class SearchPageController implements Initializable{
 	
-	private Stage stage;
-	private Scene scene;
-	private Parent root;
 	
 	@FXML
     private HBox cardLayout;
@@ -121,9 +114,10 @@ public class SearchPageController implements Initializable{
         int row = 1;
         for (int i = startIndex; i < Math.min(startIndex + count, allBooks.size()); i++) {
             Book book = allBooks.get(i);
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/book.fxml"));
+FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/book.fxml"));
+            
             try {
-                VBox bookBox = loader.load();
+            	BorderPane bookPane = loader.load();
                 BookController bookController = loader.getController();
                 bookController.setData(book);
 
@@ -131,9 +125,9 @@ public class SearchPageController implements Initializable{
                     column = 0;
                     row++;
                 }
-                bookContainer.add(bookBox, column++, row);
-                GridPane.setMargin(bookBox, new Insets(15));
-                displayedBooks.add(bookBox);
+                bookContainer.add(bookPane, column++, row);
+                GridPane.setMargin(bookPane, new Insets(15));
+                displayedBooks.add(bookPane);
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -31,9 +31,6 @@ import model.ChangeScene;
 
 public class HomePageController implements Initializable{
 	
-	private Stage stage;
-	private Scene scene;
-	private Parent root;
 	
 	@FXML
     private HBox cardLayout;
@@ -132,8 +129,9 @@ public class HomePageController implements Initializable{
         for (int i = startIndex; i < Math.min(startIndex + count, allBooks.size()); i++) {
             Book book = allBooks.get(i);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/book.fxml"));
+            
             try {
-                VBox bookBox = loader.load();
+            	BorderPane bookPane = loader.load();
                 BookController bookController = loader.getController();
                 bookController.setData(book);
 
@@ -141,9 +139,9 @@ public class HomePageController implements Initializable{
                     column = 0;
                     row++;
                 }
-                bookContainer.add(bookBox, column++, row);
-                GridPane.setMargin(bookBox, new Insets(15));
-                displayedBooks.add(bookBox);
+                bookContainer.add(bookPane, column++, row);
+                GridPane.setMargin(bookPane, new Insets(15));
+                displayedBooks.add(bookPane);
             } catch (IOException e) {
                 e.printStackTrace();
             }
