@@ -79,7 +79,7 @@ public class HomePageController implements Initializable{
     @FXML
     private ScrollPane searchScrollPane;
     
-    private final int itemsPerPage = 12;
+    private final int itemsPerPage = 10;
     private int currentPage = 1;
     private List<Book> allBooks = new ArrayList<>();;
     private List<Node> displayedBooks = new ArrayList<>();
@@ -145,12 +145,12 @@ public class HomePageController implements Initializable{
                 BookController bookController = loader.getController();
                 bookController.setData(book);
 
-                if (column == 6) {
+                if (column == 5) {
                     column = 0;
                     row++;
                 }
                 bookContainer.add(bookBox, column++, row);
-                GridPane.setMargin(bookBox, new Insets(10));
+                GridPane.setMargin(bookBox, new Insets(15));
                 displayedBooks.add(bookBox);
             } catch (IOException e) {
                 e.printStackTrace();

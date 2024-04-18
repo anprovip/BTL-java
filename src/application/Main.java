@@ -13,7 +13,7 @@ public class Main extends Application {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/LoginScene.fxml"));
 			Parent root = loader.load();
-			Scene scene = new Scene(root, 1515, 770);
+			Scene scene = new Scene(root, 1440, 900);
 			
 	        stage.setTitle("Goodreads Login");
 			stage.setScene(scene);
