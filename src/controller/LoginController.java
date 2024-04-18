@@ -28,7 +28,7 @@ import model.User;
 public class LoginController {
 	
     @FXML
-    private BorderPane loginBoderPange;
+    private BorderPane loginBorderPane;
     
 	private DAOUser daoUser = DAOUser.getInstance();
 	@FXML
@@ -132,17 +132,8 @@ public class LoginController {
 	}
     public void login(ActionEvent e) throws IOException {
         if(daoUser.selectByUsernameAndPassword(username.getText(), password.getText())) {
-		    JOptionPane.showMessageDialog(null, "Successfully Login.", "Admin Message", JOptionPane.INFORMATION_MESSAGE);
-		    /*FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/HomePageScene.fxml"));
-		    root = loader.load();
-		    HomePageController hpc = loader.getController();
-
-		    stage = (Stage)((Node)e.getSource()).getScene().getWindow();
-		    scene = new Scene(root, 1515, 770);
-		    stage.setTitle("Goodreads");
-		    stage.setScene(scene);
-		    stage.show();*/
-		    new ChangeScene(loginBoderPange, "/views/HomePageScene.fxml");
+        	JOptionPane.showMessageDialog(null, "Login successfully", "Admin Message", JOptionPane.INFORMATION_MESSAGE);
+		    new ChangeScene(loginBorderPane, "/views/HomePageScene.fxml");
 		} else {
 		    JOptionPane.showMessageDialog(null, "Wrong username or password. Please enter again.", "Admin Message", JOptionPane.ERROR_MESSAGE);
 		}

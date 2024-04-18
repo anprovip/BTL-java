@@ -145,15 +145,60 @@ public class DAOUser implements DAOInterface<User> {
         }
         return user;
     }
-    public boolean updateUserInfo(User user, String oldUsername) {
+    public boolean updateUserInfo(User user) {
         try {
-            String sql = "UPDATE user SET username = ?, password = SHA2(?, 256), email = ?, phoneNumber = ? WHERE username = ?";
+            String sql = "UPDATE user SET email = ?, phoneNumber = ? WHERE username = ?";
             statement = connect.prepareStatement(sql);
-            statement.setString(1, user.getUsername());
-            statement.setString(2, user.getPassword());
-            statement.setString(3, user.getEmail());
-            statement.setString(4, user.getPhoneNumber());
-            statement.setString(5, oldUsername); // Thêm username cũ vào để xác định dòng cần cập nhật
+            statement.setString(1, user.getEmail());
+            statement.setString(2, user.getPhoneNumber());
+            statement.setString(3, user.getUsername()); // Thêm username cũ vào để xác định dòng cần cập nhật
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    public boolean changePassword(String username, String email, String phoneNumber, String newPassword) {
+        // Kiểm tra xem email và số điện thoại có khớp với thông tin trong database không
+        if (checkEmailAndPhone(username, email, phoneNumber)) {
+            try {
+                // Tạo đối tượng User mới với mật khẩu mới
+                User updatedUser = new User();
+                updatedUser.setUsername(username);
+                updatedUser.setPassword(newPassword);
+                
+                // Gọi phương thức updatePassword từ DAOUser để cập nhật mật khẩu mới vào database
+                boolean success = updatePassword(updatedUser);
+                
+                return success;
+            } catch (Exception e) {
+                e.printStackTrace();
+                // Xử lý lỗi nếu có
+                return false;
+            }
+        } else {
+            // Thông báo lỗi nếu email hoặc số điện thoại không khớp với thông tin trong database
+            return false;
+        }
+    }
+
+    // Phương thức để kiểm tra email và số điện thoại
+    private boolean checkEmailAndPhone(String username, String email, String phoneNumber) {
+        // Gọi phương thức selectByUsername từ DAOUser để lấy thông tin người dùng dựa trên username
+        User user = selectByUsername(username);
+        
+        // Kiểm tra xem thông tin email và số điện thoại có khớp với thông tin trong database không
+        return user != null && user.getEmail().equals(email) && user.getPhoneNumber().equals(phoneNumber);
+    }
+
+    // Phương thức để cập nhật mật khẩu mới vào database
+    private boolean updatePassword(User user) {
+        try {
+            String sql = "UPDATE user SET password = SHA2(?, 256) WHERE username = ?";
+            statement = connect.prepareStatement(sql);
+            statement.setString(1, user.getPassword());
+            statement.setString(2, user.getUsername());
             int rowsAffected = statement.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {

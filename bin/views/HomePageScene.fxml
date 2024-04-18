@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HomePageController">
+<BorderPane fx:id="homePageBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HomePageController">
    <top>
       <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="1315.0" spacing="20.0" styleClass="white-background" stylesheets="@application2.css" BorderPane.alignment="CENTER">
          <children>
@@ -43,7 +43,7 @@
          <children>
             <VBox prefHeight="211.0" prefWidth="250.0" spacing="15.0">
                <children>
-                  <HBox fx:id="home" alignment="CENTER" onMouseClicked="#switchBox" prefHeight="50.0" prefWidth="200.0" spacing="15.0" styleClass="mouse-moved" stylesheets="@application2.css">
+                  <HBox fx:id="home" alignment="CENTER" onMouseClicked="#switchBox" prefHeight="50.0" prefWidth="200.0" spacing="15.0" stylesheets="@application2.css">
                      <children>
                         <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -59,6 +59,10 @@
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
+                     <styleClass>
+                        <String fx:value="mouse-moved" />
+                        <String fx:value="selected" />
+                     </styleClass>
                   </HBox>
                   <HBox fx:id="search" alignment="CENTER" onMouseClicked="#switchBox" prefHeight="50.0" prefWidth="200.0" spacing="15.0" styleClass="mouse-moved" stylesheets="@application2.css">
                      <children>
@@ -100,7 +104,7 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="131.0" style="-fx-background-color: #FF5056;" stylesheets="@application.css" text="Create a shelf" textFill="WHITE">
+                        <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="131.0" style="-fx-background-color: #FF5056;" styleClass="selected" stylesheets="@application.css" text="Create a shelf" textFill="WHITE">
                            <font>
                               <Font name="Berlin Sans FB" size="16.0" />
                            </font>
@@ -110,7 +114,7 @@
                </children>
             </VBox>
             <Separator prefHeight="0.0" prefWidth="250.0" />
-            <VBox alignment="BOTTOM_CENTER" prefHeight="402.0" prefWidth="250.0">
+            <VBox alignment="BOTTOM_CENTER" prefHeight="536.0" prefWidth="250.0">
                <children>
                   <HBox fx:id="user" alignment="CENTER" onMouseClicked="#switchtoUserInformation" prefHeight="49.0" prefWidth="250.0">
                      <children>
@@ -143,7 +147,7 @@
    <center>
       <AnchorPane BorderPane.alignment="CENTER">
          <children>
-            <VBox fx:id="homeBox" prefHeight="716.8" prefWidth="1064.8" spacing="10.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <VBox fx:id="homeBox" prefHeight="716.8" prefWidth="1064.8" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <Label prefHeight="18.0" prefWidth="272.0" text="Recommended for you">
                      <font>
@@ -189,79 +193,6 @@
                         <Insets top="10.0" />
                      </padding>
                   </HBox>
-               </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <padding>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-               </padding>
-            </VBox>
-            <VBox fx:id="searchBox" layoutX="10.0" layoutY="10.0" prefHeight="734.4" prefWidth="1078.4" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <Label prefHeight="18.0" prefWidth="272.0" text="Search">
-                     <font>
-                        <Font name="Berlin Sans FB" size="24.0" />
-                     </font>
-                  </Label>
-                  <HBox fx:id="searchBox2" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="35.0" prefWidth="367.0" styleClass="round-layout" stylesheets="@application2.css">
-                     <children>
-                        <TextField prefHeight="31.0" prefWidth="243.0" promptText="Title, author or ISBN" styleClass="transparent" stylesheets="@application2.css">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                        </TextField>
-                        <VBox prefHeight="34.0" prefWidth="89.0" />
-                        <ImageView fitHeight="25.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../img/search.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </HBox>
-                  <ScrollPane fx:id="searchScrollPane" prefHeight="200.0" prefWidth="200.0" styleClass="transparent" stylesheets="@application2.css" VBox.vgrow="ALWAYS">
-                     <content>
-                        <GridPane fx:id="searchContainer">
-                           <rowConstraints>
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                           </rowConstraints>
-                        </GridPane>
-                     </content>
-                  </ScrollPane>
-               </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <padding>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-               </padding>
-            </VBox>
-            <VBox fx:id="myShelvesBox" layoutX="10.0" layoutY="10.0" prefHeight="734.4" prefWidth="1078.4" spacing="10.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <Label prefHeight="18.0" prefWidth="272.0" text="My Shelves">
-                     <font>
-                        <Font name="Berlin Sans FB" size="24.0" />
-                     </font>
-                  </Label>
-                  <ScrollPane prefHeight="225.0" prefWidth="200.0" styleClass="transparent" stylesheets="@application2.css">
-                     <content>
-                        <HBox fx:id="cardLayout5" alignment="CENTER_LEFT" prefHeight="213.0" prefWidth="1342.0" spacing="20.0" styleClass="transparent" stylesheets="@application2.css" />
-                     </content>
-                  </ScrollPane>
-                  <Label prefHeight="18.0" prefWidth="272.0" text="Recently added">
-                     <font>
-                        <Font name="Berlin Sans FB" size="24.0" />
-                     </font>
-                  </Label>
-                  <ScrollPane prefHeight="200.0" prefWidth="200.0" styleClass="transparent" stylesheets="@application2.css" VBox.vgrow="ALWAYS">
-                     <content>
-                        <GridPane fx:id="bookContainer5">
-                           <rowConstraints>
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                           </rowConstraints>
-                        </GridPane>
-                     </content>
-                  </ScrollPane>
                </children>
                <opaqueInsets>
                   <Insets />

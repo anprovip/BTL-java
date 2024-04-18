@@ -29,7 +29,7 @@ import javafx.util.Callback;
 import model.Book;
 import model.ChangeScene;
 
-public class HomePageController implements Initializable{
+public class SearchPageController implements Initializable{
 	
 	private Stage stage;
 	private Scene scene;
@@ -45,14 +45,15 @@ public class HomePageController implements Initializable{
     private HBox home;
 
     @FXML
-    private VBox homeBox;
-
-    @FXML
     private HBox search;
 
+    
     @FXML
     private HBox myShelves;
 
+    @FXML
+    private VBox myShelvesBox;
+    
     @FXML
     private HBox user;
 
@@ -66,6 +67,8 @@ public class HomePageController implements Initializable{
     @FXML
     private Button backButton;
     
+    @FXML
+    private HBox searchBox;
 
     @FXML
     private GridPane searchContainer;
@@ -74,7 +77,7 @@ public class HomePageController implements Initializable{
     private ScrollPane searchScrollPane;
     
     @FXML
-    private BorderPane homePageBorderPane;
+    private BorderPane searchPageBorderPane;
     
     private final int itemsPerPage = 10;
     private int currentPage = 1;
@@ -82,8 +85,8 @@ public class HomePageController implements Initializable{
     private List<Node> displayedBooks = new ArrayList<>();
     
     public void switchBox(MouseEvent event) throws IOException {
-    	if(event.getSource() == search) {
-    		new ChangeScene(homePageBorderPane, "/views/SearchPageScene.fxml");
+    	if(event.getSource() == home) {
+    		new ChangeScene(searchPageBorderPane, "/views/HomePageScene.fxml");
     	}
     	/*
     	if(event.getSource() == myShelves) {
@@ -108,21 +111,8 @@ public class HomePageController implements Initializable{
     	    backButton.setOnAction(this::goBack);
     	    backButton.setDisable(true); // Vô hiệu hóa nút "Back" khi chưa có gì để quay lại
 
-    	    try {
-    	        for (Book value : recentlyAdded) {
-    	            FXMLLoader loader = new FXMLLoader();
-    	            loader.setLocation(getClass().getResource("/views/card.fxml"));
-    	            HBox cardBox = loader.load();
-    	            CardController cardController = loader.getController();
-    	            cardController.setData(value);
-    	            cardLayout.getChildren().add(cardBox);
-    	        }
-
-    	        allBooks.addAll(recentlyAdded); // Sử dụng danh sách sách từ cơ sở dữ liệu
-    	        showBooks(0, itemsPerPage); // Hiển thị các cuốn sách ban đầu
-    	    } catch (IOException e) {
-    	        e.printStackTrace();
-    	    }
+    	    allBooks.addAll(recentlyAdded); // Sử dụng danh sách sách từ cơ sở dữ liệu
+			showBooks(0, itemsPerPage); // Hiển thị các cuốn sách ban đầu
     }
     
     private void showBooks(int startIndex, int count) {
@@ -185,7 +175,7 @@ public class HomePageController implements Initializable{
 	public void switchtoUserInformation(MouseEvent e) throws IOException {
 		if(e.getSource() == user) {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/UserScene.fxml"));
-			new ChangeScene(homePageBorderPane, "/views/UserScene.fxml");
+			new ChangeScene(searchPageBorderPane, "/views/UserScene.fxml");
 		}
 	}
 	

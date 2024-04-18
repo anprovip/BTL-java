@@ -26,10 +26,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import model.ChangeScene;
 import model.User;
 
 public class UserController implements Initializable{
@@ -46,12 +48,34 @@ public class UserController implements Initializable{
 
     @FXML
     private TextField emailInfo;
+    
+    @FXML
+    private TextField emailInfo1;
+
+    @FXML
+    private TextField newPasswordField;
+
+    @FXML
+    private HBox password;
+    
+    @FXML
+    private TextField phoneInfo1;
 
     @FXML
     private HBox logoutBox;
 
     @FXML
     private TextField passwordInfo;
+    
+    @FXML
+    private HBox profile;
+    
+    @FXML
+    private Button saveButton1;
+    
+    @FXML
+    private TextField reenterPasswordField;
+
 
     public TextField getEmailInfo() {
 		return emailInfo;
@@ -88,7 +112,10 @@ public class UserController implements Initializable{
 
     @FXML
     private VBox profileBox;
-
+    
+    @FXML
+    private VBox passwordBox;
+    
     @FXML
     private Button saveButton;
 
@@ -97,29 +124,24 @@ public class UserController implements Initializable{
     
     @FXML
     private ImageView imageInfo;
+    
+    @FXML
+    private BorderPane userBorderPane;
+    
     DAOUser daoUser = DAOUser.getInstance();
     User user = User.getInstance();
 	
     public void switchToHome(MouseEvent e) throws IOException {
     	if(e.getSource() == backBox) {
-    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/HomePageScene.fxml"));
-    		root = loader.load();
-    		stage = (Stage)((Node)e.getSource()).getScene().getWindow();
-    		scene = new Scene(root);
-    		stage.setScene(scene);
-    		stage.show();
+    		new ChangeScene(userBorderPane, "/views/HomePageScene.fxml");
+    		
     	}
     }
     public void switchToLogin(MouseEvent e) throws IOException {
     	if(e.getSource() == logoutBox) {
     		int choice = JOptionPane.showConfirmDialog(null, "Do you want to log out?", "Log Out", JOptionPane.YES_NO_OPTION);
     		if(choice == JOptionPane.YES_OPTION) {
-	    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/LoginScene.fxml"));
-	    		root = loader.load();
-	    		stage = (Stage)((Node)e.getSource()).getScene().getWindow();
-	    		scene = new Scene(root, 1515, 770);
-	    		stage.setScene(scene);
-	    		stage.show();
+    			new ChangeScene(userBorderPane, "/views/LoginScene.fxml");
     		}
     	}
     }
@@ -154,8 +176,6 @@ public class UserController implements Initializable{
         User user = daoUser.selectByUsername(currentUsername);
 
         if (user != null) {
-            usernameInfo.setText(user.getUsername());
-            passwordInfo.setText(user.getPassword());
             emailInfo.setText(user.getEmail());
             phoneInfo.setText(user.getPhoneNumber());
             // Để hiển thị hình ảnh, bạn cần thêm xử lý riêng cho phần này
@@ -168,20 +188,17 @@ public class UserController implements Initializable{
     @FXML
     public void saveUserInfo(ActionEvent event) {
         // Lấy thông tin từ các TextField
-        String newUsername = usernameInfo.getText();
-        String password = passwordInfo.getText();
+        
         String email = emailInfo.getText();
         String phoneNumber = phoneInfo.getText();
         
-        // Kiểm tra sự tồn tại của username mới trong cơ sở dữ liệu
-        boolean usernameExists = daoUser.checkUsernameExist(newUsername);
-        
-        if (!usernameExists) {
             // Tạo đối tượng User mới với thông tin được điền mới
-            User updatedUser = new User(newUsername, password, email, phoneNumber);
-            
+            User updatedUser = new User();
+            updatedUser.setEmail(email);
+            updatedUser.setPhoneNumber(phoneNumber);
+            updatedUser.setUsername(user.getUsername());
             // Gọi phương thức updateUserInfo từ DAOUser để cập nhật thông tin trong cơ sở dữ liệu
-            boolean success = daoUser.updateUserInfo(updatedUser, user.getUsername());
+            boolean success = daoUser.updateUserInfo(updatedUser);
             
             if (success) {
                 // Thông báo cho người dùng rằng thông tin đã được cập nhật thành công
@@ -190,10 +207,42 @@ public class UserController implements Initializable{
                 // Thông báo lỗi nếu không thể cập nhật thông tin
                 JOptionPane.showMessageDialog(null, "Failed to update user information!");
             }
-        } else {
-            // Thông báo lỗi nếu username mới đã tồn tại trong cơ sở dữ liệu
-            JOptionPane.showMessageDialog(null, "Username already exists!");
         }
+    
+    @FXML
+    private void savePassword(ActionEvent event) {
+        // Lấy thông tin từ các TextField
+        String email = emailInfo1.getText();
+        String phoneNumber = phoneInfo1.getText();
+        String newPassword = newPasswordField.getText(); // Sử dụng newPasswordField thay vì newPassword
+        String reenteredPassword = reenterPasswordField.getText(); // Sử dụng reenterPasswordField thay vì reenterPassword
+        
+        // Kiểm tra xem mật khẩu mới và mật khẩu nhập lại có khớp nhau không
+        if (!newPassword.equals(reenteredPassword)) {
+            // Thông báo lỗi nếu mật khẩu nhập lại không trùng khớp với mật khẩu mới
+            JOptionPane.showMessageDialog(null, "New password and re-entered password do not match!");
+            return; // Kết thúc phương thức nếu có lỗi
+        }
+        
+        // Gọi hàm changePassword từ DAOUser để thay đổi mật khẩu
+        boolean success = daoUser.changePassword(user.getUsername(), email, phoneNumber, newPassword);
+        
+        if(success) {
+        	JOptionPane.showMessageDialog(null, "Update password successfully!");
+        }
+    }
+
+
+    @FXML
+    private void switchToProfile(MouseEvent event) {
+        profileBox.setVisible(true);
+        passwordBox.setVisible(false);
+    }
+
+    @FXML
+    private void switchToPassword(MouseEvent event) {
+        profileBox.setVisible(false);
+        passwordBox.setVisible(true);
     }
 
 
