@@ -38,9 +38,8 @@ public class HomePageController implements Initializable{
 	@FXML
     private GridPane bookContainer;
 	private List<Book> recentlyAdded;
-	private List<Book> recommended;
 	
-    @FXML
+	@FXML
     private HBox home;
 
     @FXML
@@ -70,6 +69,15 @@ public class HomePageController implements Initializable{
     private Button loadMoreButton;
     @FXML
     private Button backButton;
+    
+    @FXML
+    private HBox searchBox2;
+
+    @FXML
+    private GridPane searchContainer;
+
+    @FXML
+    private ScrollPane searchScrollPane;
     
     private final int itemsPerPage = 12;
     private int currentPage = 1;
@@ -101,7 +109,7 @@ public class HomePageController implements Initializable{
     	@Override
     	public void initialize(URL arg0, ResourceBundle arg1) {
     	    recentlyAdded = new ArrayList<>(getAllBooksFromDatabase()); // Thay đổi cách lấy danh sách sách
-    	    recommended = new ArrayList<>(getAllBooksFromDatabase());
+    	    new ArrayList<>(getAllBooksFromDatabase());
 
     	    // Thêm sự kiện cho nút "Xem thêm"
     	    loadMoreButton.setOnAction(this::loadMore);
@@ -181,131 +189,7 @@ public class HomePageController implements Initializable{
         }
     }
 
-	/*private List<Book> recentlyAdded(){
-		List<Book> ls = new ArrayList<>();
-		
-		Book book = new Book();
-		book.setName("RICH DAD\nPOOR DAD");
-		book.setImageSrc("/img/images.png");
-		book.setAuthor("Robert T.Kiyosaki");
-		ls.add(book);
-		
-		book = new Book();
-		book.setName("THE WARREN\nBUFFET WAY");
-		book.setImageSrc("/img/book3.png");
-		book.setAuthor("Robert G.Hagstorm");
-		ls.add(book);
-		
-		book = new Book();
-		book.setName("THE RICHEST\nMAN IN BABYLON");
-		book.setImageSrc("/img/book2.png");
-		book.setAuthor("George Samuel Clason");
-		ls.add(book);
-		
-		return ls;
-	}
-	
-	private List<Book> books(){
-		List<Book> ls = new ArrayList<>();
-		
-		Book book = new Book();
-		book.setName("ZERO TO ONE");
-		book.setImageSrc("/img/book4.png");
-		book.setAuthor("Peter Thiel");
-		ls.add(book);
-		
-		book = new Book();
-		book.setName("Money Master The Game");
-		book.setImageSrc("/img/book5.png");
-		book.setAuthor("Tony Robbins");
-		ls.add(book);
-		
-		book = new Book();
-		book.setName("The 100$ Startup");
-		book.setImageSrc("/img/book6.png");
-		book.setAuthor("Chris Guillebeau");
-		ls.add(book);
-		
-		book = new Book();
-		book.setName("Cracking The Coding Interview");
-		book.setImageSrc("/img/book7.png");
-		book.setAuthor("Gayle Laakmann McDowell");
-		ls.add(book);
-		
-		book = new Book();
-		book.setName("Evangelion");
-		book.setImageSrc("/img/book8.png");
-		book.setAuthor("Anno Hideaki & Yoshiyuki Sadamoto");
-		ls.add(book);
-		
-		book = new Book();
-		book.setName("Bakemonogatari");
-		book.setImageSrc("/img/book9.png");
-		book.setAuthor("Nisio Isin");
-		ls.add(book);
-		
-		book = new Book();
-		book.setName("Java For Beginners Guide");
-		book.setImageSrc("/img/book10.png");
-		book.setAuthor("Josh Thompsons");
-		ls.add(book);
-		
-		book = new Book();
-		book.setName("Man's search for meaning");
-		book.setImageSrc("/img/book11.png");
-		book.setAuthor("Viktor E. Frankl");
-		ls.add(book);
-		
-		book = new Book();
-		book.setName("The Intelligent Investor");
-		book.setImageSrc("/img/book12.png");
-		book.setAuthor("Benjamin Graham");
-		ls.add(book);
-		
-		book = new Book();
-		book.setName("The Art of War");
-		book.setImageSrc("/img/book13.png");
-		book.setAuthor("Sun Tzu");
-		ls.add(book);
-		
-		book = new Book();
-		book.setName("Sense And Sensibility");
-		book.setImageSrc("/img/book14.png");
-		book.setAuthor("Jane Austen");
-		ls.add(book);
-		
-		book = new Book();
-		book.setName("Great Expectations");
-		book.setImageSrc("/img/book15.png");
-		book.setAuthor("Charles Dickens");
-		ls.add(book);
-		
-		book = new Book();
-		book.setName("Jane Eyre");
-		book.setImageSrc("/img/book16.png");
-		book.setAuthor("Charlotte Brontë");
-		ls.add(book);
-		
-		book = new Book();
-		book.setName("The Canterville Ghost");
-		book.setImageSrc("/img/book17.png");
-		book.setAuthor("Oscar Wilde");
-		ls.add(book);
-		
-		book = new Book();
-		book.setName("Anna Karenina");
-		book.setImageSrc("/img/book18.png");
-		book.setAuthor("Leo Tolstoy");
-		ls.add(book);
-		
-		book = new Book();
-		book.setName("Re:Zero");
-		book.setImageSrc("/img/book19.png");
-		book.setAuthor("Tappei Nagatsuki");
-		ls.add(book);
-		return ls;
-	}*/
-	
+
 	public void switchtoUserInformation(MouseEvent e) throws IOException {
 		if(e.getSource() == user) {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/UserScene.fxml"));
@@ -317,5 +201,6 @@ public class HomePageController implements Initializable{
 			stage.show();
 		}
 	}
+	
 	
 }

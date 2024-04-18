@@ -20,19 +20,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import model.ChangeScene;
 import model.User;
 
 public class LoginController {
 	
-	private Stage stage;
-	private Scene scene;
-	private Parent root;
-	
-	private Connection connect;
-	private PreparedStatement statement, check;
-	private ResultSet result;
-	private JDBCUtil jdbcUtil = new JDBCUtil();
+    @FXML
+    private BorderPane loginBoderPange;
+    
 	private DAOUser daoUser = DAOUser.getInstance();
 	@FXML
     private Button loginButton;
@@ -136,7 +133,7 @@ public class LoginController {
     public void login(ActionEvent e) throws IOException {
         if(daoUser.selectByUsernameAndPassword(username.getText(), password.getText())) {
 		    JOptionPane.showMessageDialog(null, "Successfully Login.", "Admin Message", JOptionPane.INFORMATION_MESSAGE);
-		    FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/HomePageScene.fxml"));
+		    /*FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/HomePageScene.fxml"));
 		    root = loader.load();
 		    HomePageController hpc = loader.getController();
 
@@ -144,7 +141,8 @@ public class LoginController {
 		    scene = new Scene(root, 1515, 770);
 		    stage.setTitle("Goodreads");
 		    stage.setScene(scene);
-		    stage.show();
+		    stage.show();*/
+		    new ChangeScene(loginBoderPange, "/views/HomePageScene.fxml");
 		} else {
 		    JOptionPane.showMessageDialog(null, "Wrong username or password. Please enter again.", "Admin Message", JOptionPane.ERROR_MESSAGE);
 		}
