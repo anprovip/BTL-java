@@ -1,12 +1,15 @@
 package database;
 
 import java.io.*;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+
+import javax.sql.rowset.serial.SerialBlob;
 
 import model.Book;
 
@@ -120,11 +123,26 @@ public class DAOBook implements DAOInterface<Book> {
 		ArrayList<Book> listBook = new ArrayList<Book>();
 		try {
 			Connection connection = JDBCUtil.getConnection();
-			String sql = "SELECT * FROM BOOK";
+			String sql ="select * from book join book_author on book.isbn=book_author.isbn join author on book_author.author_id=author.author_id";
+;
 			PreparedStatement st = connection.prepareStatement(sql);
 			ResultSet rs = st.executeQuery();
 			while(rs.next()) {
-				
+			    Book book = new Book();
+			    book.setName(rs.getString("book_title"));
+			    book.setAuthor(rs.getString("author_name"));
+			    
+			    // Đọc dữ liệu ảnh từ cột "book_image"
+			    Blob imageBlob = rs.getBlob("book_image");
+			    if (imageBlob != null) {
+			        // Chuyển đổi Blob thành mảng byte
+			        byte[] imageData = imageBlob.getBytes(1, (int) imageBlob.length());
+			        
+			        // Lưu dữ liệu ảnh vào thuộc tính imageBook của đối tượng Book
+			        book.setImageBook(new SerialBlob(imageData));
+			    }
+			    
+			    listBook.add(book);
 			}
 			JDBCUtil.closeConnection(connection);
 				

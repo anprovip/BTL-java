@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import database.DAOBook;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -92,32 +93,36 @@ public class HomePageController implements Initializable{
     		myShelvesBox.setVisible(true);
     	}
     }
-    
-    @Override
-    public void initialize(URL arg0, ResourceBundle arg1) {
-        recentlyAdded = new ArrayList<>(recentlyAdded());
-        recommended = new ArrayList<>(books());
-        
-        // Thêm sự kiện cho nút "Xem thêm"
-        loadMoreButton.setOnAction(this::loadMore);
-        backButton.setOnAction(this::goBack);
-        backButton.setDisable(true); // Vô hiệu hóa nút "Back" khi chưa có gì để quay lại
+    	private List<Book> getAllBooksFromDatabase() {
+    		DAOBook daoBook = DAOBook.getInstance();
+    		return daoBook.selectAll();
+    }
 
-        try {
-            for (Book value : recentlyAdded) {
-                FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("/views/card.fxml"));
-                HBox cardBox = loader.load();
-                CardController cardController = loader.getController();
-                cardController.setData(value);
-                cardLayout.getChildren().add(cardBox);
-            }
-            
-            allBooks.addAll(books()); // Thêm tất cả sách vào allBooks
-            showBooks(0, itemsPerPage); // Hiển thị các cuốn sách ban đầu
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    	@Override
+    	public void initialize(URL arg0, ResourceBundle arg1) {
+    	    recentlyAdded = new ArrayList<>(getAllBooksFromDatabase()); // Thay đổi cách lấy danh sách sách
+    	    recommended = new ArrayList<>(getAllBooksFromDatabase());
+
+    	    // Thêm sự kiện cho nút "Xem thêm"
+    	    loadMoreButton.setOnAction(this::loadMore);
+    	    backButton.setOnAction(this::goBack);
+    	    backButton.setDisable(true); // Vô hiệu hóa nút "Back" khi chưa có gì để quay lại
+
+    	    try {
+    	        for (Book value : recentlyAdded) {
+    	            FXMLLoader loader = new FXMLLoader();
+    	            loader.setLocation(getClass().getResource("/views/card.fxml"));
+    	            HBox cardBox = loader.load();
+    	            CardController cardController = loader.getController();
+    	            cardController.setData(value);
+    	            cardLayout.getChildren().add(cardBox);
+    	        }
+
+    	        allBooks.addAll(recentlyAdded); // Sử dụng danh sách sách từ cơ sở dữ liệu
+    	        showBooks(0, itemsPerPage); // Hiển thị các cuốn sách ban đầu
+    	    } catch (IOException e) {
+    	        e.printStackTrace();
+    	    }
     }
     
     private void showBooks(int startIndex, int count) {
@@ -176,7 +181,7 @@ public class HomePageController implements Initializable{
         }
     }
 
-	private List<Book> recentlyAdded(){
+	/*private List<Book> recentlyAdded(){
 		List<Book> ls = new ArrayList<>();
 		
 		Book book = new Book();
@@ -299,7 +304,7 @@ public class HomePageController implements Initializable{
 		book.setAuthor("Tappei Nagatsuki");
 		ls.add(book);
 		return ls;
-	}
+	}*/
 	
 	public void switchtoUserInformation(MouseEvent e) throws IOException {
 		if(e.getSource() == user) {

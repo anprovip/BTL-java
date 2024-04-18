@@ -4,7 +4,8 @@ import database.DAOBook;
 import model.Book;
 
 public class TestDAOBook {
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
+		//CHỈ CHẠY DUY NHẤT MỘT LẦN
 		Book book = new Book();
 		book.setName("ZERO TO ONE");
 		book.setImageSrc("book4.png");
@@ -132,5 +133,5 @@ public class TestDAOBook {
 		book.setBookID("0316398373");
 		book.setPublishDate(2016);
 		DAOBook.getInstance().insert(book);
-	}
+	}*/
 }
