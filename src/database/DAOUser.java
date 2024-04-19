@@ -91,9 +91,9 @@ public class DAOUser implements DAOInterface<User> {
             result = statement.executeQuery();
             if (result.next()) {
             	String username1 = result.getString("username");
-                String password1 = result.getString("password");
+                /*String password1 = result.getString("password");
                 String email = result.getString("email");
-                String phoneNumber = result.getString("phoneNumber");
+                String phoneNumber = result.getString("phoneNumber");*/
                 user.setUsername(username1);
                 return true;
             }

@@ -81,13 +81,6 @@ public class SearchPageController implements Initializable{
     	if(event.getSource() == home) {
     		new ChangeScene(searchPageBorderPane, "/views/HomePageScene.fxml");
     	}
-    	/*
-    	if(event.getSource() == myShelves) {
-    		homeBox.setVisible(false);
-    		searchBox.setVisible(false);
-    		myShelvesBox.setVisible(true);
-    	}
-    	*/
     }
     	private List<Book> getAllBooksFromDatabase() {
     		DAOBook daoBook = DAOBook.getInstance();
@@ -167,8 +160,7 @@ FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/book.fxml"));
 
 
 	public void switchtoUserInformation(MouseEvent e) throws IOException {
-		if(e.getSource() == user) {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/UserScene.fxml"));
+		if(e.getSource() == user) {	
 			new ChangeScene(searchPageBorderPane, "/views/UserScene.fxml");
 		}
 	}

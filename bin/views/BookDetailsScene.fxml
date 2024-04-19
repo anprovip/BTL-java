@@ -6,14 +6,12 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -140,11 +138,11 @@
       </VBox>
    </left>
    <center>
-      <AnchorPane BorderPane.alignment="CENTER">
+      <VBox>
          <children>
-            <ScrollPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <ScrollPane prefHeight="1043.0" prefWidth="1195.0">
                <content>
-                  <VBox fx:id="homeBox" prefHeight="716.8" prefWidth="1064.8" spacing="10.0">
+                  <VBox fx:id="homeBox" prefHeight="1300.0" prefWidth="1177.0">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
@@ -221,20 +219,39 @@
                               <Font name="Berlin Sans FB" size="30.0" />
                            </font>
                         </Label>
-                        <ScrollPane prefHeight="358.0" prefWidth="1150.0" styleClass="transparent" stylesheets="@application.css" VBox.vgrow="ALWAYS">
-                           <content>
-                              <GridPane fx:id="reviewContainer" prefHeight="0.0" prefWidth="0.0">
-                                <rowConstraints>
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                </rowConstraints>
-                              </GridPane>
-                           </content>
+                        <HBox prefHeight="164.0" prefWidth="1137.0" spacing="30.0">
+                           <children>
+                              <TextField prefHeight="162.0" prefWidth="790.0">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </TextField>
+                              <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="81.0" text="Button">
+                                 <HBox.margin>
+                                    <Insets top="120.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <ScrollPane prefHeight="646.0" prefWidth="1137.0">
+                           <VBox.margin>
+                              <Insets top="25.0" />
+                           </VBox.margin>
                         </ScrollPane>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Button mnemonicParsing="false" text="Button" />
+                              <Button mnemonicParsing="false" text="Button" />
+                           </children>
+                        </HBox>
                      </children>
                   </VBox>
                </content>
             </ScrollPane>
          </children>
-      </AnchorPane>
+      </VBox>
    </center>
 </BorderPane>

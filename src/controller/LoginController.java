@@ -2,26 +2,17 @@ package controller;
 
 import java.awt.HeadlessException;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 import javax.swing.JOptionPane;
 
 import database.DAOUser;
-import database.JDBCUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
 import model.ChangeScene;
 import model.User;
 
@@ -157,6 +148,23 @@ public class LoginController {
                 }
             } catch (HeadlessException e1) {
                 e1.printStackTrace();
+            }
+        }
+    }
+    
+    @FXML
+    void OnPressedEnter(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            try {
+            	if(daoUser.selectByUsernameAndPassword(username.getText(), password.getText())) {
+                	JOptionPane.showMessageDialog(null, "Login successfully", "Admin Message", JOptionPane.INFORMATION_MESSAGE);
+        		    new ChangeScene(loginBorderPane, "/views/HomePageScene.fxml");
+        		} else {
+        		    JOptionPane.showMessageDialog(null, "Wrong username or password. Please enter again.", "Admin Message", JOptionPane.ERROR_MESSAGE);
+        		}
+                }
+             catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }

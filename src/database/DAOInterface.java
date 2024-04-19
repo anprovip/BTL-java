@@ -2,7 +2,6 @@ package database;
 
 import java.util.ArrayList;
 
-import model.Book;
 
 public interface DAOInterface<T> {
 	public void insert(T t);

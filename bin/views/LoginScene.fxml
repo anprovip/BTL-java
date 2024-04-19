@@ -81,7 +81,7 @@
                               <Font name="Bell MT" size="24.0" />
                            </font>
                         </Label>
-                        <PasswordField fx:id="password" prefHeight="31.0" prefWidth="320.0" styleClass="transparent" stylesheets="@application.css" />
+                        <PasswordField fx:id="password" onKeyPressed="#OnPressedEnter" prefHeight="31.0" prefWidth="320.0" styleClass="transparent" stylesheets="@application.css" />
                      </children>
                   </HBox>
                   <Button fx:id="loginButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#login" prefHeight="42.0" prefWidth="200.0" style="-fx-background-color: #1d3b55;" stylesheets="@application.css" text="Login" textFill="#8496a9">
