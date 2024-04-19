@@ -187,8 +187,46 @@ public class DAOBook implements DAOInterface<Book> {
 
 	@Override
 	public ArrayList<Book> selectByCondition(String condition) {
+		ArrayList<Book> listBook = new ArrayList<Book>();
+		String searchPattern = "%" + condition + "%";
+		try {
+			Connection connection = JDBCUtil.getConnection();
+			 String sql = "SELECT * FROM book "
+	                    + "JOIN book_author ON book.isbn = book_author.isbn "
+	                    + "JOIN author ON book_author.author_id = author.author_id "
+	                    + "WHERE book.isbn LIKE ? OR book.book_title LIKE ? OR author.author_name LIKE ?";
+	            PreparedStatement statement = connection.prepareStatement(sql);
+	            statement.setString(1, searchPattern);
+	            statement.setString(2, searchPattern);
+	            statement.setString(3, searchPattern);
+	            
+	            ResultSet rs = statement.executeQuery();
+			while(rs.next()) {
+			    Book book = new Book();
+			    book.setName(rs.getString("book_title"));
+			    book.setAuthor(rs.getString("author_name"));
+			    book.setBookID(rs.getString("isbn"));
+			    // Đọc dữ liệu ảnh từ cột "book_image"
+			    Blob imageBlob = rs.getBlob("book_image");
+			    if (imageBlob != null) {
+			        // Chuyển đổi Blob thành mảng byte
+			        byte[] imageData = imageBlob.getBytes(1, (int) imageBlob.length());
+			        
+			        // Lưu dữ liệu ảnh vào thuộc tính imageBook của đối tượng Book
+			        book.setImageBook(new SerialBlob(imageData));
+			    }
+			    
+			    listBook.add(book);
+			}
+			JDBCUtil.closeConnection(connection);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		
-		return null;
+		
+		return listBook;
+		
 	}
 	
 	
