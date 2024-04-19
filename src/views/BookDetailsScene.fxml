@@ -6,15 +6,12 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -141,79 +138,120 @@
       </VBox>
    </left>
    <center>
-      <AnchorPane BorderPane.alignment="CENTER">
+      <VBox>
          <children>
-            <VBox fx:id="homeBox" prefHeight="716.8" prefWidth="1064.8" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <padding>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-               </padding>
-               <children>
-                  <HBox alignment="CENTER_LEFT" prefHeight="322.0" prefWidth="1150.0">
+            <ScrollPane prefHeight="1043.0" prefWidth="1195.0">
+               <content>
+                  <VBox fx:id="homeBox" prefHeight="1300.0" prefWidth="1177.0">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
                      <children>
-                        <Pane prefHeight="316.0" prefWidth="50.0" />
-                        <ImageView fx:id="bookImage" fitHeight="299.0" fitWidth="173.0" pickOnBounds="true" preserveRatio="true" styleClass="application2.css">
-                           <image>
-                              <Image url="@../img/book19.png" />
-                           </image>
-                        </ImageView>
-                        <Pane layoutX="10.0" layoutY="10.0" prefHeight="316.0" prefWidth="50.0" />
-                        <VBox prefHeight="316.0" prefWidth="936.0">
+                        <HBox alignment="CENTER_LEFT" prefHeight="322.0" prefWidth="1150.0">
                            <children>
-                              <Label fx:id="bookName" prefHeight="68.0" prefWidth="726.0" text="Some We Love, Some We Hate, Some We Eat: Why It's So Hard to Think Straight About Animals" wrapText="true">
-                                 <font>
-                                    <Font name="Berlin Sans FB Demi Bold" size="21.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="authorName" prefHeight="53.0" prefWidth="841.0" text="Hal Herzog">
-                                 <font>
-                                    <Font name="Berlin Sans FB" size="24.0" />
-                                 </font></Label>
-                              <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="916.0">
+                              <Pane prefHeight="316.0" prefWidth="50.0" />
+                              <ImageView fx:id="bookImage" fitHeight="299.0" fitWidth="173.0" pickOnBounds="true" preserveRatio="true" styleClass="application2.css">
+                                 <image>
+                                    <Image url="@../img/book19.png" />
+                                 </image>
+                              </ImageView>
+                              <Pane layoutX="10.0" layoutY="10.0" prefHeight="316.0" prefWidth="50.0" />
+                              <VBox prefHeight="316.0" prefWidth="936.0">
                                  <children>
-                                    <Label prefHeight="33.0" prefWidth="175.0" style="-fx-background-color: #03AC13;" styleClass="button" stylesheets="@application3.css" text="Want to read" textAlignment="CENTER" textFill="WHITE" textOverrun="CENTER_WORD_ELLIPSIS">
+                                    <Label fx:id="bookName" prefHeight="68.0" prefWidth="726.0" text="Some We Love, Some We Hate, Some We Eat: Why It's So Hard to Think Straight About Animals" wrapText="true">
                                        <font>
-                                          <Font name="Berlin Sans FB" size="18.0" />
+                                          <Font name="Berlin Sans FB Demi Bold" size="21.0" />
                                        </font>
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
                                     </Label>
-                                    <Label prefHeight="32.0" prefWidth="92.0" text="     5" textAlignment="RIGHT">
+                                    <Label fx:id="authorName" prefHeight="53.0" prefWidth="841.0" text="Hal Herzog">
                                        <font>
                                           <Font name="Berlin Sans FB" size="24.0" />
-                                       </font></Label>
-                                    <ImageView fitHeight="34.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../img/rating.png" />
-                                       </image>
-                                    </ImageView>
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
+                                    </Label>
+                                    <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="916.0">
+                                       <children>
+                                          <Label prefHeight="33.0" prefWidth="175.0" style="-fx-background-color: #03AC13;" styleClass="button" stylesheets="@application3.css" text="Want to read" textAlignment="CENTER" textFill="WHITE" textOverrun="CENTER_WORD_ELLIPSIS">
+                                             <font>
+                                                <Font name="Berlin Sans FB" size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <Label prefHeight="32.0" prefWidth="59.0" text="     5" textAlignment="RIGHT">
+                                             <font>
+                                                <Font name="Berlin Sans FB" size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <ImageView fitHeight="34.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../img/rating.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                       <padding>
+                                          <Insets left="15.0" />
+                                       </padding>
+                                    </HBox>
+                                    <Label prefHeight="137.0" prefWidth="916.0" text="Sixteen-year-old and not-so-openly gay Simon Spier prefers to save his drama for the school musical. But when an email falls into the wrong hands, his secret is at risk of being thrust into the spotlight. Now Simon is actually being blackmailed: if he doesn’t play wingman for class clown Martin, his sexual identity will become everyone’s business. Worse, the privacy of Blue, the pen name of the boy he’s been emailing, will be compromised." wrapText="true">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets left="15.0" />
+                                       </padding>
+                                    </Label>
                                  </children>
-                              </HBox>
-                              <TextArea maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="171.0" prefWidth="920.0" stylesheets="@application.css" text="Sixteen-year-old and not-so-openly gay Simon Spier prefers to save his drama for the school musical. But when an email falls into the wrong hands, his secret is at risk of being thrust into the spotlight. Now Simon is actually being blackmailed: if he doesn’t play wingman for class clown Martin, his sexual identity will become everyone’s business. Worse, the privacy of Blue, the pen name of the boy he’s been emailing, will be compromised." wrapText="true">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </TextArea>
+                              </VBox>
                            </children>
-                        </VBox>
+                        </HBox>
+                        <Label prefHeight="30.0" prefWidth="185.0" text="Reviews">
+                           <font>
+                              <Font name="Berlin Sans FB" size="30.0" />
+                           </font>
+                        </Label>
+                        <HBox prefHeight="164.0" prefWidth="1137.0" spacing="30.0">
+                           <children>
+                              <TextField prefHeight="162.0" prefWidth="790.0">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </TextField>
+                              <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="81.0" text="Button">
+                                 <HBox.margin>
+                                    <Insets top="120.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <ScrollPane prefHeight="646.0" prefWidth="1137.0">
+                           <VBox.margin>
+                              <Insets top="25.0" />
+                           </VBox.margin>
+                        </ScrollPane>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Button mnemonicParsing="false" text="Button" />
+                              <Button mnemonicParsing="false" text="Button" />
+                           </children>
+                        </HBox>
                      </children>
-                  </HBox>
-                  <Label prefHeight="30.0" prefWidth="185.0" text="Reviews">
-                     <font>
-                        <Font name="Berlin Sans FB" size="30.0" />
-                     </font></Label>
-                  <ScrollPane prefHeight="358.0" prefWidth="1150.0" styleClass="transparent" stylesheets="@application.css" VBox.vgrow="ALWAYS">
-                     <content>
-                        <GridPane fx:id="reviewContainer" prefHeight="0.0" prefWidth="0.0">
-                          <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                        </GridPane>
-                     </content>
-                  </ScrollPane>
-               </children>
-            </VBox>
+                  </VBox>
+               </content>
+            </ScrollPane>
          </children>
-      </AnchorPane>
+      </VBox>
    </center>
 </BorderPane>

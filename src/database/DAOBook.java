@@ -29,8 +29,8 @@ public class DAOBook implements DAOInterface<Book> {
 		
 			PreparedStatement st = connection.prepareStatement(sql);
 			st.setString(1, t.getBookID());
-			st.setString(1,t.getName());
-			st.setLong(1,t.getPublishDate());
+			st.setString(2,t.getName());
+			st.setLong(3,t.getPublishDate());
 			st.executeUpdate();
 			
 		JDBCUtil.closeConnection(connection);
