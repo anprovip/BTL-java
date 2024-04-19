@@ -42,11 +42,11 @@
          <children>
             <VBox prefHeight="211.0" prefWidth="250.0" spacing="15.0">
                <children>
-                  <HBox fx:id="home" alignment="CENTER"  prefHeight="50.0" prefWidth="200.0" spacing="15.0" styleClass="mouse-moved" stylesheets="@application2.css">
+                  <HBox fx:id="home" alignment="CENTER" onMouseClicked="#onClickHome" prefHeight="50.0" prefWidth="200.0" spacing="15.0" styleClass="mouse-moved" stylesheets="@application2.css">
                      <children>
                         <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../src/img/home.png" />
+                              <Image url="@../img/home.png" />
                            </image>
                         </ImageView>
                         <Label prefHeight="43.0" prefWidth="140.0" text="Home">
@@ -59,7 +59,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </HBox>
-                  <HBox fx:id="search" alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="15.0" styleClass="mouse-moved" stylesheets="@application2.css">
+                  <HBox fx:id="search" alignment="CENTER" onMouseClicked="#onClickSearch" prefHeight="50.0" prefWidth="200.0" spacing="15.0" styleClass="mouse-moved" stylesheets="@application2.css">
                      <children>
                         <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -111,9 +111,9 @@
             <Separator prefHeight="0.0" prefWidth="250.0" />
             <VBox alignment="BOTTOM_CENTER" prefHeight="536.0" prefWidth="250.0">
                <children>
-                  <HBox alignment="CENTER"  prefHeight="49.0" prefWidth="250.0">
+                  <HBox alignment="CENTER" prefHeight="49.0" prefWidth="250.0">
                      <children>
-                        <Label prefHeight="43.0" prefWidth="162.0" text="\@username">
+                        <Label onMouseClicked="#onClickUser" prefHeight="43.0" prefWidth="162.0" text="\@username">
                            <font>
                               <Font name="Berlin Sans FB" size="18.0" />
                            </font>
@@ -142,7 +142,7 @@
    <center>
       <AnchorPane BorderPane.alignment="CENTER">
          <children>
-            <VBox fx:id="homeBox" prefHeight="716.8" prefWidth="1064.8" spacing="10.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <VBox fx:id="homeBox" prefHeight="716.8" prefWidth="1064.8" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
@@ -153,7 +153,7 @@
                   <HBox alignment="CENTER_LEFT" prefHeight="322.0" prefWidth="1150.0">
                      <children>
                         <Pane prefHeight="316.0" prefWidth="50.0" />
-                        <ImageView fx:id="bookImage" fitHeight="260.0" fitWidth="223.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="bookImage" fitHeight="260.0" fitWidth="223.0" pickOnBounds="true" preserveRatio="true" styleClass="application2.css">
                            <image>
                               <Image url="@../img/book19.png" />
                            </image>
@@ -163,22 +163,34 @@
                            <children>
                               <Label fx:id="bookName" prefHeight="99.0" prefWidth="927.0" text="Some We Love, Some We Hate, Some We Eat: Why It's So Hard to Think Straight About Animals">
                                  <font>
-                                    <Font size="15.0" />
+                                    <Font name="Berlin Sans FB Demi Bold" size="21.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="authorName" prefHeight="53.0" prefWidth="841.0" text="Hal Herzog" />
+                              <Label fx:id="authorName" prefHeight="53.0" prefWidth="841.0" text="Hal Herzog">
+                                 <font>
+                                    <Font name="Berlin Sans FB" size="24.0" />
+                                 </font></Label>
                               <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="916.0">
                                  <children>
-                                    <ImageView fitHeight="34.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                                    <Label prefHeight="35.0" prefWidth="77.0" text="Label" />
+                                    <ImageView fitHeight="34.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/rating.png" />
+                                       </image></ImageView>
+                                    <Label prefHeight="35.0" prefWidth="77.0" text="     5" textAlignment="RIGHT">
+                                       <font>
+                                          <Font name="Berlin Sans FB" size="24.0" />
+                                       </font></Label>
                                  </children>
                               </HBox>
-                              <Label prefHeight="138.0" prefWidth="915.0" text="Label" />
+                              <Label contentDisplay="TEXT_ONLY" prefHeight="138.0" prefWidth="915.0" text="Label" />
                            </children>
                         </VBox>
                      </children>
                   </HBox>
-                  <Label prefHeight="30.0" prefWidth="185.0" text="Bình luận" />
+                  <Label prefHeight="30.0" prefWidth="185.0" text="Reviews">
+                     <font>
+                        <Font name="Berlin Sans FB" size="30.0" />
+                     </font></Label>
                   <ScrollPane prefHeight="358.0" prefWidth="1150.0" styleClass="transparent" stylesheets="@application.css" VBox.vgrow="ALWAYS">
                      <content>
                         <GridPane fx:id="reviewContainer" prefHeight="0.0" prefWidth="0.0">
