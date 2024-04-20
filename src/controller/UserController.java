@@ -1,9 +1,12 @@
 package controller;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
@@ -173,7 +176,19 @@ public class UserController implements Initializable{
         if (user != null) {
             emailInfo.setText(user.getEmail());
             phoneInfo.setText(user.getPhoneNumber());
-            // Để hiển thị hình ảnh, bạn cần thêm xử lý riêng cho phần này
+            Blob imageBlob = user.getImageUser();
+            if (imageBlob != null) {
+                try {
+                    // Chuyển đổi Blob thành mảng byte
+                    byte[] imageData = imageBlob.getBytes(1, (int) imageBlob.length());
+
+                    // Tạo đối tượng Image từ mảng byte và hiển thị trong ImageView
+                    Image image = new Image(new ByteArrayInputStream(imageData));
+                    imageInfo.setImage(image);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         } else {
             
             System.out.println("User not found!");

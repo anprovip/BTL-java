@@ -3,7 +3,10 @@ package database;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -158,7 +161,7 @@ public class DAOUser implements DAOInterface<User> {
 			        // Chuyển đổi Blob thành mảng byte
 			        byte[] imageData = imageBlob.getBytes(1, (int) imageBlob.length());
 			        
-			        // Lưu dữ liệu ảnh vào thuộc tính imageBook của đối tượng Book
+			        // Lưu dữ liệu ảnh vào thuộc tính userImage của đối tượng User
 			        user.setImageUser(new SerialBlob(imageData));
 			    }
             }
@@ -181,17 +184,17 @@ public class DAOUser implements DAOInterface<User> {
             statement.setString(1, user.getEmail());
             statement.setString(2, user.getPhoneNumber());
             if (user.getImageSrc() != null) {
-                // Tạo inputStream từ file ảnh
-                InputStream inputStream = new FileInputStream(new File(user.getImageSrc()));
-                statement.setBlob(3, inputStream);
+                // Tạo mảng byte từ file ảnh
+                byte[] imageData = Files.readAllBytes(Paths.get(user.getImageSrc()));
+                statement.setBytes(3, imageData);
             } else {
                 // Nếu không có ảnh được chọn, truyền null vào cột user_image
-                statement.setBlob(3, null);
+                statement.setBytes(3, null);
             }
             statement.setString(4, user.getUsername()); // Thêm username cũ vào để xác định dòng cần cập nhật
             int rowsAffected = statement.executeUpdate();
             return rowsAffected > 0;
-        } catch (SQLException | FileNotFoundException e) {
+        } catch (SQLException | IOException e) {
             e.printStackTrace();
             return false;
         }
