@@ -94,10 +94,7 @@ public class SearchPageController implements Initializable{
     private List<Book> getAllBooksFromDatabase() {
     	return DAOBook.getInstance().selectAll();
     }
-    
-	private List<Book> searchInBooks(String searchTerm) {
-		return DAOBook.getInstance().selectByCondition(searchTerm);
-	}
+
     	
 
     	@Override
