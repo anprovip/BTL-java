@@ -1,6 +1,7 @@
 package controller;
 
 import java.awt.HeadlessException;
+import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,9 +19,11 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.ChangeScene;
 import model.User;
@@ -58,7 +61,12 @@ public class LoginController {
     @FXML
     private TextField su_username;
 
-	
+    @FXML
+    private Button chooseAvatar;
+    
+    @FXML
+    private Label userID;
+    
 	public Button getLoginButton() {
 		return loginButton;
 	}
@@ -126,10 +134,30 @@ public class LoginController {
 	public TextField getSu_username() {
 		return su_username;
 	}
-
+	
 	public void setSu_username(TextField su_username) {
 		this.su_username = su_username;
 	}
+	private User newUser = new User();
+	@FXML
+	public void onClickChooseAvatar(ActionEvent event) {
+	    FileChooser fileChooser = new FileChooser();
+	    fileChooser.setTitle("Choose Avatar Image");
+	    
+	    // Set filter to only show image files
+	    FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Image files", "*.jpg", "*.jpeg", "*.png", "*.gif");
+	    fileChooser.getExtensionFilters().add(extFilter);
+	    
+	    // Show open file dialog
+	    File selectedFile = fileChooser.showOpenDialog(null);
+	    
+	    if (selectedFile != null) {
+	        // Get the absolute path of the selected file and set it as the image source for the new user
+	        String imagePath = selectedFile.getAbsolutePath();
+	        newUser.setImageSrc(imagePath);
+	    }
+	}
+
     public void login(ActionEvent e) throws IOException {
         if(daoUser.selectByUsernameAndPassword(username.getText(), password.getText())) {
         	JOptionPane.showMessageDialog(null, "Login successfully", "Admin Message", JOptionPane.INFORMATION_MESSAGE);
@@ -151,7 +179,12 @@ public class LoginController {
                 if(isUsernameTaken) {
                     JOptionPane.showMessageDialog(null, "This username is already taken.", "Admin Message", JOptionPane.WARNING_MESSAGE);
                 } else {
-                    User newUser = new User(su_username.getText(), su_password.getText(), su_email.getText(), su_phone.getText());
+                    
+                    newUser.setEmail(su_email.getText());
+                    newUser.setPassword(su_password.getText());
+                    newUser.setPhoneNumber(su_phone.getText());
+                    newUser.setUsername(su_username.getText());
+                    
                     daoUser.insert(newUser);
                     JOptionPane.showMessageDialog(null, "Successfully Create new account", "Admin Message", JOptionPane.INFORMATION_MESSAGE);
                 }

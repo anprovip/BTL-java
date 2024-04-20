@@ -50,7 +50,10 @@
                         <Image url="@../img/taco.png" />
                      </image>
                   </ImageView>
-                  <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                  <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label fx:id="userID" layoutX="164.0" layoutY="18.0" prefHeight="17.0" prefWidth="0.0" />
+                     </children></Pane>
                   <ImageView fitHeight="52.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../img/taco.png" />
@@ -110,7 +113,7 @@
    <center>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="499.0" spacing="40.0" styleClass="primary-color" stylesheets="@application.css" BorderPane.alignment="CENTER">
          <children>
-            <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="102.0" prefWidth="447.0">
+            <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="135.0" prefWidth="447.0">
                <children>
                   <Label prefHeight="47.0" prefWidth="290.0" text="Sign up" textFill="#ece99b">
                      <font>
@@ -122,6 +125,15 @@
                         <Font name="Bell MT" size="20.0" />
                      </font>
                   </Label>
+                  <Button fx:id="chooseAvatar" mnemonicParsing="false" onAction="#onClickChooseAvatar" stylesheets="@application2.css" text="Choose avatar" textFill="#dad0d0">
+                     <VBox.margin>
+                        <Insets left="180.0" top="50.0" />
+                     </VBox.margin>
+                     <styleClass>
+                        <String fx:value="round-layout" />
+                        <String fx:value="transparent" />
+                     </styleClass>
+                  </Button>
                </children>
             </VBox>
             <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="438.0" prefWidth="379.0" spacing="30.0">

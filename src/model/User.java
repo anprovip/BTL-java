@@ -9,17 +9,20 @@ public class User {
     private String email;
     private String phoneNumber;
     private Blob imageUser;
+    private String imageSrc;
     private static final User instance = new User();
     public static User getInstance() {
         return instance;
     }
     public User() {super();};    
-	public User(String username, String password, String email, String phoneNumber) {
+	public User(String username, String password, String email, String phoneNumber, Blob imageUser, String imageSrc) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.email = email;
 		this.phoneNumber = phoneNumber;
+		this.imageSrc = imageSrc;
+		this.imageUser = imageUser;
 	}
 	public String getUsername() {
 		return username;
@@ -50,6 +53,18 @@ public class User {
 	}
 	public void setImageUser(Blob imageUser) {
 		this.imageUser = imageUser;
+	}
+	public long getUserId() {
+		return userId;
+	}
+	public void setUserId(long userId) {
+		this.userId = userId;
+	}
+	public String getImageSrc() {
+		return imageSrc;
+	}
+	public void setImageSrc(String imageSrc) {
+		this.imageSrc = imageSrc;
 	}
 
 	

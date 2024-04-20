@@ -3,54 +3,87 @@ package model;
 import java.sql.Date;
 
 public class Review {
-    private int reviewId;
-    private String reviewContent;
-    private int reviewRating;
-    private Date dateSubmitted;
+	private String ISBN;
+	private long userId;
+	private String reviewText;
+	private int rating;
+	private Date reviewDate;
 	
-    public Review() {super();} 
 
-	public Review(int reviewId, String reviewContent, int reviewRating, Date dateSubmitted) {
+	
+    public Review() {super();}
+
+
+
+	public Review(String iSBN, int userID, String reviewText, int rating, Date reviewDate) {
 		super();
-		this.reviewId = reviewId;
-		this.reviewContent = reviewContent;
-		this.reviewRating = reviewRating;
-		this.dateSubmitted = dateSubmitted;
+		ISBN = iSBN;
+		this.userId = userID;
+		this.reviewText = reviewText;
+		this.rating = rating;
+		this.reviewDate = reviewDate;
 	}
 
-	public Date getDateSubmitted() {
-		return dateSubmitted;
+
+
+	public String getISBN() {
+		return ISBN;
 	}
 
-	public void setDateSubmitted(Date dateSubmitted) {
-		this.dateSubmitted = dateSubmitted;
+
+
+	public void setISBN(String iSBN) {
+		ISBN = iSBN;
 	}
 
-	public int getReviewId() {
-		return reviewId;
+
+
+	public long getUserId() {
+		return userId;
 	}
 
-	public void setReviewId(int reviewId) {
-		this.reviewId = reviewId;
+
+
+	public void setUserId(long userId) {
+		this.userId = userId;
 	}
 
-	public String getReviewContent() {
-		return reviewContent;
+
+
+	public String getReviewText() {
+		return reviewText;
 	}
 
-	public void setReviewContent(String reviewContent) {
-		this.reviewContent = reviewContent;
+
+
+	public void setReviewText(String reviewText) {
+		this.reviewText = reviewText;
 	}
 
-	public int getReviewRating() {
-		return reviewRating;
+
+
+	public int getRating() {
+		return rating;
 	}
 
-	public void setReviewRating(int reviewRating) {
-		this.reviewRating = reviewRating;
+
+
+	public void setRating(int rating) {
+		this.rating = rating;
 	}
 
-    
 
+
+	public Date getReviewDate() {
+		return reviewDate;
+	}
+
+
+
+	public void setReviewDate(Date reviewDate) {
+		this.reviewDate = reviewDate;
+	} 
+
+	 
 }
 

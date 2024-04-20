@@ -90,9 +90,8 @@ public class HomePageController implements Initializable{
     	}
     	*/
     }
-    	private List<Book> getAllBooksFromDatabase() {
-    		DAOBook daoBook = DAOBook.getInstance();
-    		return daoBook.selectAll();
+    private List<Book> getAllBooksFromDatabase() {
+    		return DAOBook.getInstance().selectAll();
     }
 
     	@Override

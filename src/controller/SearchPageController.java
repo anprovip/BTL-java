@@ -114,7 +114,7 @@ public class SearchPageController implements Initializable{
         int row = 1;
         for (int i = startIndex; i < Math.min(startIndex + count, allBooks.size()); i++) {
             Book book = allBooks.get(i);
-FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/book.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/book.fxml"));
             
             try {
             	BorderPane bookPane = loader.load();

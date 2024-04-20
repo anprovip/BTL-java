@@ -1,11 +1,18 @@
 package database;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.sql.rowset.serial.SerialBlob;
 
 import model.User;
 
@@ -25,14 +32,16 @@ public class DAOUser implements DAOInterface<User> {
     @Override
     public void insert(User user) {
         try {
-            String sql = "INSERT INTO user(username, password, email, phoneNumber) VALUES(?, SHA2(?, 256), ?, ?)";
+            String sql = "INSERT INTO user(username, password, email, phoneNumber, user_image) VALUES(?, SHA2(?, 256), ?, ?, ?)";
             statement = connect.prepareStatement(sql);
             statement.setString(1, user.getUsername());
             statement.setString(2, user.getPassword());
             statement.setString(3, user.getEmail());
             statement.setString(4, user.getPhoneNumber());
+            InputStream inputStream = new FileInputStream(new File(user.getImageSrc()));
+            statement.setBlob(5, inputStream);
             statement.executeUpdate();
-        } catch (SQLException e) {
+        } catch (SQLException | FileNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -55,12 +64,19 @@ public class DAOUser implements DAOInterface<User> {
             statement = connect.prepareStatement(sql);
             result = statement.executeQuery();
             while (result.next()) {
-                User user = new User(
-                    result.getString("username"),
-                    result.getString("password"),
-                    result.getString("email"),
-                    result.getString("phoneNumber")
-                );
+                User user = new User();
+                user.setEmail(result.getString("email"));
+                user.setPhoneNumber(result.getString("phoneNumber"));
+                user.setPassword(result.getString("password"));
+                user.setUsername(result.getString("username"));
+                Blob imageBlob = result.getBlob("user_image");
+			    if (imageBlob != null) {
+			        // Chuyển đổi Blob thành mảng byte
+			        byte[] imageData = imageBlob.getBytes(1, (int) imageBlob.length());
+			        
+			        // Lưu dữ liệu ảnh vào thuộc tính imageBook của đối tượng Book
+			        user.setImageUser(new SerialBlob(imageData));
+			    }
                 userList.add(user);
             }
         } catch (SQLException e) {
@@ -94,7 +110,9 @@ public class DAOUser implements DAOInterface<User> {
                 String password1 = result.getString("password");
                 String email = result.getString("email");
                 String phoneNumber = result.getString("phoneNumber");
+                Long userId = result.getLong("user_id");
                 user.setUsername(username1);
+                user.setUserId(userId);
                 return true;
             }
         } catch (SQLException e) {
@@ -126,12 +144,20 @@ public class DAOUser implements DAOInterface<User> {
             statement.setString(1, username);
             result = statement.executeQuery();
             if (result.next()) {
-                user = new User(
-                    result.getString("username"),
-                    result.getString("password"),
-                    result.getString("email"),
-                    result.getString("phoneNumber")
-                );
+                user = new User();
+                user.setEmail(result.getString("email"));
+                user.setPhoneNumber(result.getString("phoneNumber"));
+                user.setPassword(result.getString("password"));
+                user.setUsername(result.getString("username"));
+                Blob imageBlob = result.getBlob("user_image");
+                user.setUserId(result.getLong("user_id"));
+			    if (imageBlob != null) {
+			        // Chuyển đổi Blob thành mảng byte
+			        byte[] imageData = imageBlob.getBytes(1, (int) imageBlob.length());
+			        
+			        // Lưu dữ liệu ảnh vào thuộc tính imageBook của đối tượng Book
+			        user.setImageUser(new SerialBlob(imageData));
+			    }
             }
         } catch (SQLException e) {
             e.printStackTrace();

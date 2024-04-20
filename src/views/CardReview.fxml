@@ -1,8 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1">
-	<!-- TODO Add Nodes -->
-</AnchorPane>
-
+<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="1100.0" styleClass="shadow" stylesheets="@application2.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ReviewController">
+   <children>
+      <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="170.0" prefWidth="121.0">
+         <children>
+            <ImageView fx:id="userImage" fitHeight="68.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/steak.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="userId" />
+            <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets left="20.0" top="15.0" />
+               </HBox.margin>
+               <image>
+                  <Image url="@../img/less.png" />
+               </image>
+            </ImageView>
+         </children>
+      </HBox>
+      <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="180.0" prefWidth="926.0" style="-fx-border-color: #d1d1e0;" stylesheets="@application2.css">
+         <children>
+            <Label fx:id="username" prefHeight="35.0" prefWidth="200.0" text="DaoDitTienTruong">
+               <font>
+                  <Font name="Berlin Sans FB Demi Bold" size="16.0" />
+               </font>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
+            <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="35.0" prefWidth="250.0">
+               <children>
+                  <Label fx:id="rating" prefHeight="24.0" prefWidth="26.0" text="4.9">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/star.png" />
+                     </image>
+                  </ImageView>
+               </children>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </HBox>
+            <Separator prefWidth="200.0" />
+            <Label fx:id="reviewText" alignment="TOP_LEFT" prefHeight="99.0" prefWidth="926.0" text="Truyện hay vl." wrapText="true">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
+            <Label fx:id="reviewDate" prefHeight="17.0" prefWidth="95.0" text="20/04/2024">
+               <VBox.margin>
+                  <Insets left="850.0" />
+               </VBox.margin>
+            </Label>
+         </children>
+      </VBox>
+   </children>
+</HBox>
