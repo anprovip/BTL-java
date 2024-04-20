@@ -184,18 +184,18 @@ public class DAOUser implements DAOInterface<User> {
             statement.setString(1, user.getEmail());
             statement.setString(2, user.getPhoneNumber());
             if (user.getImageSrc() != null) {
-<<<<<<< HEAD
+
                 // Tạo inputStream từ file ảnh
                 InputStream inputStream = new FileInputStream(new File(user.getImageSrc()));
                 statement.setBlob(3, inputStream);
-=======
+
                 // Tạo mảng byte từ file ảnh
                 byte[] imageData = Files.readAllBytes(Paths.get(user.getImageSrc()));
                 statement.setBytes(3, imageData);
             } else {
                 // Nếu không có ảnh được chọn, truyền null vào cột user_image
                 statement.setBytes(3, null);
->>>>>>> 57d4faa4dcbe87c32bb164254cace327b013285b
+
             }
             statement.setString(4, user.getUsername()); // Thêm username cũ vào để xác định dòng cần cập nhật
             int rowsAffected = statement.executeUpdate();

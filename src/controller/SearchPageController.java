@@ -100,7 +100,6 @@ public class SearchPageController implements Initializable{
     	@Override
     	public void initialize(URL arg0, ResourceBundle arg1) {
     	    listBook = new ArrayList<>(getAllBooksFromDatabase());
-    	    new ArrayList<>(getAllBooksFromDatabase());
 
     	    loadMoreButton.setOnAction(this::loadMore);
     	    backButton.setOnAction(this::goBack);
@@ -139,19 +138,20 @@ public class SearchPageController implements Initializable{
     @FXML
     private void loadMore(ActionEvent event) {
         int startIndex = currentPage * itemsPerPage;
-        if (startIndex < allBooks.size()) {
+        if (startIndex < allBooks.size()) { // Kiểm tra số lượng sách còn lại
             int remainingBooks = allBooks.size() - startIndex;
-            int count = Math.min(remainingBooks, itemsPerPage);
+            int count = Math.min(remainingBooks, itemsPerPage); // Hiển thị tối đa số sách mỗi trang
             showBooks(startIndex, count);
             currentPage++;
             if (startIndex + count >= allBooks.size()) {
-                loadMoreButton.setDisable(true);
+                loadMoreButton.setDisable(true); // Vô hiệu hóa nút nếu đã hiển thị hết sách
             }
-            backButton.setDisable(false);
+            backButton.setDisable(false); // Bật nút "Back" khi đã load thêm sách
         } else {
-            loadMoreButton.setDisable(true);
+            loadMoreButton.setDisable(true); // Vô hiệu hóa nút nếu không còn sách nào để hiển thị
         }
     }
+
 
     @FXML
     private void goBack(ActionEvent event) {
@@ -188,16 +188,17 @@ public class SearchPageController implements Initializable{
 
     private void performSearch() {
         String term = searchTerm.getText().trim();
+        currentPage = 1;
+        loadMoreButton.setDisable(false);
         if (!term.isEmpty()) {
             allBooks.clear();
             listBook = DAOBook.getInstance().selectByCondition(term);
-            allBooks.addAll(listBook);
-            currentPage = 1;
-            showBooks(0, itemsPerPage);
-            loadMoreButton.setDisable(true);
-            backButton.setDisable(true);
+            allBooks.addAll(listBook);  
+    	    if(allBooks.size()<=itemsPerPage) loadMoreButton.setDisable(true);
+    	    backButton.setDisable(true);
+    	    showBooks(0, itemsPerPage);
         }
     }
-	
+
 	
 }
