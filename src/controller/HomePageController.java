@@ -13,10 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
@@ -24,8 +21,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import javafx.util.Callback;
 import model.Book;
 import model.ChangeScene;
 
@@ -181,7 +176,6 @@ public class HomePageController implements Initializable{
 
 	public void switchtoUserInformation(MouseEvent e) throws IOException {
 		if(e.getSource() == user) {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/UserScene.fxml"));
 			new ChangeScene(homePageBorderPane, "/views/UserScene.fxml");
 		}
 	}

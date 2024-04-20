@@ -17,6 +17,9 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Pagination;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -32,7 +35,8 @@ public class SearchPageController implements Initializable{
     private HBox cardLayout;
 	@FXML
     private GridPane bookContainer;
-	private List<Book> recentlyAdded;
+	
+	private List<Book> listBook;
 	
 	@FXML
     private HBox home;
@@ -40,6 +44,11 @@ public class SearchPageController implements Initializable{
     @FXML
     private HBox search;
 
+    @FXML
+    private TextField searchTerm;
+    
+    @FXML
+    private ImageView searchIcon;
     
     @FXML
     private HBox myShelves;
@@ -81,31 +90,24 @@ public class SearchPageController implements Initializable{
     	if(event.getSource() == home) {
     		new ChangeScene(searchPageBorderPane, "/views/HomePageScene.fxml");
     	}
-    	/*
-    	if(event.getSource() == myShelves) {
-    		homeBox.setVisible(false);
-    		searchBox.setVisible(false);
-    		myShelvesBox.setVisible(true);
-    	}
-    	*/
     }
-    	private List<Book> getAllBooksFromDatabase() {
-    		DAOBook daoBook = DAOBook.getInstance();
-    		return daoBook.selectAll();
+    private List<Book> getAllBooksFromDatabase() {
+    	return DAOBook.getInstance().selectAll();
     }
+
+    	
 
     	@Override
     	public void initialize(URL arg0, ResourceBundle arg1) {
-    	    recentlyAdded = new ArrayList<>(getAllBooksFromDatabase()); // Thay đổi cách lấy danh sách sách
+    	    listBook = new ArrayList<>(getAllBooksFromDatabase());
     	    new ArrayList<>(getAllBooksFromDatabase());
 
-    	    // Thêm sự kiện cho nút "Xem thêm"
     	    loadMoreButton.setOnAction(this::loadMore);
     	    backButton.setOnAction(this::goBack);
-    	    backButton.setDisable(true); // Vô hiệu hóa nút "Back" khi chưa có gì để quay lại
+    	    backButton.setDisable(true);
 
-    	    allBooks.addAll(recentlyAdded); // Sử dụng danh sách sách từ cơ sở dữ liệu
-			showBooks(0, itemsPerPage); // Hiển thị các cuốn sách ban đầu
+    	    allBooks.addAll(listBook);
+			showBooks(0, itemsPerPage); 
     }
     
     private void showBooks(int startIndex, int count) {
@@ -167,11 +169,35 @@ public class SearchPageController implements Initializable{
 
 
 	public void switchtoUserInformation(MouseEvent e) throws IOException {
-		if(e.getSource() == user) {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/UserScene.fxml"));
+		if(e.getSource() == user) {	
 			new ChangeScene(searchPageBorderPane, "/views/UserScene.fxml");
 		}
 	}
+	
+    @FXML
+    private void onClickSearch(MouseEvent event) {
+        performSearch();
+    }
+
+    @FXML
+    private void onPressedEnter(KeyEvent event) {
+        if (event.getCode().toString().equals("ENTER")) {
+            performSearch();
+        }
+    }
+
+    private void performSearch() {
+        String term = searchTerm.getText().trim();
+        if (!term.isEmpty()) {
+            allBooks.clear();
+            listBook = DAOBook.getInstance().selectByCondition(term);
+            allBooks.addAll(listBook);
+            currentPage = 1;
+            showBooks(0, itemsPerPage);
+            loadMoreButton.setDisable(true);
+            backButton.setDisable(true);
+        }
+    }
 	
 	
 }

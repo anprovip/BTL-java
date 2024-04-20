@@ -109,8 +109,11 @@ public class DAOUser implements DAOInterface<User> {
             	String username1 = result.getString("username");
                 String password1 = result.getString("password");
                 String email = result.getString("email");
+
                 String phoneNumber = result.getString("phoneNumber");
                 Long userId = result.getLong("user_id");
+
+
                 user.setUsername(username1);
                 user.setUserId(userId);
                 return true;
@@ -173,14 +176,22 @@ public class DAOUser implements DAOInterface<User> {
     }
     public boolean updateUserInfo(User user) {
         try {
-            String sql = "UPDATE user SET email = ?, phoneNumber = ? WHERE username = ?";
+            String sql = "UPDATE user SET  email = ?, phoneNumber = ?, user_image = ? WHERE username = ?";
             statement = connect.prepareStatement(sql);
             statement.setString(1, user.getEmail());
             statement.setString(2, user.getPhoneNumber());
-            statement.setString(3, user.getUsername()); // Thêm username cũ vào để xác định dòng cần cập nhật
+            if (user.getImageSrc() != null) {
+                // Tạo inputStream từ file ảnh
+                InputStream inputStream = new FileInputStream(new File(user.getImageSrc()));
+                statement.setBlob(3, inputStream);
+            } else {
+                // Nếu không có ảnh được chọn, truyền null vào cột user_image
+                statement.setBlob(3, null);
+            }
+            statement.setString(4, user.getUsername()); // Thêm username cũ vào để xác định dòng cần cập nhật
             int rowsAffected = statement.executeUpdate();
             return rowsAffected > 0;
-        } catch (SQLException e) {
+        } catch (SQLException | FileNotFoundException e) {
             e.printStackTrace();
             return false;
         }

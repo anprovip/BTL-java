@@ -4,23 +4,14 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
 
 import database.DAOUser;
-import database.JDBCUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -163,12 +154,18 @@ public class UserController implements Initializable{
                 // Tạo ảnh mới từ URL và cập nhật imageInfo
                 Image image = new Image(localUrl);
                 imageInfo.setImage(image);
+                
+                // Lấy đường dẫn tuyệt đối của file
+                String absolutePath = file.getAbsolutePath();
+                
+                user.setImageSrc(absolutePath);
             } catch (MalformedURLException e) {
                 e.printStackTrace();
                 // Xử lý lỗi nếu không thể chuyển đổi đường dẫn thành URL
             }
         }
     }
+
     
     private void getUserInfo(String currentUsername) {
         User user = daoUser.selectByUsername(currentUsername);
@@ -189,12 +186,13 @@ public class UserController implements Initializable{
         
         String email = emailInfo.getText();
         String phoneNumber = phoneInfo.getText();
-        
+        String absolutePath = user.getImageSrc();
             // Tạo đối tượng User mới với thông tin được điền mới
             User updatedUser = new User();
             updatedUser.setEmail(email);
             updatedUser.setPhoneNumber(phoneNumber);
             updatedUser.setUsername(user.getUsername());
+            updatedUser.setImageSrc(absolutePath);
             // Gọi phương thức updateUserInfo từ DAOUser để cập nhật thông tin trong cơ sở dữ liệu
             boolean success = daoUser.updateUserInfo(updatedUser);
             

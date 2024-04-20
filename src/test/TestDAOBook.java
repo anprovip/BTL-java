@@ -1,7 +1,7 @@
 package test;
 
-import database.DAOBook;
-import model.Book;
+//import database.DAOBook;
+//import model.Book;
 
 public class TestDAOBook {
 	/*public static void main(String[] args) {
