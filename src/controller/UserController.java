@@ -224,8 +224,8 @@ public class UserController implements Initializable{
     private void savePassword(ActionEvent event) {
         // Lấy thông tin từ các TextField
         String oldPass = oldPassword.getText();
-        if(oldPass != user.getPassword()) {
-        	JOptionPane.showMessageDialog(null, "New password and old password do not match!");
+        if(!oldPass.equals(user.getPassword())) {
+        	JOptionPane.showMessageDialog(null, "Your old password is wrong!");
             return;
         }
         String newPassword = newPasswordField.getText(); // Sử dụng newPasswordField thay vì newPassword
@@ -265,7 +265,7 @@ public class UserController implements Initializable{
 		
 		String currentUsername = user.getUsername();
 		getUserInfo(currentUsername);
-		
+		System.out.println(user.toString());
 	}
 	
 }

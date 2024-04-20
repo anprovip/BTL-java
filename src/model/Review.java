@@ -1,27 +1,39 @@
 package model;
 
+import java.sql.Blob;
 import java.sql.Date;
 
-public class Review {
-	private String ISBN;
-	private long userId;
-	private String reviewText;
-	private int rating;
-	private Date reviewDate;
-	
+import javax.sql.rowset.serial.SerialBlob;
 
+public class Review {
+	private int reviewId;
+	private String ISBN;
+	private int userId;
+	private String reviewText;
+	private float rating;
+	private Date reviewDate;
+	private Blob userImage;
+	private String username;
+	
+	private static final Review instance = new Review();
+    public static Review getInstance() {
+        return instance;
+    }
 	
     public Review() {super();}
 
 
 
-	public Review(String iSBN, int userID, String reviewText, int rating, Date reviewDate) {
+	public Review(int reviewId, String iSBN, int userID, String reviewText, float rating, Date reviewDate, Blob userImage, String username) {
 		super();
-		ISBN = iSBN;
+		this.reviewId = reviewId;
+		this.ISBN = iSBN;
 		this.userId = userID;
 		this.reviewText = reviewText;
 		this.rating = rating;
 		this.reviewDate = reviewDate;
+		this.userImage = userImage;
+		this.username = username;
 	}
 
 
@@ -38,13 +50,13 @@ public class Review {
 
 
 
-	public long getUserId() {
+	public int getUserId() {
 		return userId;
 	}
 
 
 
-	public void setUserId(long userId) {
+	public void setUserId(int userId) {
 		this.userId = userId;
 	}
 
@@ -62,13 +74,13 @@ public class Review {
 
 
 
-	public int getRating() {
+	public float getRating() {
 		return rating;
 	}
 
 
 
-	public void setRating(int rating) {
+	public void setRating(float rating) {
 		this.rating = rating;
 	}
 
@@ -82,8 +94,32 @@ public class Review {
 
 	public void setReviewDate(Date reviewDate) {
 		this.reviewDate = reviewDate;
-	} 
+	}
 
-	 
+	public int getReviewId() {
+		return reviewId;
+	}
+
+	public void setReviewId(int reviewId) {
+		this.reviewId = reviewId;
+	}
+
+	public Blob getUserImage() {
+		return userImage;
+	}
+
+	public void setUserImage(Blob userImage) {
+		this.userImage = userImage;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	
+	
 }
 

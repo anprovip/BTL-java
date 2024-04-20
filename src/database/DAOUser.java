@@ -119,6 +119,7 @@ public class DAOUser implements DAOInterface<User> {
 
                 user.setUsername(username1);
                 user.setUserId(userId);
+                user.setPassword(password);
                 return true;
             }
         } catch (SQLException e) {

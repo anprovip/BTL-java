@@ -201,7 +201,7 @@
                   <Insets bottom="30.0" left="50.0" right="50.0" top="30.0" />
                </padding>
             </VBox>
-            <VBox fx:id="passwordBox" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" spacing="50.0" styleClass="secondary-color" stylesheets="@application3.css">
+            <VBox fx:id="passwordBox" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" spacing="50.0" styleClass="secondary-color" stylesheets="@application3.css" visible="false">
                <children>
                   <Label prefHeight="36.0" prefWidth="1089.0" text="Password Settings">
                      <font>

@@ -2,10 +2,18 @@ package controller;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -23,7 +31,7 @@ import model.Review;
 import database.DAOBook;
 import database.DAOReview;
 
-public class BookDetailsController {
+public class BookDetailsController implements Initializable{
     
 	@FXML
     private BorderPane DBookBorderPane;
@@ -67,11 +75,21 @@ public class BookDetailsController {
     @FXML
     private Button addButton;
     
+    private final int itemsPerPage = 5;
+    private int currentPage = 1;
+    private List<Review> allReviews = new ArrayList<>();
+    private List<Review> recentlyAdded;
+    private static String isbn;
     
+    private List<Review> getAllReviewsFromDatabase(String bookId) {
+    	
+		return DAOReview.getInstance().selectByCondition(bookId);
+    }
 
     public void setData(Book book) {
         System.out.println("Nhận được dữ liệu khi click: " + book.getBookID());
         book = DAOBook.getInstance().selectByID(book);
+        DAOReview.getInstance().selectByCondition(book.getBookID());
         if (book != null) {
             bookName.setText(book.getName());
             authorName.setText(book.getAuthor());
@@ -93,7 +111,7 @@ public class BookDetailsController {
         }
     }
     
-
+    
     @FXML
     private void onClickAddReview(MouseEvent event) {
         String reviewText = reviewTextField.getText();
@@ -132,6 +150,69 @@ public class BookDetailsController {
     @FXML
     void onClickUser(MouseEvent event) throws IOException {
     	new ChangeScene(DBookBorderPane, "/views/UserScene.fxml");
+    }
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		
+		recentlyAdded = new ArrayList<>(getAllReviewsFromDatabase(isbn)); // Thay đổi cách lấy danh sách sách
+		nextButton.setOnAction(this::loadMore);
+	    backButton.setOnAction(this::goBack);
+	    backButton.setDisable(true);
+	    
+	    allReviews.addAll(recentlyAdded); // Sử dụng danh sách sách từ cơ sở dữ liệu
+        showReviews(0, itemsPerPage);
+	}
+	private void showReviews(int startIndex, int count) {
+        reviewContainer.getChildren().clear(); // Xóa các sách hiện tại trước khi hiển thị sách mới
+        int column = 0;
+        int row = 1;
+        for (int i = startIndex; i < Math.min(startIndex + count, allReviews.size()); i++) {
+            Review review = allReviews.get(i);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/CardReview.fxml"));
+            
+            try {
+            	HBox reviewPane = loader.load();
+                ReviewController reviewController = loader.getController();
+                reviewController.setData(review);
+                reviewContainer.add(reviewPane, column, row++);
+                GridPane.setMargin(reviewPane, new Insets(15));
+                
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @FXML
+    private void loadMore(ActionEvent event) {
+        int startIndex = currentPage * itemsPerPage;
+        int remainingBooks = allReviews.size() - startIndex;
+        int count = Math.min(remainingBooks, itemsPerPage); // Hiển thị tối đa số sách mỗi trang
+        if (count > 0) {
+            showReviews(startIndex, count);
+            currentPage++;
+            if (startIndex + count >= allReviews.size()) {
+                nextButton.setDisable(true); // Vô hiệu hóa nút nếu đã hiển thị hết sách
+            }
+            backButton.setDisable(false); // Bật nút "Back" khi đã load thêm sách
+        } else {
+            nextButton.setDisable(true); // Vô hiệu hóa nút nếu không còn sách nào để hiển thị
+        }
+    }
+
+    @FXML
+    private void goBack(ActionEvent event) {
+        if (currentPage <= 1) {
+            backButton.setDisable(true); // Nếu là trang đầu tiên, vô hiệu hóa nút "Back"
+        } else {
+            int startIndex = Math.max(0, (currentPage - 2) * itemsPerPage); // Lấy về trang trước đó
+            showReviews(startIndex, itemsPerPage);
+            currentPage--; // Giảm trang hiện tại về trang trước đó
+
+            // Bật lại nút "Load More" nếu đã vô hiệu hóa trước đó
+            nextButton.setDisable(false);
+        }
     }
     
 }

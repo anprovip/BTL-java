@@ -253,7 +253,7 @@
                               <Insets top="20.0" />
                            </VBox.margin>
                         </HBox>
-                        <ScrollPane fx:id="reviewScrollPane" prefHeight="886.0" prefWidth="1137.0">
+                        <ScrollPane fx:id="reviewScrollPane" prefHeight="965.0" prefWidth="1137.0">
                            <VBox.margin>
                               <Insets top="25.0" />
                            </VBox.margin>
