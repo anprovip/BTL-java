@@ -70,7 +70,7 @@ public class HomePageController implements Initializable{
     
     private final int itemsPerPage = 10;
     private int currentPage = 1;
-    private List<Book> allBooks = new ArrayList<>();;
+    private List<Book> allBooks = new ArrayList<>();
     private List<Node> displayedBooks = new ArrayList<>();
     
     public void switchBox(MouseEvent event) throws IOException {
