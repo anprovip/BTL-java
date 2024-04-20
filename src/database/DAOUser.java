@@ -184,9 +184,6 @@ public class DAOUser implements DAOInterface<User> {
                 // Tạo inputStream từ file ảnh
                 InputStream inputStream = new FileInputStream(new File(user.getImageSrc()));
                 statement.setBlob(3, inputStream);
-            } else {
-                // Nếu không có ảnh được chọn, truyền null vào cột user_image
-                statement.setBlob(3, null);
             }
             statement.setString(4, user.getUsername()); // Thêm username cũ vào để xác định dòng cần cập nhật
             int rowsAffected = statement.executeUpdate();

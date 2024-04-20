@@ -139,17 +139,17 @@ public class SearchPageController implements Initializable{
     @FXML
     private void loadMore(ActionEvent event) {
         int startIndex = currentPage * itemsPerPage;
-        int remainingBooks = allBooks.size() - startIndex;
-        int count = Math.min(remainingBooks, itemsPerPage); // Hiển thị tối đa số sách mỗi trang
-        if (count > 0) {
+        if (startIndex < allBooks.size()) {
+            int remainingBooks = allBooks.size() - startIndex;
+            int count = Math.min(remainingBooks, itemsPerPage);
             showBooks(startIndex, count);
             currentPage++;
             if (startIndex + count >= allBooks.size()) {
-                loadMoreButton.setDisable(true); // Vô hiệu hóa nút nếu đã hiển thị hết sách
+                loadMoreButton.setDisable(true);
             }
-            backButton.setDisable(false); // Bật nút "Back" khi đã load thêm sách
+            backButton.setDisable(false);
         } else {
-            loadMoreButton.setDisable(true); // Vô hiệu hóa nút nếu không còn sách nào để hiển thị
+            loadMoreButton.setDisable(true);
         }
     }
 
