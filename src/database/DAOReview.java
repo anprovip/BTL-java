@@ -20,15 +20,23 @@ public class DAOReview implements DAOInterface<Review>{
 
 	@Override
 	public void insert(Review review) {
-	    try {
-	        Connection connection = JDBCUtil.getConnection();
-	        String sql = "";
-	        PreparedStatement statement = connection.prepareStatement(sql);
-	        
-	        JDBCUtil.closeConnection(connection);
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
+		 try (Connection connection = JDBCUtil.getConnection()) {
+		        String sql = "INSERT INTO Review (review_text, rating, user_id, isbn) VALUES (?,?,?,?)";
+		        PreparedStatement statement = connection.prepareStatement(sql);
+		        statement.setString(1, review.getReviewText());
+		        statement.setFloat(2, review.getRating());
+		        statement.setInt(3, review.getUserId());
+		        statement.setString(4, review.getISBN());
+		        
+		        int rowsInserted = statement.executeUpdate();
+		        if (rowsInserted > 0) {
+		            System.out.println("A new review was inserted successfully!");
+		        } else {
+		            System.out.println("Failed to insert the review!");
+		        }
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		    }
 	}
 
 

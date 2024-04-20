@@ -31,7 +31,7 @@ import model.Review;
 import database.DAOBook;
 import database.DAOReview;
 
-public class BookDetailsController implements Initializable{
+public class BookDetailsController {
     
 	@FXML
     private BorderPane DBookBorderPane;
@@ -79,17 +79,18 @@ public class BookDetailsController implements Initializable{
     private int currentPage = 1;
     private List<Review> allReviews = new ArrayList<>();
     private List<Review> recentlyAdded;
-    private static String isbn;
-    
-    private List<Review> getAllReviewsFromDatabase(String bookId) {
-    	
-		return DAOReview.getInstance().selectByCondition(bookId);
-    }
+
 
     public void setData(Book book) {
+    	 nextButton.setDisable(false);
         System.out.println("Nhận được dữ liệu khi click: " + book.getBookID());
         book = DAOBook.getInstance().selectByID(book);
-        DAOReview.getInstance().selectByCondition(book.getBookID());
+        recentlyAdded = DAOReview.getInstance().selectByCondition(book.getBookID());
+        System.out.println(recentlyAdded.size());
+        allReviews.addAll(recentlyAdded); 
+        if(allReviews.size()<=itemsPerPage) nextButton.setDisable(true);
+	    backButton.setDisable(true);
+        showReviews(0, itemsPerPage);
         if (book != null) {
             bookName.setText(book.getName());
             authorName.setText(book.getAuthor());
@@ -115,12 +116,12 @@ public class BookDetailsController implements Initializable{
     @FXML
     private void onClickAddReview(MouseEvent event) {
         String reviewText = reviewTextField.getText();
-        // Phải có ISBN và user ID để thêm review vào cơ sở dữ liệu
-        String ISBN = ""; // Lấy ISBN từ đối tượng Book, tạm thời để là chuỗi rỗng
-        int userID = 0; // Lấy user ID từ người dùng hoặc từ hệ thống, tạm thời để là 0
-        int rating = 5; // Đánh giá mặc định, có thể thay đổi theo ý của người dùng
+        
+        String ISBN = "";
+        int userID = 0; 
+        int rating = 5; 
 
-        if (!reviewText.isEmpty() && !ISBN.isEmpty() && userID != 0) {
+        if (!reviewText.isEmpty()) {
             // Tạo đối tượng Review từ dữ liệu nhập vào
             Review review = new Review();
             review.setISBN(ISBN);
@@ -152,19 +153,9 @@ public class BookDetailsController implements Initializable{
     	new ChangeScene(DBookBorderPane, "/views/UserScene.fxml");
     }
 
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		
-		recentlyAdded = new ArrayList<>(getAllReviewsFromDatabase(isbn)); // Thay đổi cách lấy danh sách sách
-		nextButton.setOnAction(this::loadMore);
-	    backButton.setOnAction(this::goBack);
-	    backButton.setDisable(true);
-	    
-	    allReviews.addAll(recentlyAdded); // Sử dụng danh sách sách từ cơ sở dữ liệu
-        showReviews(0, itemsPerPage);
-	}
 	private void showReviews(int startIndex, int count) {
         reviewContainer.getChildren().clear(); // Xóa các sách hiện tại trước khi hiển thị sách mới
+        System.out.println("Co den day khong");
         int column = 0;
         int row = 1;
         for (int i = startIndex; i < Math.min(startIndex + count, allReviews.size()); i++) {

@@ -12,13 +12,8 @@ public class Review {
 	private String reviewText;
 	private float rating;
 	private Date reviewDate;
-	private Blob userImage;
+	private Blob userImage ;
 	private String username;
-	
-	private static final Review instance = new Review();
-    public static Review getInstance() {
-        return instance;
-    }
 	
     public Review() {super();}
 
