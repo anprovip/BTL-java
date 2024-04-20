@@ -3,7 +3,10 @@ package database;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -158,7 +161,7 @@ public class DAOUser implements DAOInterface<User> {
 			        // Chuyển đổi Blob thành mảng byte
 			        byte[] imageData = imageBlob.getBytes(1, (int) imageBlob.length());
 			        
-			        // Lưu dữ liệu ảnh vào thuộc tính imageBook của đối tượng Book
+			        // Lưu dữ liệu ảnh vào thuộc tính userImage của đối tượng User
 			        user.setImageUser(new SerialBlob(imageData));
 			    }
             }
@@ -181,21 +184,30 @@ public class DAOUser implements DAOInterface<User> {
             statement.setString(1, user.getEmail());
             statement.setString(2, user.getPhoneNumber());
             if (user.getImageSrc() != null) {
+<<<<<<< HEAD
                 // Tạo inputStream từ file ảnh
                 InputStream inputStream = new FileInputStream(new File(user.getImageSrc()));
                 statement.setBlob(3, inputStream);
+=======
+                // Tạo mảng byte từ file ảnh
+                byte[] imageData = Files.readAllBytes(Paths.get(user.getImageSrc()));
+                statement.setBytes(3, imageData);
+            } else {
+                // Nếu không có ảnh được chọn, truyền null vào cột user_image
+                statement.setBytes(3, null);
+>>>>>>> 57d4faa4dcbe87c32bb164254cace327b013285b
             }
             statement.setString(4, user.getUsername()); // Thêm username cũ vào để xác định dòng cần cập nhật
             int rowsAffected = statement.executeUpdate();
             return rowsAffected > 0;
-        } catch (SQLException | FileNotFoundException e) {
+        } catch (SQLException | IOException e) {
             e.printStackTrace();
             return false;
         }
     }
-    public boolean changePassword(String username, String email, String phoneNumber, String newPassword) {
+    public boolean changePassword(String username, String newPassword) {
         // Kiểm tra xem email và số điện thoại có khớp với thông tin trong database không
-        if (checkEmailAndPhone(username, email, phoneNumber)) {
+        
             try {
                 // Tạo đối tượng User mới với mật khẩu mới
                 User updatedUser = new User();
@@ -211,20 +223,9 @@ public class DAOUser implements DAOInterface<User> {
                 // Xử lý lỗi nếu có
                 return false;
             }
-        } else {
-            // Thông báo lỗi nếu email hoặc số điện thoại không khớp với thông tin trong database
-            return false;
-        }
+       
     }
 
-    // Phương thức để kiểm tra email và số điện thoại
-    private boolean checkEmailAndPhone(String username, String email, String phoneNumber) {
-        // Gọi phương thức selectByUsername từ DAOUser để lấy thông tin người dùng dựa trên username
-        User user = selectByUsername(username);
-        
-        // Kiểm tra xem thông tin email và số điện thoại có khớp với thông tin trong database không
-        return user != null && user.getEmail().equals(email) && user.getPhoneNumber().equals(phoneNumber);
-    }
 
     // Phương thức để cập nhật mật khẩu mới vào database
     private boolean updatePassword(User user) {
