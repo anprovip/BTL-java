@@ -15,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -31,7 +32,7 @@ import model.Review;
 import database.DAOBook;
 import database.DAOReview;
 
-public class BookDetailsController {
+public class BookDetailsController implements Initializable {
     
 	@FXML
     private BorderPane DBookBorderPane;
@@ -41,6 +42,9 @@ public class BookDetailsController {
 
     @FXML
     private Button backButton;
+    
+    @FXML
+    private Label BookID;
 
     @FXML
     private ImageView bookImage;
@@ -75,6 +79,9 @@ public class BookDetailsController {
     @FXML
     private Button addButton;
     
+    @FXML
+    private ChoiceBox<String> userRate;
+    private String[] rating = {"1 Star", "2 Stars","3 Stars","4 Stars","5 Stars"};
     private final int itemsPerPage = 5;
     private int currentPage = 1;
     private List<Review> allReviews = new ArrayList<>();
@@ -82,7 +89,8 @@ public class BookDetailsController {
 
 
     public void setData(Book book) {
-    	 nextButton.setDisable(false);
+    	nextButton.setDisable(false);
+    	BookID.setText(book.getBookID());
         System.out.println("Nhận được dữ liệu khi click: " + book.getBookID());
         book = DAOBook.getInstance().selectByID(book);
         recentlyAdded = DAOReview.getInstance().selectByCondition(book.getBookID());
@@ -114,24 +122,20 @@ public class BookDetailsController {
     
     
     @FXML
-    private void onClickAddReview(MouseEvent event) {
+    void onClickAdd(MouseEvent event) {
         String reviewText = reviewTextField.getText();
         
-        String ISBN = "";
-        int userID = 0; 
-        int rating = 5; 
 
         if (!reviewText.isEmpty()) {
             // Tạo đối tượng Review từ dữ liệu nhập vào
             Review review = new Review();
-            review.setISBN(ISBN);
-            review.setUserId(userID);
+            review.setISBN(BookID.getText());
             review.setReviewText(reviewText);
-            review.setRating(rating);
+            review.setRating((int)userRate.getValue().charAt(0)-48);
 
             DAOReview.getInstance().insert(review);
 
-
+            System.out.println("co update binh luan khong?");
         } else {
             // Xử lý khi dữ liệu nhập vào không hợp lệ
         }
@@ -205,5 +209,12 @@ public class BookDetailsController {
             nextButton.setDisable(false);
         }
     }
+
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		
+		userRate.getItems().addAll(rating);
+	}
     
 }

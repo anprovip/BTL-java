@@ -10,7 +10,7 @@ public class Review {
 	private String ISBN;
 	private int userId;
 	private String reviewText;
-	private float rating;
+	private int rating;
 	private Date reviewDate;
 	private Blob userImage ;
 	private String username;
@@ -19,7 +19,7 @@ public class Review {
 
 
 
-	public Review(int reviewId, String iSBN, int userID, String reviewText, float rating, Date reviewDate, Blob userImage, String username) {
+	public Review(int reviewId, String iSBN, int userID, String reviewText, int rating, Date reviewDate, Blob userImage, String username) {
 		super();
 		this.reviewId = reviewId;
 		this.ISBN = iSBN;
@@ -75,7 +75,7 @@ public class Review {
 
 
 
-	public void setRating(float rating) {
+	public void setRating(int rating) {
 		this.rating = rating;
 	}
 

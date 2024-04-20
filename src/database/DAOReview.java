@@ -21,11 +21,20 @@ public class DAOReview implements DAOInterface<Review>{
 	@Override
 	public void insert(Review review) {
 		 try (Connection connection = JDBCUtil.getConnection()) {
+			 	String sql1 = "select user_id from user where username = ?";
+			 	
+				PreparedStatement st = connection.prepareStatement(sql1);
+				st.setString(1, User.getInstance().getUsername());
+				ResultSet rs = st.executeQuery();
+				int userId = 0;
+				if (rs.next()) {
+				    userId = rs.getInt("user_id");
+				}
 		        String sql = "INSERT INTO Review (review_text, rating, user_id, isbn) VALUES (?,?,?,?)";
 		        PreparedStatement statement = connection.prepareStatement(sql);
 		        statement.setString(1, review.getReviewText());
 		        statement.setFloat(2, review.getRating());
-		        statement.setInt(3, review.getUserId());
+		        statement.setInt(3,userId );
 		        statement.setString(4, review.getISBN());
 		        
 		        int rowsInserted = statement.executeUpdate();
@@ -61,14 +70,12 @@ public class DAOReview implements DAOInterface<Review>{
 			String sql ="select review.*, user.username, user.user_image from review join user on review.user_id=user.user_id join book on review.isbn=book.isbn";
 			
 			PreparedStatement st = connection.prepareStatement(sql);
-			Book book = new Book();
-			
 			ResultSet rs = st.executeQuery();
 			while(rs.next()) {
 			    Review review = new Review();
 			    review.setReviewText(rs.getString("review_text"));
 			    review.setReviewId(rs.getInt("id"));
-			    review.setRating(rs.getFloat("rating"));
+			    review.setRating(rs.getInt("rating"));
 			    review.setReviewDate(rs.getDate("review_date"));
 			    review.setUserId(rs.getInt("user_id"));
 			    review.setISBN(rs.getString("isbn"));
@@ -118,7 +125,7 @@ public class DAOReview implements DAOInterface<Review>{
 			    Review review = new Review();
 			    review.setReviewText(rs.getString("review_text"));
 			    review.setReviewId(rs.getInt("id"));
-			    review.setRating(rs.getFloat("rating"));
+			    review.setRating(rs.getInt("rating"));
 			    review.setReviewDate(rs.getDate("review_date"));
 			    review.setUserId(rs.getInt("user_id"));
 			    review.setISBN(rs.getString("isbn"));
