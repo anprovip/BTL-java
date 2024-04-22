@@ -76,9 +76,8 @@ public class HomePageController implements Initializable{
 
 
     public void switchBox(MouseEvent event) throws IOException {
-
-            	new ChangeScene(homePageBorderPane, "/views/SearchPageScene.fxml");
-}
+            new ChangeScene(homePageBorderPane, "/views/SearchPageScene.fxml");
+    }
 
     
     private List<Book> getAllBooksFromDatabase() {
@@ -173,6 +172,11 @@ public class HomePageController implements Initializable{
 	public void switchtoUserInformation(MouseEvent e) throws IOException {
 		if(e.getSource() == user) {
 			new ChangeScene(homePageBorderPane, "/views/UserScene.fxml");
+		}
+	}
+	public void switchtoMyShelves(MouseEvent e) throws IOException {
+		if(e.getSource() == myShelves) {
+			new ChangeScene(homePageBorderPane, "/views/MyShelvesPageScene.fxml");
 		}
 	}
 	

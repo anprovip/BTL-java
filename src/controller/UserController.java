@@ -251,12 +251,15 @@ public class UserController implements Initializable{
     private void switchToProfile(MouseEvent event) {
         profileBox.setVisible(true);
         passwordBox.setVisible(false);
+        
+    	
     }
 
     @FXML
     private void switchToPassword(MouseEvent event) {
         profileBox.setVisible(false);
         passwordBox.setVisible(true);
+        
     }
 
 
@@ -267,5 +270,5 @@ public class UserController implements Initializable{
 		getUserInfo(currentUsername);
 		System.out.println(user.toString());
 	}
-	
+
 }
