@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import database.DAOBook;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -72,19 +73,14 @@ public class HomePageController implements Initializable{
     private int currentPage = 1;
     private List<Book> allBooks = new ArrayList<>();
     private List<Node> displayedBooks = new ArrayList<>();
-    
+
+
     public void switchBox(MouseEvent event) throws IOException {
-    	if(event.getSource() == search) {
-    		new ChangeScene(homePageBorderPane, "/views/SearchPageScene.fxml");
-    	}
-    	/*
-    	if(event.getSource() == myShelves) {
-    		homeBox.setVisible(false);
-    		searchBox.setVisible(false);
-    		myShelvesBox.setVisible(true);
-    	}
-    	*/
-    }
+
+            	new ChangeScene(homePageBorderPane, "/views/SearchPageScene.fxml");
+}
+
+    
     private List<Book> getAllBooksFromDatabase() {
     		return DAOBook.getInstance().selectAll();
     }
