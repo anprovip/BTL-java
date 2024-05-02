@@ -168,7 +168,10 @@ public class ShelfDetailController implements Initializable{
             popupStage.setScene(new Scene(root));
             popupStage.showAndWait();
             
-            
+            FXMLLoader myShelvesLoader = new FXMLLoader(getClass().getResource("/views/MyShelvesPageScene.fxml"));
+            Parent myShelvesRoot = myShelvesLoader.load();
+            MyShelvesPageController myShelvesController = myShelvesLoader.getController();
+            myShelvesController.reloadDataAndRefreshUI();
 
         } catch (IOException e) {
             e.printStackTrace();

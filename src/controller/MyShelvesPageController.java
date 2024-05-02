@@ -198,6 +198,22 @@ public class MyShelvesPageController implements Initializable{
 	    // Hiển thị lại sách trên giao diện
 	    int startIndex = (currentPage - 1) * itemsPerPage;
 	    showShelves(startIndex, itemsPerPage);
+	    
+	    // Hiển thị lại nút "Back" nếu cần
+	    if (currentPage > 1) {
+	        backButton.setDisable(false);
+	    } else {
+	        backButton.setDisable(true);
+	    }
+	    
+	    // Hiển thị lại nút "Next" nếu cần
+	    int remainingBooks = allShelves.size() - (currentPage * itemsPerPage);
+	    if (remainingBooks > 0) {
+	        nextButton.setDisable(false);
+	    } else {
+	        nextButton.setDisable(true);
+	    }
+	    
 	}
 
 }

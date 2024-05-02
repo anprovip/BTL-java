@@ -74,7 +74,12 @@ public class BookController {
      @FXML
      void onClickName(MouseEvent event) throws IOException {
     	 //new ChangeScene(bookBorderPane, "/views/BookDetailsScene.fxml");
-    	 Parent root = FXMLLoader.load(getClass().getResource("/views/BookDetailsScene.fxml"));
+    	 FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/BookDetailsScene.fxml"));
+    	 Parent root = loader.load();
+    	 BookDetailsController controller = loader.getController();
+         Book book = new Book();
+         book.setBookID(bookID.getText());
+         controller.setData(book);
     	 stage = (Stage)((Node)event.getSource()).getScene().getWindow();
     	 scene = new Scene(root, 1440, 900);
     	 stage.setScene(scene);

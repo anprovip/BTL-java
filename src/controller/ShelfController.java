@@ -74,6 +74,12 @@ public class ShelfController {
         }
     }
     @FXML
+    public void onMouseExitedDelete(MouseEvent event) throws IOException {
+        if (event.getSource() == deleteButton) {
+        	deleteButton.setOpacity(0.6);
+        }
+    }
+    @FXML
     void onClickShelf(MouseEvent event) throws IOException {
     	FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ShelfDetailsScene.fxml"));
         Parent root = loader.load();
