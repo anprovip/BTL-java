@@ -186,7 +186,7 @@ public class MyShelvesPageController implements Initializable{
             popupStage.setTitle("Add your Shelf");
 
             // Load nội dung từ file FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ShelfDialog.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/AddShelfPopup.fxml"));
             VBox root = loader.load();
 
             // Gán controller cho cửa sổ popup

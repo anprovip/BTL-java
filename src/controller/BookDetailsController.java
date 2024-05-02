@@ -259,7 +259,7 @@ public class BookDetailsController implements Initializable {
             popupStage.setTitle("Add your Shelf");
 
             // Load nội dung từ file FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ShelfDialog.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/AddShelfPopup.fxml"));
             VBox root = loader.load();
 
             // Gán controller cho cửa sổ popup
@@ -291,7 +291,7 @@ public class BookDetailsController implements Initializable {
 	            popupStage.initModality(Modality.APPLICATION_MODAL);
 	            popupStage.setTitle("Add your Book to Shelf");
 
-	            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/AddBookToShelfDialog.fxml"));
+	            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/AddBookToShelfPopup.fxml"));
 	            VBox root = loader.load();
 
 	            popupStage.setScene(new Scene(root));
