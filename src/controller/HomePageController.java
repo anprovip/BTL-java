@@ -14,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Pagination;
 import javafx.scene.control.ScrollPane;
@@ -22,6 +23,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import model.Book;
 import model.ChangeScene;
 
@@ -36,7 +39,11 @@ public class HomePageController implements Initializable{
 	
 	@FXML
     private HBox home;
+	
 
+    @FXML
+    private Button createButton;
+    
     @FXML
     private VBox homeBox;
 
@@ -179,6 +186,26 @@ public class HomePageController implements Initializable{
 			new ChangeScene(homePageBorderPane, "/views/MyShelvesPageScene.fxml");
 		}
 	}
-	
+	@FXML
+    public void onClickAdd(ActionEvent event) {
+		try {
+            // Tạo một Stage mới cho cửa sổ popup
+            Stage popupStage = new Stage();
+            popupStage.initModality(Modality.APPLICATION_MODAL);
+            popupStage.setTitle("Add your Shelf");
+
+            // Load nội dung từ file FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ShelfDialog.fxml"));
+            VBox root = loader.load();
+
+            // Gán controller cho cửa sổ popup
+            //AddShelfPopupController controller = loader.getController();
+            popupStage.setScene(new Scene(root));
+            popupStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+		
+    }
 	
 }

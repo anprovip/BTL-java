@@ -43,7 +43,7 @@
          <children>
             <VBox prefHeight="211.0" prefWidth="250.0" spacing="15.0">
                <children>
-                  <HBox fx:id="home" alignment="CENTER" onMouseClicked="#switchBox" prefHeight="50.0" prefWidth="200.0" spacing="15.0" stylesheets="@application2.css">
+                  <HBox fx:id="home" alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="15.0" stylesheets="@application2.css">
                      <children>
                         <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -104,7 +104,7 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="131.0" style="-fx-background-color: #FF5056;" styleClass="selected" stylesheets="@application.css" text="Create a shelf" textFill="WHITE">
+                        <Button fx:id="createButton" mnemonicParsing="false" onAction="#onClickAdd" prefHeight="31.0" prefWidth="131.0" style="-fx-background-color: #FF5056;" styleClass="selected" stylesheets="@application.css" text="Create a shelf" textFill="WHITE">
                            <font>
                               <Font name="Berlin Sans FB" size="16.0" />
                            </font>

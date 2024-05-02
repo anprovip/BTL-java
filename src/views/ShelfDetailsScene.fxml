@@ -7,7 +7,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -19,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="searchPageBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SearchPageController">
+<BorderPane fx:id="myShelvesPageBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ShelfDetailController">
    <top>
       <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="1315.0" spacing="20.0" styleClass="white-background" stylesheets="@application2.css" BorderPane.alignment="CENTER">
          <children>
@@ -44,11 +43,11 @@
          <children>
             <VBox prefHeight="211.0" prefWidth="250.0" spacing="15.0">
                <children>
-                  <HBox fx:id="home" alignment="CENTER" onMouseClicked="#switchBox" prefHeight="50.0" prefWidth="200.0" spacing="15.0" styleClass="mouse-moved" stylesheets="@application2.css">
+                  <HBox fx:id="home" alignment="CENTER" onMouseClicked="#switchtoHome" prefHeight="50.0" prefWidth="200.0" spacing="15.0" styleClass="mouse-moved" stylesheets="@application2.css">
                      <children>
                         <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../src/img/home.png" />
+                              <Image url="@../img/home.png" />
                            </image>
                         </ImageView>
                         <Label prefHeight="43.0" prefWidth="140.0" text="Home">
@@ -61,7 +60,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </HBox>
-                  <HBox fx:id="search" alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="15.0" stylesheets="@application2.css">
+                  <HBox fx:id="search" alignment="CENTER" onMouseClicked="#switchtoSearch" prefHeight="50.0" prefWidth="200.0" spacing="15.0" styleClass="mouse-moved" stylesheets="@application2.css">
                      <children>
                         <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -77,12 +76,8 @@
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
-                     <styleClass>
-                        <String fx:value="mouse-moved" />
-                        <String fx:value="selected" />
-                     </styleClass>
                   </HBox>
-                  <HBox fx:id="myShelves" alignment="CENTER" onMouseClicked="#switchtoMyShelves" prefHeight="50.0" prefWidth="200.0" spacing="15.0" styleClass="mouse-moved" stylesheets="@application2.css">
+                  <HBox fx:id="myShelves" alignment="CENTER" onMouseClicked="#switchtoMyShelves" prefHeight="50.0" prefWidth="200.0" spacing="15.0" stylesheets="@application2.css">
                      <children>
                         <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -98,6 +93,10 @@
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
+                     <styleClass>
+                        <String fx:value="mouse-moved" />
+                        <String fx:value="selected" />
+                     </styleClass>
                   </HBox>
                </children>
             </VBox>
@@ -148,75 +147,98 @@
    <center>
       <AnchorPane BorderPane.alignment="CENTER">
          <children>
-            <VBox prefHeight="716.8" prefWidth="1064.8" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <VBox alignment="TOP_CENTER" layoutX="133.0" layoutY="142.0" prefHeight="847.0" prefWidth="1190.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
                <children>
-                  <Label prefHeight="27.0" prefWidth="85.0" text="Search">
-                     <font>
-                        <Font name="Berlin Sans FB" size="24.0" />
-                     </font>
-                  </Label>
-                  <HBox fx:id="searchBox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="34.0" prefWidth="469.0" styleClass="round-layout" stylesheets="@application2.css">
+                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="41.0" prefWidth="1186.0" spacing="10.0">
                      <children>
-                        <TextField fx:id="searchTerm" onKeyPressed="#onPressedEnter" prefHeight="34.0" prefWidth="451.0" promptText="Title, author or ISBN" styleClass="transparent" stylesheets="@application2.css">
+                        <Label prefHeight="42.0" prefWidth="59.0" text="cover">
                            <font>
-                              <Font size="15.0" />
+                              <Font name="Berlin Sans FB" size="18.0" />
                            </font>
-                        </TextField>
-                        <ImageView fx:id="searchIcon" fitHeight="25.0" fitWidth="40.0" onMouseClicked="#onClickSearch" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../img/search.png" />
-                           </image>
-                        </ImageView>
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label prefHeight="42.0" prefWidth="42.0" text="title">
+                           <font>
+                              <Font name="Berlin Sans FB" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="80.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label prefHeight="42.0" prefWidth="67.0" text="author">
+                           <font>
+                              <Font name="Berlin Sans FB" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="250.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label prefHeight="42.0" prefWidth="96.0" text="avg rating">
+                           <font>
+                              <Font name="Berlin Sans FB" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="100.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label prefHeight="42.0" prefWidth="96.0" text="shelves">
+                           <font>
+                              <Font name="Berlin Sans FB" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="100.0" />
+                           </HBox.margin>
+                        </Label>
                      </children>
                   </HBox>
-                  <ScrollPane fx:id="scrollPane" prefHeight="326.0" prefWidth="1225.0" styleClass="transparent" stylesheets="@application2.css" VBox.vgrow="ALWAYS">
+                  <Separator prefWidth="200.0" style="-fx-background-color: #F6EDE4;" />
+                  <ScrollPane fx:id="shelfScrollPane" prefHeight="711.0" prefWidth="1186.0" styleClass="transparent" stylesheets="@application2.css">
                      <content>
-                        <GridPane fx:id="bookContainer">
+                        <GridPane fx:id="bookInShelfContainer">
                           <rowConstraints>
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                         </GridPane>
                      </content>
                   </ScrollPane>
-                  <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="20.0" prefWidth="1225.0" spacing="20.0">
+                  <HBox alignment="CENTER" prefHeight="57.0" prefWidth="1186.0" spacing="20.0">
                      <children>
-                        <Button fx:id="backButton" mnemonicParsing="false" onAction="#goBack" stylesheets="@application2.css" text="Back">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
+                        <Button fx:id="backButton" mnemonicParsing="false" stylesheets="@application2.css" text="Back">
                            <styleClass>
+                              <String fx:value="mouse-moved" />
                               <String fx:value="round-layout" />
                               <String fx:value="transparent" />
                               <String fx:value="white-background" />
-                              <String fx:value="mouse-moved" />
                            </styleClass>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </Button>
-                        <Button fx:id="loadMoreButton" mnemonicParsing="false" onAction="#loadMore" stylesheets="@application2.css" text="Next">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
+                        <Button fx:id="nextButton" mnemonicParsing="false" stylesheets="@application2.css" text="Next">
                            <styleClass>
+                              <String fx:value="mouse-moved" />
                               <String fx:value="round-layout" />
                               <String fx:value="transparent" />
                               <String fx:value="white-background" />
-                              <String fx:value="mouse-moved" />
                            </styleClass>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </Button>
                      </children>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                     <padding>
-                        <Insets top="10.0" />
-                     </padding>
                   </HBox>
                </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <padding>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-               </padding>
             </VBox>
          </children>
       </AnchorPane>

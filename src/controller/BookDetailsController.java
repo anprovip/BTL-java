@@ -9,11 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javax.swing.JOptionPane;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -26,11 +29,15 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import model.Book;
 import model.ChangeScene;
 import model.Review;
+import model.Shelf;
 import database.DAOBook;
 import database.DAOReview;
+import database.DAOShelf;
 
 public class BookDetailsController implements Initializable {
     
@@ -40,6 +47,9 @@ public class BookDetailsController implements Initializable {
     @FXML
     private Label authorName;
 
+    @FXML
+    private Label averageRating;
+    
     @FXML
     private Button backButton;
     
@@ -61,6 +71,10 @@ public class BookDetailsController implements Initializable {
     @FXML
     private HBox myShelves;
 
+
+    @FXML
+    private Button createButton;
+
     @FXML
     private Button nextButton;
 
@@ -80,6 +94,12 @@ public class BookDetailsController implements Initializable {
     private Button addButton;
     
     @FXML
+    private ImageView editButton;
+    
+    @FXML
+    private Label createDefaultShelf;
+    
+    @FXML
     private ChoiceBox<String> userRate;
     private String[] rating = {"1 Star", "2 Stars","3 Stars","4 Stars","5 Stars"};
     private final int itemsPerPage = 5;
@@ -87,11 +107,14 @@ public class BookDetailsController implements Initializable {
     private List<Review> allReviews = new ArrayList<>();
     private List<Review> recentlyAdded;
 
+    public static Book currentBook;
 
-    public void setData(Book book) {
+
+	public void setData(Book book) {
     	nextButton.setDisable(false);
     	BookID.setText(book.getBookID());
         System.out.println("Nhận được dữ liệu khi click: " + book.getBookID());
+        currentBook = book;
         book = DAOBook.getInstance().selectByID(book);
         recentlyAdded = DAOReview.getInstance().selectByCondition(book.getBookID());
         System.out.println(recentlyAdded.size());
@@ -102,6 +125,7 @@ public class BookDetailsController implements Initializable {
         if (book != null) {
             bookName.setText(book.getName());
             authorName.setText(book.getAuthor());
+            averageRating.setText(Float.toString(book.getAverageRating()));
             Blob imageBlob = book.getImageBook();
             if (imageBlob != null) {
                 try {
@@ -125,19 +149,19 @@ public class BookDetailsController implements Initializable {
     void onClickAdd(MouseEvent event) {
         String reviewText = reviewTextField.getText();
         
-
         if (!reviewText.isEmpty()) {
             // Tạo đối tượng Review từ dữ liệu nhập vào
             Review review = new Review();
             review.setISBN(BookID.getText());
             review.setReviewText(reviewText);
             review.setRating((int)userRate.getValue().charAt(0)-48);
-
+            
             DAOReview.getInstance().insert(review);
-
+            JOptionPane.showMessageDialog(null, "Add review successfully!");
             System.out.println("co update binh luan khong?");
+            
         } else {
-            // Xử lý khi dữ liệu nhập vào không hợp lệ
+        	JOptionPane.showMessageDialog(null, "Please make sure you do not leave the review blank!");
         }
     }
 
@@ -145,6 +169,7 @@ public class BookDetailsController implements Initializable {
     @FXML
     void onClickHome(MouseEvent event) throws IOException {
     	new ChangeScene(DBookBorderPane, "/views/HomePageScene.fxml");
+    	
     }
 
     @FXML
@@ -156,6 +181,11 @@ public class BookDetailsController implements Initializable {
     void onClickUser(MouseEvent event) throws IOException {
     	new ChangeScene(DBookBorderPane, "/views/UserScene.fxml");
     }
+    public void switchtoMyShelves(MouseEvent e) throws IOException {
+		if(e.getSource() == myShelves) {
+			new ChangeScene(DBookBorderPane, "/views/MyShelvesPageScene.fxml");
+		}
+	}
 
 	private void showReviews(int startIndex, int count) {
         reviewContainer.getChildren().clear(); // Xóa các sách hiện tại trước khi hiển thị sách mới
@@ -213,8 +243,60 @@ public class BookDetailsController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		
+		nextButton.setOnAction(this::loadMore);
+	    backButton.setOnAction(this::goBack);
+	    backButton.setDisable(true);
 		userRate.getItems().addAll(rating);
 	}
-    
+	@FXML
+    public void onClickAddShelf(ActionEvent event) {
+		try {
+            // Tạo một Stage mới cho cửa sổ popup
+            Stage popupStage = new Stage();
+            popupStage.initModality(Modality.APPLICATION_MODAL);
+            popupStage.setTitle("Add your Shelf");
+
+            // Load nội dung từ file FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ShelfDialog.fxml"));
+            VBox root = loader.load();
+
+            // Gán controller cho cửa sổ popup
+            //AddShelfPopupController controller = loader.getController();
+            popupStage.setScene(new Scene(root));
+            popupStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+		
+    }
+	@FXML
+    public void onClickAddShelfDefault(MouseEvent event) {
+		if(event.getSource() == createDefaultShelf) {
+			Shelf shelf = new Shelf();
+    		shelf.setShelfName("Want-to-read");
+    		shelf.setBookID(currentBook.getBookID());
+    		DAOShelf.getInstance().insert(shelf);
+    		
+		}
+    }
+	@FXML
+    public void onClickAddChoice(MouseEvent event) {
+		if(event.getSource() == editButton) {
+			try {
+
+	            Stage popupStage = new Stage();
+	            popupStage.initModality(Modality.APPLICATION_MODAL);
+	            popupStage.setTitle("Add your Book to Shelf");
+
+	            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/AddBookToShelfDialog.fxml"));
+	            VBox root = loader.load();
+
+	            popupStage.setScene(new Scene(root));
+	            popupStage.showAndWait();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+		}
+    }
+	
 }

@@ -57,7 +57,7 @@ public class BookController {
     } 
     @FXML
     void onClickImage(MouseEvent event) throws IOException {
-
+    	
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/BookDetailsScene.fxml"));
         Parent root = loader.load();
         BookDetailsController controller = loader.getController();

@@ -5,7 +5,7 @@
 	-fx-background-color: #F6EDE4;
 }
 .button{
-	-fx-background-color: #242551;
+	-fx-background-color: #03AC13;
 	-fx-background-radius: 30;
 }
 .text-input{
@@ -21,4 +21,8 @@
 }
 .selected:hover{
 	-fx-background-color: #F6EDE4;
+}
+.button:hover {
+    -fx-background-color: #001a00; /* Màu nền khi hover */
+    -fx-text-fill: white; /* Màu chữ khi hover */
 }

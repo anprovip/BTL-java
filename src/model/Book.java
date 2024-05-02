@@ -9,10 +9,12 @@ public class Book {
 	private String author;
 	private Blob imageBook;
 	private int publishDate;
+	private float averageRating;
+	private String shelfName;
 	
 	
 
-	public Book(String bookID, String name, String imageSrc, String author, Blob imageBook, int publishDate) {
+	public Book(String bookID, String name, String imageSrc, String author, Blob imageBook, int publishDate, float averageRating, String shelfName) {
 		super();
 		this.bookID = bookID;
 		this.name = name;
@@ -20,6 +22,8 @@ public class Book {
 		this.author = author;
 		this.imageBook = imageBook;
 		this.publishDate = publishDate;
+		this.averageRating = averageRating;
+		this.shelfName = shelfName;
 	}
 	
 	public Book() {super();}
@@ -70,10 +74,24 @@ public class Book {
 
 	public void setPublishDate(int publishDate) {
 		this.publishDate = publishDate;
-	};
-	
-	
-	
+	}
+
+	public float getAverageRating() {
+		return averageRating;
+	}
+
+	public void setAverageRating(float averageRating) {
+		this.averageRating = averageRating;
+	}
+
+	public String getShelfName() {
+		return shelfName;
+	}
+
+	public void setShelfName(String shelfName) {
+		this.shelfName = shelfName;
+	}
+
 	
 	
 }

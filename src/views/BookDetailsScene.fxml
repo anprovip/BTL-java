@@ -78,7 +78,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </HBox>
-                  <HBox fx:id="myShelves" alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="15.0" styleClass="mouse-moved" stylesheets="@application2.css">
+                  <HBox fx:id="myShelves" alignment="CENTER" onMouseClicked="#switchtoMyShelves" prefHeight="50.0" prefWidth="200.0" spacing="15.0" styleClass="mouse-moved" stylesheets="@application2.css">
                      <children>
                         <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -101,7 +101,7 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="131.0" style="-fx-background-color: #FF5056;" styleClass="selected" stylesheets="@application.css" text="Create a shelf" textFill="WHITE">
+                        <Button fx:id="createButton" mnemonicParsing="false" onAction="#onClickAddShelf" prefHeight="31.0" prefWidth="131.0" style="-fx-background-color: #FF5056;" styleClass="selected" stylesheets="@application.css" text="Create a shelf" textFill="WHITE">
                            <font>
                               <Font name="Berlin Sans FB" size="16.0" />
                            </font>
@@ -184,25 +184,46 @@
                                           <Insets left="10.0" />
                                        </padding>
                                     </Label>
-                                    <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="916.0">
+                                    <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="42.0" prefWidth="916.0">
                                        <children>
-                                          <Label prefHeight="33.0" prefWidth="175.0" style="-fx-background-color: #03AC13;" styleClass="button" stylesheets="@application3.css" text="Want to read" textAlignment="CENTER" textFill="WHITE" textOverrun="CENTER_WORD_ELLIPSIS">
-                                             <font>
-                                                <Font name="Berlin Sans FB" size="18.0" />
-                                             </font>
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                          </Label>
-                                          <Label prefHeight="32.0" prefWidth="59.0" text="     5" textAlignment="RIGHT">
+                                          <HBox alignment="CENTER_LEFT" prefHeight="42.0" prefWidth="217.0">
+                                             <children>
+                                                <Label fx:id="createDefaultShelf" onMouseClicked="#onClickAddShelfDefault" prefHeight="33.0" prefWidth="175.0" styleClass="button" stylesheets="@application3.css" text="Want to read" textAlignment="CENTER" textFill="WHITE" textOverrun="CENTER_WORD_ELLIPSIS">
+                                                   <font>
+                                                      <Font name="Berlin Sans FB" size="18.0" />
+                                                   </font>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </Label>
+                                                <ImageView fx:id="editButton" fitHeight="26.0" fitWidth="29.0" onMouseClicked="#onClickAddChoice" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../img/pen.png" />
+                                                   </image>
+                                                   <HBox.margin>
+                                                      <Insets left="8.0" />
+                                                   </HBox.margin>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </ImageView>
+                                             </children>
+                                          </HBox>
+                                          <Label fx:id="averageRating" prefHeight="32.0" prefWidth="42.0" text="     5" textAlignment="RIGHT">
                                              <font>
                                                 <Font name="Berlin Sans FB" size="24.0" />
                                              </font>
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
                                           </Label>
-                                          <ImageView fitHeight="34.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="24.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@../img/rating.png" />
+                                                <Image url="@../img/star.png" />
                                              </image>
+                                             <HBox.margin>
+                                                <Insets left="5.0" top="5.0" />
+                                             </HBox.margin>
                                           </ImageView>
                                           <Label fx:id="BookID" prefHeight="31.0" prefWidth="169.0" text="ISBN:">
                                              <HBox.margin>

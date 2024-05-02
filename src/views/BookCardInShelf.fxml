@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="1186.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BookInShelfController">
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="238.0" prefWidth="1186.0">
+               <children>
+                  <ImageView fx:id="bookImage" fitHeight="190.0" fitWidth="130.0" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
+                     <image>
+                        <Image url="@../img/book9.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="bookName" alignment="TOP_LEFT" prefHeight="236.0" prefWidth="290.0" text="Bakemonogatari" wrapText="true">
+                     <HBox.margin>
+                        <Insets left="8.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Tahoma" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="authorName" alignment="TOP_LEFT" prefHeight="236.0" prefWidth="165.0" text="Nisio Isin" wrapText="true">
+                     <HBox.margin>
+                        <Insets left="2.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <HBox prefHeight="100.0" prefWidth="195.0">
+                     <HBox.margin>
+                        <Insets left="2.0" />
+                     </HBox.margin>
+                     <children>
+                        <Label fx:id="averageRating" text="4.3">
+                           <font>
+                              <Font name="Tahoma" size="16.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets top="2.0" />
+                           </HBox.margin>
+                        </Label>
+                        <ImageView fitHeight="21.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets left="8.0" />
+                           </HBox.margin>
+                           <image>
+                              <Image url="@../img/star.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <Label fx:id="shelfNameDetail" alignment="TOP_LEFT" prefHeight="236.0" prefWidth="239.0" text="Want-to-read" wrapText="true">
+                     <HBox.margin>
+                        <Insets left="1.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <ImageView fx:id="deleteButton" fitHeight="24.0" fitWidth="24.0" onMouseClicked="#onClickImage" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/close.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="70.0" top="1.0" />
+                     </HBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </children>
+            </HBox>
+            <Separator opacity="0.7" prefWidth="200.0" style="-fx-background-color: #F6EDE4;" />
+         </children>
+      </VBox>
+   </center>
+</BorderPane>

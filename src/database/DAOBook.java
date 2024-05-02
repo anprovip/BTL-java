@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import javax.sql.rowset.serial.SerialBlob;
 
 import model.Book;
+import model.User;
 
 public class DAOBook implements DAOInterface<Book> {
 	
@@ -131,6 +132,7 @@ public class DAOBook implements DAOInterface<Book> {
 			    book.setName(rs.getString("book_title"));
 			    book.setAuthor(rs.getString("author_name"));
 			    book.setBookID(rs.getString("isbn"));
+			    book.setAverageRating(rs.getFloat("average_rating"));
 			    // Đọc dữ liệu ảnh từ cột "book_image"
 			    Blob imageBlob = rs.getBlob("book_image");
 			    if (imageBlob != null) {
@@ -168,6 +170,7 @@ public class DAOBook implements DAOInterface<Book> {
 	            book.setName(rs.getString("book_title"));
 	            book.setAuthor(rs.getString("author_name"));
 	            book.setBookID(rs.getString("isbn"));
+	            book.setAverageRating(rs.getFloat("average_rating"));
 	            // Đọc dữ liệu ảnh từ cột "book_image"
 	            Blob imageBlob = rs.getBlob("book_image");
 	            if (imageBlob != null) {
@@ -183,7 +186,7 @@ public class DAOBook implements DAOInterface<Book> {
 	    }
 	    return book;
 	}
-
+	
 
 	@Override
 	public ArrayList<Book> selectByCondition(String condition) {
@@ -228,7 +231,51 @@ public class DAOBook implements DAOInterface<Book> {
 		return listBook;
 		
 	}
-	
+	public ArrayList<Book> selectByShelfName(String condition1, long condition2) {
+		ArrayList<Book> listBook = new ArrayList<Book>();
+		
+		try {
+			Connection connection = JDBCUtil.getConnection();
+			String sql = "SELECT book.*, shelf_name, author_name FROM book " +
+		             "JOIN book_author ON book.isbn = book_author.isbn " +
+		             "JOIN author ON book_author.author_id = author.author_id " +
+		             "JOIN shelf ON shelf.isbn = book.isbn " + // Thêm khoảng trắng ở đây
+		             "WHERE shelf.shelf_name = ? AND shelf.user_id = ?";
+
+	            PreparedStatement statement = connection.prepareStatement(sql);
+	            statement.setString(1, condition1);
+	            statement.setLong(2, condition2);
+	            
+	            ResultSet rs = statement.executeQuery();
+	            while(rs.next()) {
+			    Book book = new Book();
+			    book.setName(rs.getString("book_title"));
+			    book.setAuthor(rs.getString("author_name"));
+			    book.setBookID(rs.getString("isbn"));
+			    book.setAverageRating(rs.getFloat("average_rating"));
+			    book.setShelfName(rs.getString("shelf_name"));
+			    // Đọc dữ liệu ảnh từ cột "book_image"
+			    Blob imageBlob = rs.getBlob("book_image");
+			    if (imageBlob != null) {
+			        // Chuyển đổi Blob thành mảng byte
+			        byte[] imageData = imageBlob.getBytes(1, (int) imageBlob.length());
+			        
+			        // Lưu dữ liệu ảnh vào thuộc tính imageBook của đối tượng Book
+			        book.setImageBook(new SerialBlob(imageData));
+			    }
+			    
+			    listBook.add(book);
+			}
+			JDBCUtil.closeConnection(connection);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		
+		
+		return listBook;
+		
+	}
 	
 	
 }

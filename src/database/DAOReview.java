@@ -34,7 +34,7 @@ public class DAOReview implements DAOInterface<Review>{
 		        PreparedStatement statement = connection.prepareStatement(sql);
 		        statement.setString(1, review.getReviewText());
 		        statement.setFloat(2, review.getRating());
-		        statement.setInt(3,userId );
+		        statement.setInt(3, userId);
 		        statement.setString(4, review.getISBN());
 		        
 		        int rowsInserted = statement.executeUpdate();

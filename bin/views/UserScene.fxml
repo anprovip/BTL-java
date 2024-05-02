@@ -28,7 +28,7 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </ImageView>
-                  <Label prefHeight="38.0" prefWidth="203.0" text="Back" textFill="WHITE">
+                  <Label prefHeight="38.0" prefWidth="203.0" text="Back">
                      <font>
                         <Font size="18.0" />
                      </font>
