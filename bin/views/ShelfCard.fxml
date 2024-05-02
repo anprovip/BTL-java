@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="190.0" prefWidth="330.0" stylesheets="@application2.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ShelfController">
+   <center>
+      <VBox fx:id="ShelfCardBox" alignment="CENTER" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" prefHeight="200.0" prefWidth="315.0" spacing="10.0" style="-fx-background-radius: 10;" stylesheets="@application2.css" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="340.0" onMouseClicked="#onClickShelf" opacity="0.73" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/shelfImage.png" />
+               </image>
+               <VBox.margin>
+                  <Insets left="8.0" top="5.0" />
+               </VBox.margin>
+            </ImageView>
+            <HBox>
+               <children>
+                  <ImageView fitHeight="23.0" fitWidth="32.0" onMouseClicked="#onClickShelf" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/list.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="9.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Label fx:id="shelfName" onMouseClicked="#onClickShelf" prefHeight="22.0" prefWidth="169.0" text="Want-to-read">
+                     <font>
+                        <Font name="Berlin Sans FB" size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                     <padding>
+                        <Insets top="1.0" />
+                     </padding>
+                  </Label>
+                  <ImageView fx:id="deleteButton" disable="true" fitHeight="24.0" fitWidth="24.0" onMouseClicked="#onClickImage" onMouseEntered="#onMouseEnteredDelete" onMouseExited="#onMouseExitedDelete" opacity="0.5" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <HBox.margin>
+                        <Insets left="90.0" />
+                     </HBox.margin>
+                     <image>
+                        <Image url="@../img/recycle-bin.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+         <styleClass>
+            <String fx:value="white-background" />
+            <String fx:value="shadow" />
+         </styleClass>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </VBox>
+   </center>
+</BorderPane>
