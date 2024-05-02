@@ -73,7 +73,11 @@ public class MyShelvesPageController implements Initializable{
     private List<Shelf> allShelves = new ArrayList<>();
     private List<Node> displayedShelves = new ArrayList<>();
     
+    private static MyShelvesPageController instance;
     
+    public static MyShelvesPageController getInstance() {
+        return instance;
+    }
     
     private List<Shelf> getAllShelvesFromDatabase(User user) {
 			return DAOShelf.getInstance().selectByCondition(Long.toString(user.getUserId()));
@@ -93,9 +97,16 @@ public class MyShelvesPageController implements Initializable{
     	    allShelves.addAll(recentlyAddedShelf); // Sử dụng danh sách sách từ cơ sở dữ liệu
     	    if(allShelves.size()<=itemsPerPage) nextButton.setDisable(true);
 			showShelves(0, itemsPerPage); // Hiển thị các cuốn sách ban đầu
+			reloadDataAndRefreshUI();
+			instance = this;
+			
     }
     
     private void showShelves(int startIndex, int count) {
+    	if (shelfContainer == null) {
+            System.err.println("Error: shelfContainer is null.");
+            return;
+        }
     	shelfContainer.getChildren().clear(); // Xóa các sách hiện tại trước khi hiển thị sách mới
         int column = 0;
         int row = 1;
@@ -183,6 +194,7 @@ public class MyShelvesPageController implements Initializable{
             
             popupStage.setScene(new Scene(root));
             popupStage.showAndWait();
+            
             reloadDataAndRefreshUI();
         } catch (IOException e) {
             e.printStackTrace();
@@ -215,6 +227,7 @@ public class MyShelvesPageController implements Initializable{
 	    }
 	    
 	}
+
 
 }
 

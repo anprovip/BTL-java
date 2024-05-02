@@ -75,13 +75,14 @@ public class HomePageController implements Initializable{
     
     @FXML
     private BorderPane homePageBorderPane;
-    
+    @FXML
+    private MyShelvesPageController myShelvesPageController;
     private final int itemsPerPage = 10;
     private int currentPage = 1;
     private List<Book> allBooks = new ArrayList<>();
     private List<Node> displayedBooks = new ArrayList<>();
 
-
+    
     public void switchBox(MouseEvent event) throws IOException {
             new ChangeScene(homePageBorderPane, "/views/SearchPageScene.fxml");
     }
@@ -93,14 +94,16 @@ public class HomePageController implements Initializable{
 
     	@Override
     	public void initialize(URL arg0, ResourceBundle arg1) {
+    		myShelvesPageController = MyShelvesPageController.getInstance();
+    		
+
     	    recentlyAdded = new ArrayList<>(getAllBooksFromDatabase()); // Thay đổi cách lấy danh sách sách
     	    new ArrayList<>(getAllBooksFromDatabase());
-
+    	    
     	    // Thêm sự kiện cho nút "Xem thêm"
     	    loadMoreButton.setOnAction(this::loadMore);
     	    backButton.setOnAction(this::goBack);
     	    backButton.setDisable(true); // Vô hiệu hóa nút "Back" khi chưa có gì để quay lại
-
     	    try {
     	        for (Book value : recentlyAdded) {
     	            FXMLLoader loader = new FXMLLoader();
@@ -116,6 +119,7 @@ public class HomePageController implements Initializable{
     	    } catch (IOException e) {
     	        e.printStackTrace();
     	    }
+    	    
     }
     
     private void showBooks(int startIndex, int count) {
@@ -202,6 +206,9 @@ public class HomePageController implements Initializable{
             //AddShelfPopupController controller = loader.getController();
             popupStage.setScene(new Scene(root));
             popupStage.showAndWait();
+            myShelvesPageController = MyShelvesPageController.getInstance();
+            myShelvesPageController.reloadDataAndRefreshUI();
+            
         } catch (IOException e) {
             e.printStackTrace();
         }

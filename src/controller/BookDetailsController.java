@@ -108,7 +108,8 @@ public class BookDetailsController implements Initializable {
     private List<Review> recentlyAdded;
 
     public static Book currentBook;
-
+    @FXML
+    private MyShelvesPageController myShelvesPageController;
 
 	public void setData(Book book) {
     	nextButton.setDisable(false);
@@ -247,6 +248,7 @@ public class BookDetailsController implements Initializable {
 	    backButton.setOnAction(this::goBack);
 	    backButton.setDisable(true);
 		userRate.getItems().addAll(rating);
+		myShelvesPageController = MyShelvesPageController.getInstance();
 	}
 	@FXML
     public void onClickAddShelf(ActionEvent event) {
@@ -264,6 +266,7 @@ public class BookDetailsController implements Initializable {
             //AddShelfPopupController controller = loader.getController();
             popupStage.setScene(new Scene(root));
             popupStage.showAndWait();
+            myShelvesPageController.reloadDataAndRefreshUI();
         } catch (IOException e) {
             e.printStackTrace();
         }

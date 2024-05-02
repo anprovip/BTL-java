@@ -87,6 +87,8 @@ public class SearchPageController implements Initializable{
     
     @FXML
     private BorderPane searchPageBorderPane;
+    @FXML
+    private MyShelvesPageController myShelvesPageController;
     
     private final int itemsPerPage = 10;
     private int currentPage = 1;
@@ -114,6 +116,7 @@ public class SearchPageController implements Initializable{
 
     	    allBooks.addAll(listBook);
 			showBooks(0, itemsPerPage); 
+			myShelvesPageController = MyShelvesPageController.getInstance();
     }
     
     private void showBooks(int startIndex, int count) {
@@ -227,6 +230,7 @@ public class SearchPageController implements Initializable{
             //AddShelfPopupController controller = loader.getController();
             popupStage.setScene(new Scene(root));
             popupStage.showAndWait();
+            myShelvesPageController.reloadDataAndRefreshUI();
         } catch (IOException e) {
             e.printStackTrace();
         }

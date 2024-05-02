@@ -72,6 +72,8 @@ public class ShelfDetailController implements Initializable{
 
     @FXML
     private HBox user;
+    @FXML
+    private MyShelvesPageController myShelvesPageController;
     
     private final int itemsPerPage = 5;
     private int currentPage = 1;
@@ -167,12 +169,8 @@ public class ShelfDetailController implements Initializable{
             //AddShelfPopupController controller = loader.getController();
             popupStage.setScene(new Scene(root));
             popupStage.showAndWait();
+            myShelvesPageController.reloadDataAndRefreshUI();
             
-            FXMLLoader myShelvesLoader = new FXMLLoader(getClass().getResource("/views/MyShelvesPageScene.fxml"));
-            Parent myShelvesRoot = myShelvesLoader.load();
-            MyShelvesPageController myShelvesController = myShelvesLoader.getController();
-            myShelvesController.reloadDataAndRefreshUI();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -201,6 +199,6 @@ public class ShelfDetailController implements Initializable{
 		nextButton.setOnAction(this::loadMore);
 	    backButton.setOnAction(this::goBack);
 	    backButton.setDisable(true);
-		
+	    myShelvesPageController = MyShelvesPageController.getInstance();
 	}
 }
