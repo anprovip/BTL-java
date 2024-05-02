@@ -13,12 +13,12 @@
    <children>
       <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="170.0" prefWidth="121.0">
          <children>
-            <ImageView fx:id="userImage" fitHeight="68.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="userImage" fitHeight="68.0" fitWidth="68.0" onMouseClicked="#onClickImage" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../img/steak.png" />
                </image>
             </ImageView>
-            <Label fx:id="userId" />
+            <Label fx:id="userId" prefHeight="17.0" prefWidth="0.0" />
             <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                <HBox.margin>
                   <Insets left="20.0" top="15.0" />
@@ -31,7 +31,7 @@
       </HBox>
       <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="180.0" prefWidth="926.0" style="-fx-border-color: #d1d1e0;" stylesheets="@application2.css">
          <children>
-            <Label fx:id="username" prefHeight="35.0" prefWidth="200.0" text="DaoDitTienTruong">
+            <Label fx:id="username" prefHeight="35.0" prefWidth="200.0" text="HelloHello">
                <font>
                   <Font name="Berlin Sans FB Demi Bold" size="16.0" />
                </font>
@@ -57,7 +57,7 @@
                </padding>
             </HBox>
             <Separator prefWidth="200.0" />
-            <Label fx:id="reviewText" alignment="TOP_LEFT" prefHeight="99.0" prefWidth="926.0" text="Truyện hay vl." wrapText="true">
+            <Label fx:id="reviewText" alignment="TOP_LEFT" prefHeight="99.0" prefWidth="926.0" text="Truyện hay !" wrapText="true">
                <font>
                   <Font size="14.0" />
                </font>

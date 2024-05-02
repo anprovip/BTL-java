@@ -5,9 +5,15 @@ import java.sql.Blob;
 import java.sql.SQLException;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.*;
 import model.Book;
 import model.Review;
 
@@ -49,4 +55,20 @@ public class ReviewController {
             }
         }
     }
+    
+
+    @FXML
+    void onClickImage(MouseEvent event) {
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/BookDetailsScene.fxml"));
+        Parent root = loader.load();
+        //BookDetailsController controller = loader.getController();
+        //Book book = new Book();
+        //book.setBookID(bookID.getText());
+        //controller.setData(book);
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root, 1440, 900);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
 }
