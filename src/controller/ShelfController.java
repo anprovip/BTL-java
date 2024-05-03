@@ -44,6 +44,9 @@ public class ShelfController {
     private Shelf currentShelf;
     @FXML
     private HBox user;
+    @FXML
+    private MyShelvesPageController myShelvesPageController;
+    
     public void setData(Shelf shelf) {
         shelfName.setText(shelf.getShelfName());
         shelf.setUserID(User.getInstance().getUserId());
@@ -101,7 +104,8 @@ public class ShelfController {
             	int dialogResult = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this shelf?", "Delete this shelf.", JOptionPane.YES_NO_OPTION);
             	if(dialogResult == JOptionPane.YES_OPTION) {
             		DAOShelf.getInstance().delete(currentShelf);
-            		
+            		myShelvesPageController = MyShelvesPageController.getInstance();
+                    myShelvesPageController.reloadDataAndRefreshUI();
             	}
             } else {
                 // Xử lý khi không có tủ sách hiện tại

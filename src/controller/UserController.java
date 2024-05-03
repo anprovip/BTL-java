@@ -119,10 +119,19 @@ public class UserController implements Initializable{
     
     @FXML
     private BorderPane userBorderPane;
+    private LoginController loginController;
+    
+    private static UserController instance;
+    
+    public static UserController getInstance() {
+        return instance;
+    }
     
     DAOUser daoUser = DAOUser.getInstance();
     User user = User.getInstance();
-	
+    @FXML
+    private MyShelvesPageController myShelvesPageController;
+    
     public void switchToHome(MouseEvent e) throws IOException {
     	if(e.getSource() == backBox) {
     		new ChangeScene(userBorderPane, "/views/HomePageScene.fxml");
@@ -131,8 +140,13 @@ public class UserController implements Initializable{
     }
     public void switchToLogin(MouseEvent e) throws IOException {
     	if(e.getSource() == logoutBox) {
+    		
     		int choice = JOptionPane.showConfirmDialog(null, "Do you want to log out?", "Log Out", JOptionPane.YES_NO_OPTION);
     		if(choice == JOptionPane.YES_OPTION) {
+    			loginController = LoginController.getInstance();
+    			loginController.resetApp();
+    			User.getInstance().clearUserData();
+    			myShelvesPageController.reloadDataAndRefreshUI();
     			new ChangeScene(userBorderPane, "/views/LoginScene.fxml");
     		}
     	}
@@ -170,7 +184,7 @@ public class UserController implements Initializable{
     }
 
     
-    private void getUserInfo(String currentUsername) {
+    public void getUserInfo(String currentUsername) {
         User user = daoUser.selectByUsername(currentUsername);
 
         if (user != null) {
@@ -261,14 +275,29 @@ public class UserController implements Initializable{
         passwordBox.setVisible(true);
         
     }
-
+    
+    public void reloadDataAndRefreshUI() {
+        // Lấy lại thông tin người dùng từ cơ sở dữ liệu
+    	
+        String currentUsername = user.getUsername();
+        getUserInfo(currentUsername);
+        
+        // Cập nhật thông tin người dùng trên giao diện
+        emailInfo.setText(user.getEmail());
+        phoneInfo.setText(user.getPhoneNumber());
+        
+        System.out.println("User data reloaded and UI refreshed.");
+    }
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		
-		String currentUsername = user.getUsername();
+		loginController = LoginController.getInstance();
+		myShelvesPageController = MyShelvesPageController.getInstance();
+		String currentUsername = User.getInstance().getUsername();
 		getUserInfo(currentUsername);
 		System.out.println(user.toString());
+		instance = this;
+		
 	}
 
 }

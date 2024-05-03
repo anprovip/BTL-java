@@ -71,7 +71,15 @@ public class User {
 		return "User [userId=" + userId + ", username=" + username + ", password=" + password + ", email=" + email
 				+ ", phoneNumber=" + phoneNumber + ", imageUser=" + imageUser + ", imageSrc=" + imageSrc + "]";
 	}
-
+	public void clearUserData() {
+        setUsername(null);
+        setPassword(null);
+        setEmail(null);
+        setPhoneNumber(null);
+        setImageUser(null);
+        setUserId(-1);
+        // Xóa dữ liệu khác nếu cần
+    }
 	
     
 }

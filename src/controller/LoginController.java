@@ -3,11 +3,15 @@ package controller;
 import java.awt.HeadlessException;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import javax.swing.JOptionPane;
 
 import database.DAOUser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -22,7 +26,7 @@ import javafx.stage.Stage;
 import model.ChangeScene;
 import model.User;
 
-public class LoginController {
+public class LoginController implements Initializable{
 	
     @FXML
     private BorderPane loginBorderPane;
@@ -133,6 +137,16 @@ public class LoginController {
 		this.su_username = su_username;
 	}
 	private User newUser = new User();
+	private static LoginController instance;
+    
+    public static LoginController getInstance() {
+        return instance;
+    }
+    @FXML
+    private MyShelvesPageController myShelvesPageController;
+    @FXML
+    private UserController userController;
+    
 	@FXML
 	public void onClickChooseAvatar(ActionEvent event) {
 	    FileChooser fileChooser = new FileChooser();
@@ -156,6 +170,14 @@ public class LoginController {
         if(daoUser.selectByUsernameAndPassword(username.getText(), password.getText())) {
         	JOptionPane.showMessageDialog(null, "Login successfully", "Admin Message", JOptionPane.INFORMATION_MESSAGE);
 		    new ChangeScene(loginBorderPane, "/views/HomePageScene.fxml");
+		    if (myShelvesPageController != null) {
+	            myShelvesPageController.reloadDataAndRefreshUI();
+	        }
+		    userController = UserController.getInstance();
+            if (userController != null) {
+                userController.reloadDataAndRefreshUI();
+                userController.getUserInfo(username.getText());
+            }
 		} else {
 		    JOptionPane.showMessageDialog(null, "Wrong username or password. Please enter again.", "Admin Message", JOptionPane.ERROR_MESSAGE);
 		}
@@ -198,10 +220,24 @@ public class LoginController {
         		} else {
         		    JOptionPane.showMessageDialog(null, "Wrong username or password. Please enter again.", "Admin Message", JOptionPane.ERROR_MESSAGE);
         		}
-                }
+             }
              catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
+    public void resetApp() {
+        // Đặt lại trạng thái ban đầu của các trường nhập liệu và nhãn
+        username.setText("");
+        password.setText("");
+        // Các dòng code khác để đặt lại trạng thái ban đầu của các thành phần giao diện khác ở đây (nếu cần)
+    }
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		instance = this;
+		
+		myShelvesPageController = MyShelvesPageController.getInstance();
+	}
+
 }
