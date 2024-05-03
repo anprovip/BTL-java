@@ -145,7 +145,25 @@
                               <Font name="Bell MT" size="24.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="su_username" prefHeight="31.0" prefWidth="320.0" stylesheets="@application.css">
+                        <TextField fx:id="su_username" prefHeight="31.0" prefWidth="320.0" promptText="Enter your name to log in" stylesheets="@application.css">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <styleClass>
+                              <String fx:value="transparent" />
+                              <String fx:value="custom-text-field" />
+                           </styleClass>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="200.0" styleClass="input" stylesheets="@application.css">
+                     <children>
+                        <Label prefHeight="30.0" prefWidth="138.0" text="D Name" textFill="#9cbfdd">
+                           <font>
+                              <Font name="Bell MT" size="24.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="su_displayName" prefHeight="31.0" prefWidth="320.0" promptText="Enter a name to display" stylesheets="@application.css">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -163,7 +181,7 @@
                               <Font name="Bell MT" size="24.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="su_email" prefHeight="31.0" prefWidth="320.0" stylesheets="@application.css">
+                        <TextField fx:id="su_email" prefHeight="31.0" prefWidth="320.0" promptText="Please enter your email" stylesheets="@application.css">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -181,7 +199,7 @@
                               <Font name="Bell MT" size="24.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="su_phone" prefHeight="31.0" prefWidth="320.0" stylesheets="@application.css">
+                        <TextField fx:id="su_phone" prefHeight="31.0" prefWidth="320.0" promptText="Please enter your phone number" stylesheets="@application.css">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -199,7 +217,7 @@
                               <Font name="Bell MT" size="24.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="su_password" prefHeight="31.0" prefWidth="320.0" stylesheets="@application.css">
+                        <TextField fx:id="su_password" prefHeight="31.0" prefWidth="320.0" promptText="Please enter a password" stylesheets="@application.css">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -217,7 +235,7 @@
                               <Font name="Bell MT" size="24.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="su_reenter" prefHeight="31.0" prefWidth="320.0" stylesheets="@application.css">
+                        <TextField fx:id="su_reenter" prefHeight="31.0" prefWidth="320.0" promptText="Please re-enter the password above" stylesheets="@application.css">
                            <font>
                               <Font size="15.0" />
                            </font>

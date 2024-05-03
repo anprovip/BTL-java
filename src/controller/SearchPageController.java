@@ -179,14 +179,11 @@ public class SearchPageController implements Initializable{
 
 
 	public void switchtoUserInformation(MouseEvent e) throws IOException {
-		if(e.getSource() == user) {	
 			new ChangeScene(searchPageBorderPane, "/views/UserScene.fxml");
-		}
 	}
+	
 	public void switchtoMyShelves(MouseEvent e) throws IOException {
-		if(e.getSource() == myShelves) {
 			new ChangeScene(searchPageBorderPane, "/views/MyShelvesPageScene.fxml");
-		}
 	}
 	
     @FXML

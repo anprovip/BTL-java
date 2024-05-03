@@ -37,6 +37,9 @@ public class LoginController implements Initializable{
 
     @FXML
     private PasswordField password;
+    
+    @FXML
+    private TextField su_displayName;
 
     @FXML
     private TextField username;
@@ -95,6 +98,14 @@ public class LoginController implements Initializable{
 
 	public void setSu_button(Button su_button) {
 		this.su_button = su_button;
+	}
+
+	public TextField getSu_displayName() {
+		return su_displayName;
+	}
+
+	public void setSu_displayName(TextField su_displayName) {
+		this.su_displayName = su_displayName;
 	}
 
 	public TextField getSu_email() {
@@ -185,7 +196,7 @@ public class LoginController implements Initializable{
 
     public void signup(ActionEvent e) {
         
-        if(su_email.getText().isEmpty() || su_username.getText().isEmpty() || su_password.getText().isEmpty() || su_phone.getText().isEmpty()) {
+        if(su_email.getText().isEmpty() || su_username.getText().isEmpty() || su_password.getText().isEmpty() || su_phone.getText().isEmpty() || su_displayName.getText().isEmpty() ) {
             JOptionPane.showMessageDialog(null, "All fields are necessary to be filled", "Admin Message", JOptionPane.WARNING_MESSAGE);
         } else if(!su_password.getText().equals(su_reenter.getText())) {
             JOptionPane.showMessageDialog(null, "Password does not match", "Admin Message", JOptionPane.WARNING_MESSAGE);
@@ -200,7 +211,7 @@ public class LoginController implements Initializable{
                     newUser.setPassword(su_password.getText());
                     newUser.setPhoneNumber(su_phone.getText());
                     newUser.setUsername(su_username.getText());
-                    
+                    newUser
                     daoUser.insert(newUser);
                     JOptionPane.showMessageDialog(null, "Successfully Create new account", "Admin Message", JOptionPane.INFORMATION_MESSAGE);
                 }
@@ -244,7 +255,6 @@ public class LoginController implements Initializable{
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		instance = this;
-		
 		myShelvesPageController = MyShelvesPageController.getInstance();
 	}
 

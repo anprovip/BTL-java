@@ -58,8 +58,8 @@ public class ReviewController {
     
     @FXML
     void onClickImage(MouseEvent event) {
-    	/*
-    	FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/BookDetailsScene.fxml"));
+    	
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/UserProfileScene.fxml"));
         Parent root = loader.load();
         //BookDetailsController controller = loader.getController();
         //Book book = new Book();

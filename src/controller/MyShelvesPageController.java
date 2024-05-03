@@ -99,7 +99,6 @@ public class MyShelvesPageController implements Initializable{
 			showShelves(0, itemsPerPage); // Hiển thị các cuốn sách ban đầu
 			reloadDataAndRefreshUI();
 			instance = this;
-			
     }
     
     private void showShelves(int startIndex, int count) {
