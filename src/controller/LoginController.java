@@ -217,6 +217,14 @@ public class LoginController implements Initializable{
             	if(daoUser.selectByUsernameAndPassword(username.getText(), password.getText())) {
                 	JOptionPane.showMessageDialog(null, "Login successfully", "Admin Message", JOptionPane.INFORMATION_MESSAGE);
         		    new ChangeScene(loginBorderPane, "/views/HomePageScene.fxml");
+        		    if (myShelvesPageController != null) {
+        	            myShelvesPageController.reloadDataAndRefreshUI();
+        	        }
+        		    userController = UserController.getInstance();
+                    if (userController != null) {
+                        userController.reloadDataAndRefreshUI();
+                        userController.getUserInfo(username.getText());
+                    }
         		} else {
         		    JOptionPane.showMessageDialog(null, "Wrong username or password. Please enter again.", "Admin Message", JOptionPane.ERROR_MESSAGE);
         		}

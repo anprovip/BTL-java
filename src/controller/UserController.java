@@ -285,7 +285,9 @@ public class UserController implements Initializable{
         // Cập nhật thông tin người dùng trên giao diện
         emailInfo.setText(user.getEmail());
         phoneInfo.setText(user.getPhoneNumber());
-        
+        oldPassword.setText("");
+        newPasswordField.setText("");
+        reenterPasswordField.setText("");
         System.out.println("User data reloaded and UI refreshed.");
     }
 
