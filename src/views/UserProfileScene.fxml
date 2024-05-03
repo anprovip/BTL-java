@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="searchPageBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.">
+<BorderPane fx:id="searchPageBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UserProfileController">
    <top>
       <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="1315.0" spacing="20.0" styleClass="white-background" stylesheets="@application2.css" BorderPane.alignment="CENTER">
          <children>
@@ -150,6 +150,11 @@
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </padding>
                <children>
+                  <Label fx:id="userName" prefHeight="35.0" prefWidth="627.0" text="User Name">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
                   <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="196.0" prefWidth="1035.0">
                      <children>
                         <ImageView fx:id="imageUser" fitHeight="197.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
