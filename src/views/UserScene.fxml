@@ -113,7 +113,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </HBox>
-                  <HBox fx:id="addBook" alignment="CENTER" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#switchToProfile" prefHeight="68.0" prefWidth="342.0" styleClass="selected" stylesheets="@application3.css">
+                  <HBox fx:id="addBook" alignment="CENTER" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#switchToAddBook" prefHeight="68.0" prefWidth="342.0" styleClass="selected" stylesheets="@application3.css">
                      <children>
                         <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -169,7 +169,7 @@
    <center>
       <StackPane BorderPane.alignment="CENTER">
          <children>
-            <VBox fx:id="profileBox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="50.0" styleClass="secondary-color" stylesheets="@application3.css" visible="false">
+            <VBox fx:id="profileBox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="50.0" styleClass="secondary-color" stylesheets="@application3.css">
                <children>
                   <Label prefHeight="36.0" prefWidth="1089.0" text="Your Profile">
                      <font>
@@ -234,7 +234,7 @@
                   <Insets bottom="30.0" left="50.0" right="50.0" top="30.0" />
                </padding>
             </VBox>
-            <VBox fx:id="passwordBox" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" spacing="50.0" styleClass="secondary-color" stylesheets="@application3.css" visible="false">
+            <VBox fx:id="passwordBox" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" spacing="50.0" styleClass="secondary-color" stylesheets="@application3.css">
                <children>
                   <Label prefHeight="36.0" prefWidth="1089.0" text="Password Settings">
                      <font>
@@ -299,7 +299,7 @@
                   <Insets bottom="30.0" left="50.0" right="50.0" top="30.0" />
                </padding>
             </VBox>
-            <VBox fx:id="addBook" alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" spacing="50.0" styleClass="secondary-color" stylesheets="@application3.css">
+            <VBox fx:id="addBook" alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" spacing="50.0" styleClass="secondary-color" stylesheets="@application3.css" visible="false">
                <children>
                   <VBox alignment="CENTER" maxHeight="-Infinity" prefHeight="221.0" prefWidth="340.0" spacing="15.0">
                      <children>

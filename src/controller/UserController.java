@@ -36,7 +36,7 @@ public class UserController implements Initializable{
 	private Stage stage;
 	
     @FXML
-    private VBox addBook;
+    private VBox addBookBox;
 
     @FXML
     private Button addCover;
@@ -184,6 +184,7 @@ public class UserController implements Initializable{
         if (user != null) {
             emailInfo.setText(user.getEmail());
             phoneInfo.setText(user.getPhoneNumber());
+            displayName.setText(user.getDisplayName());
             Blob imageBlob = user.getImageUser();
             if (imageBlob != null) {
                 try {
@@ -206,12 +207,13 @@ public class UserController implements Initializable{
     @FXML
     public void saveUserInfo(ActionEvent event) {
         // Lấy thông tin từ các TextField
-        
+        String dName = displayName.getText();
         String email = emailInfo.getText();
         String phoneNumber = phoneInfo.getText();
         String absolutePath = user.getImageSrc();
             // Tạo đối tượng User mới với thông tin được điền mới
             User updatedUser = new User();
+            updatedUser.setDisplayName(dName);
             updatedUser.setEmail(email);
             updatedUser.setPhoneNumber(phoneNumber);
             updatedUser.setUsername(user.getUsername());
@@ -259,7 +261,7 @@ public class UserController implements Initializable{
     private void switchToProfile(MouseEvent event) {
         profileBox.setVisible(true);
         passwordBox.setVisible(false);
-        
+        addBookBox.setVisible(false);
     	
     }
 
@@ -267,7 +269,14 @@ public class UserController implements Initializable{
     private void switchToPassword(MouseEvent event) {
         profileBox.setVisible(false);
         passwordBox.setVisible(true);
-        
+        addBookBox.setVisible(false);
+    }
+    
+    @FXML
+    void switchToAddBook(MouseEvent event) {
+    	profileBox.setVisible(false);
+        passwordBox.setVisible(false);
+        addBookBox.setVisible(true);
     }
     
     public void reloadDataAndRefreshUI() {
