@@ -111,7 +111,29 @@ public class BookInShelfController implements Initializable{
             }
         }
     }
+    
+    @FXML
+    public void onClickBookImageAndName(MouseEvent event) throws IOException {
+        if (event.getSource() == bookImage || event.getSource() == bookName) {
+        	if (currentBook != null) {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/BookDetailsScene.fxml"));
+                    Parent root = loader.load();
 
+                    BookDetailsController controller = loader.getController();
+                    controller.setData(currentBook);
+                    stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    scene = new Scene(root, 1440, 900);
+                    stage.setScene(scene);
+                    stage.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                // Xử lý khi không có cuốn sách hiện tại
+            }
+        }
+    }
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		shelfNameDetail.setStyle("-fx-font-size: 16px;");

@@ -19,21 +19,27 @@
          <children>
             <HBox prefHeight="238.0" prefWidth="1186.0">
                <children>
-                  <ImageView fx:id="bookImage" fitHeight="190.0" fitWidth="130.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="bookImage" fitHeight="190.0" fitWidth="130.0" onMouseClicked="#onClickBookImageAndName" pickOnBounds="true" preserveRatio="true">
                      <HBox.margin>
                         <Insets left="5.0" />
                      </HBox.margin>
                      <image>
                         <Image url="@../img/book9.png" />
                      </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </ImageView>
-                  <Label fx:id="bookName" alignment="TOP_LEFT" prefHeight="236.0" prefWidth="290.0" text="Bakemonogatari" wrapText="true">
+                  <Label fx:id="bookName" alignment="TOP_LEFT" onMouseClicked="#onClickBookImageAndName" prefHeight="236.0" prefWidth="290.0" text="Bakemonogatari" wrapText="true">
                      <HBox.margin>
                         <Insets left="8.0" />
                      </HBox.margin>
                      <font>
                         <Font name="Tahoma" size="16.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Label>
                   <Label fx:id="authorName" alignment="TOP_LEFT" prefHeight="236.0" prefWidth="174.0" text="Nisio Isin" wrapText="true">
                      <HBox.margin>
