@@ -4,6 +4,8 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -22,7 +24,7 @@
                <children>
                   <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../src/img/back2.png" />
+                        <Image url="@../img/back2.png" />
                      </image>
                      <HBox.margin>
                         <Insets right="10.0" />
@@ -51,15 +53,15 @@
                <children>
                   <ImageView fx:id="imageInfo" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../img/pho.png" />
+                        <Image url="@../img/3456-frieren-sus.png" />
                      </image>
                   </ImageView>
-                  <Label text="Pho Bo Tai Gau">
+                  <Label fx:id="displayName" text="Hello ">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                  <Button fx:id="editButton" mnemonicParsing="false" onAction="#editImage" prefHeight="30.0" prefWidth="105.0" style="-fx-background-color: #F6EDE4;" stylesheets="@application3.css" text="Edit Profile">
+                  <Button fx:id="editButton" mnemonicParsing="false" onAction="#editImage" prefHeight="31.0" prefWidth="132.0" style="-fx-background-color: #F6EDE4;" stylesheets="@application3.css" text="Change avatar">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -69,7 +71,7 @@
                   </Button>
                </children>
             </VBox>
-            <VBox prefHeight="396.0" prefWidth="340.0" spacing="50.0">
+            <VBox prefHeight="396.0" prefWidth="340.0" spacing="40.0">
                <children>
                   <HBox fx:id="profile" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#switchToProfile" prefHeight="68.0" prefWidth="342.0" styleClass="selected" stylesheets="@application3.css">
                      <children>
@@ -78,7 +80,7 @@
                               <Image url="@../img/user.png" />
                            </image>
                         </ImageView>
-                        <Label prefHeight="38.0" prefWidth="203.0" text="Profile">
+                        <Label prefHeight="38.0" prefWidth="203.0" text="Your Profile">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -95,7 +97,7 @@
                      <children>
                         <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../src/img/key.png" />
+                              <Image url="@../img/lock.png" />
                            </image>
                         </ImageView>
                         <Label prefHeight="38.0" prefWidth="203.0" text="Password">
@@ -111,11 +113,36 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </HBox>
+                  <HBox fx:id="addBook" alignment="CENTER" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#switchToAddBook" prefHeight="68.0" prefWidth="342.0" styleClass="selected" stylesheets="@application3.css">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/add%20book.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="38.0" prefWidth="203.0" text="Add Book">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <padding>
+                              <Insets left="15.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </HBox>
+                  <Label contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="42.0" prefWidth="317.0" text="      *Only librarians can add books" textAlignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
                   <HBox fx:id="logoutBox" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#switchToLogin" prefHeight="56.0" prefWidth="342.0" styleClass="selected" stylesheets="@application3.css">
                      <children>
                         <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../src/img/logout.png" />
+                              <Image url="@../img/log%20out.png" />
                            </image>
                         </ImageView>
                         <Label prefHeight="38.0" prefWidth="203.0" text="Log out">
@@ -128,7 +155,7 @@
                         </Label>
                      </children>
                      <VBox.margin>
-                        <Insets top="200.0" />
+                        <Insets top="80.0" />
                      </VBox.margin>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -144,7 +171,7 @@
          <children>
             <VBox fx:id="profileBox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="50.0" styleClass="secondary-color" stylesheets="@application3.css">
                <children>
-                  <Label prefHeight="36.0" prefWidth="1089.0" text="Profile Settings">
+                  <Label prefHeight="36.0" prefWidth="1089.0" text="Your Profile">
                      <font>
                         <Font name="System Bold" size="25.0" />
                      </font>
@@ -154,11 +181,22 @@
                   </Label>
                   <VBox prefHeight="227.0" prefWidth="1074.0" spacing="30.0">
                      <children>
-                        <Label prefHeight="36.0" prefWidth="1089.0" text="Contact Info">
+                        <Label prefHeight="36.0" prefWidth="1089.0" text="Your information">
                            <font>
                               <Font name="System Bold" size="20.0" />
                            </font>
                         </Label>
+                        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="76.0" prefHeight="41.0" prefWidth="1074.0">
+                           <children>
+                              <Label prefHeight="36.0" prefWidth="121.0" text="Display name">
+                                 <font>
+                                    <Font size="17.0" />
+                                 </font>
+                              </Label>
+                              <Pane prefHeight="200.0" prefWidth="140.0" />
+                              <TextField fx:id="displayName" prefHeight="31.0" prefWidth="522.0" />
+                           </children>
+                        </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="41.0" prefWidth="1074.0">
                            <children>
                               <Label prefHeight="36.0" prefWidth="121.0" text="Phone">
@@ -196,7 +234,7 @@
                   <Insets bottom="30.0" left="50.0" right="50.0" top="30.0" />
                </padding>
             </VBox>
-            <VBox fx:id="passwordBox" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" spacing="50.0" styleClass="secondary-color" stylesheets="@application3.css" visible="false">
+            <VBox fx:id="passwordBox" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" spacing="50.0" styleClass="secondary-color" stylesheets="@application3.css">
                <children>
                   <Label prefHeight="36.0" prefWidth="1089.0" text="Password Settings">
                      <font>
@@ -256,6 +294,84 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
+               </children>
+               <padding>
+                  <Insets bottom="30.0" left="50.0" right="50.0" top="30.0" />
+               </padding>
+            </VBox>
+            <VBox fx:id="addBook" alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" spacing="50.0" styleClass="secondary-color" stylesheets="@application3.css" visible="false">
+               <children>
+                  <VBox alignment="CENTER" maxHeight="-Infinity" prefHeight="221.0" prefWidth="340.0" spacing="15.0">
+                     <children>
+                        <ImageView fx:id="coverImage" fitHeight="156.0" fitWidth="106.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/dragonCover.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="addCover" mnemonicParsing="false" onAction="#editImage" onMouseClicked="#addBookCover" prefHeight="31.0" prefWidth="132.0" style="-fx-background-color: #FFFFFF;" stylesheets="@application3.css" text="add book cover">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <HBox alignment="CENTER_LEFT" prefHeight="41.0" prefWidth="1074.0">
+                           <children>
+                              <Label prefHeight="36.0" prefWidth="121.0" text="book title">
+                                 <font>
+                                    <Font size="17.0" />
+                                 </font>
+                              </Label>
+                              <Pane prefHeight="200.0" prefWidth="140.0" />
+                              <TextField fx:id="bookTitle" prefHeight="32.0" prefWidth="522.0" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="223.0" prefHeight="41.0" prefWidth="1074.0">
+                           <children>
+                              <Label prefHeight="36.0" prefWidth="121.0" text="isbn">
+                                 <font>
+                                    <Font size="17.0" />
+                                 </font>
+                              </Label>
+                              <Pane prefHeight="200.0" prefWidth="140.0" />
+                              <TextField fx:id="isbn" prefHeight="26.0" prefWidth="523.0" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="264.0" prefHeight="41.0" prefWidth="1074.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="124.0" text="publication year">
+                                 <font>
+                                    <Font size="17.0" />
+                                 </font>
+                              </Label>
+                              <Pane prefHeight="200.0" prefWidth="140.0" />
+                              <TextField fx:id="pubYear" prefHeight="26.0" prefWidth="521.0" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <TextArea fx:id="summary" prefHeight="257.0" prefWidth="998.0" promptText="Enter a summary of the book" wrapText="true">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextArea>
+                  <HBox>
+                     <children>
+                        <ListView fx:id="listView" prefHeight="203.0" prefWidth="258.0" />
+                        <Button mnemonicParsing="false" onAction="#savePassword" onMouseClicked="#onClickAddBook" prefHeight="50.0" prefWidth="155.0" style="-fx-background-color: #FFFFFF;" styleClass="selected" stylesheets="@application3.css" text="Add book">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <HBox.margin>
+                              <Insets left="100.0" top="60.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
                </children>
                <padding>
                   <Insets bottom="30.0" left="50.0" right="50.0" top="30.0" />

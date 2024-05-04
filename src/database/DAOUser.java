@@ -97,7 +97,7 @@ public class DAOUser implements DAOInterface<User> {
 
     @Override
     public User selectByID(User user) {
-        // Viết code xử lý lấy user theo ID nếu cần
+        
         return null;
     }
 
@@ -197,10 +197,11 @@ public class DAOUser implements DAOInterface<User> {
     }
     public boolean updateUserInfo(User user) {
         try {
-            String sql = "UPDATE user SET  email = ?, phoneNumber = ?, user_image = ? WHERE username = ?";
+            String sql = "UPDATE user SET  email = ?, phoneNumber = ?, user_image = ?,display_name= ? WHERE username = ?";
             statement = connect.prepareStatement(sql);
             statement.setString(1, user.getEmail());
             statement.setString(2, user.getPhoneNumber());
+            statement.setString(4, user.getDisplayName());
             if (user.getImageSrc() != null) {
 
                 // Tạo inputStream từ file ảnh
