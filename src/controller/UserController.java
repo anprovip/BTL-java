@@ -52,6 +52,9 @@ public class UserController implements Initializable{
 
     @FXML
     private TextField displayName;
+    
+    @FXML
+    private Label displayNameLable;
 
     @FXML
     private Button editButton;
@@ -294,6 +297,17 @@ public class UserController implements Initializable{
         System.out.println("User data reloaded and UI refreshed.");
     }
 
+
+    @FXML
+    void onClickAddBook(MouseEvent event) {
+
+    }
+    
+    @FXML
+    void addBookCover(MouseEvent event) {
+
+    }
+    
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		loginController = LoginController.getInstance();
@@ -301,6 +315,7 @@ public class UserController implements Initializable{
 		getUserInfo(currentUsername);
 		//System.out.println(user.toString());
 		myShelvesPageController = MyShelvesPageController.getInstance();
+		displayName.setText(displayName.getText());
 		instance = this;
 		
 	}
