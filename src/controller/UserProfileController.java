@@ -22,6 +22,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -70,6 +71,9 @@ public class UserProfileController implements Initializable {
     @FXML
     private MyShelvesPageController myShelvesPageController;
 	
+    @FXML
+    private GridPane ShelfContainer;
+    
     private User currentUser;
     public void setData(User user) {
     	userName.setText(user.getUsername());

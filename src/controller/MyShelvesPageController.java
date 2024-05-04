@@ -207,6 +207,8 @@ public class MyShelvesPageController implements Initializable{
 	    allShelves.clear();
 	    allShelves.addAll(getAllShelvesFromDatabase(user));
 	    
+	    currentPage = 1;
+	    
 	    // Hiển thị lại sách trên giao diện
 	    int startIndex = (currentPage - 1) * itemsPerPage;
 	    showShelves(startIndex, itemsPerPage);

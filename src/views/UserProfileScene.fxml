@@ -239,7 +239,7 @@
                   </Label>
                   <ScrollPane prefHeight="496.0" prefWidth="1150.0" styleClass="transparent" stylesheets="@application2.css">
                      <content>
-                        <GridPane prefHeight="45.0" prefWidth="0.0">
+                        <GridPane fx:id="ShelfContainer" prefHeight="45.0" prefWidth="0.0">
                           <rowConstraints>
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
