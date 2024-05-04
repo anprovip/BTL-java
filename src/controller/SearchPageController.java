@@ -230,7 +230,9 @@ public class SearchPageController implements Initializable{
             //AddShelfPopupController controller = loader.getController();
             popupStage.setScene(new Scene(root));
             popupStage.showAndWait();
-            myShelvesPageController.reloadDataAndRefreshUI();
+            if(myShelvesPageController!=null) {
+            	myShelvesPageController.reloadDataAndRefreshUI();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

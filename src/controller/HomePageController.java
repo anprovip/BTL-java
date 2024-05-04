@@ -206,7 +206,9 @@ public class HomePageController implements Initializable{
             popupStage.setScene(new Scene(root));
             popupStage.showAndWait();
             myShelvesPageController = MyShelvesPageController.getInstance();
-            myShelvesPageController.reloadDataAndRefreshUI();
+            if(myShelvesPageController!=null) {
+            	myShelvesPageController.reloadDataAndRefreshUI();
+            }
             
         } catch (IOException e) {
             e.printStackTrace();
