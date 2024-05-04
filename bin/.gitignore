@@ -1,5 +1,7 @@
-/model/
-/test/
+/application/
 /controller/
-/views/
 /database/
+/model/
+/module-info.class
+/test/
+/views/

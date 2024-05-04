@@ -16,6 +16,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -31,94 +34,82 @@ import model.User;
 public class UserController implements Initializable{
 	
 	private Stage stage;
+	
+    @FXML
+    private VBox addBook;
 
-	@FXML
+    @FXML
+    private Button addCover;
+
+    @FXML
     private HBox backBox;
+
+    @FXML
+    private TextField bookTitle;
+
+    @FXML
+    private ImageView coverImage;
+
+    @FXML
+    private TextField displayName;
 
     @FXML
     private Button editButton;
 
     @FXML
     private TextField emailInfo;
-    
-    @FXML
-    private TextField oldPassword;
 
     @FXML
-    private TextField newPasswordField;
+    private ImageView imageInfo;
 
     @FXML
-    private HBox password;
-    
+    private TextField isbn;
+
     @FXML
-    private TextField phoneInfo1;
+    private ListView<String> listView;
 
     @FXML
     private HBox logoutBox;
 
     @FXML
-    private TextField passwordInfo;
-    
-    @FXML
-    private HBox profile;
-    
-    @FXML
-    private Button saveButton1;
-    
-    @FXML
-    private TextField reenterPasswordField;
+    private TextField newPasswordField;
 
+    @FXML
+    private TextField oldPassword;
 
-    public TextField getEmailInfo() {
-		return emailInfo;
-	}
-	public void setEmailInfo(TextField emailInfo) {
-		this.emailInfo = emailInfo;
-	}
-	public TextField getPasswordInfo() {
-		return passwordInfo;
-	}
-	public void setPasswordInfo(TextField passwordInfo) {
-		this.passwordInfo = passwordInfo;
-	}
-	public TextField getPhoneInfo() {
-		return phoneInfo;
-	}
-	public void setPhoneInfo(TextField phoneInfo) {
-		this.phoneInfo = phoneInfo;
-	}
-	public TextField getUsernameInfo() {
-		return usernameInfo;
-	}
-	public void setUsernameInfo(TextField usernameInfo) {
-		this.usernameInfo = usernameInfo;
-	}
-	public ImageView getImageInfo() {
-		return imageInfo;
-	}
-	public void setImageInfo(ImageView imageInfo) {
-		this.imageInfo = imageInfo;
-	}
-	@FXML
+    @FXML
+    private HBox password;
+
+    @FXML
+    private VBox passwordBox;
+
+    @FXML
     private TextField phoneInfo;
 
     @FXML
-    private VBox profileBox;
-    
+    private HBox profile;
+
     @FXML
-    private VBox passwordBox;
-    
+    private VBox profileBox;
+
+    @FXML
+    private TextField pubYear;
+
+    @FXML
+    private TextField reenterPasswordField;
+
     @FXML
     private Button saveButton;
 
     @FXML
-    private TextField usernameInfo;
-    
+    private Button saveButton1;
+
     @FXML
-    private ImageView imageInfo;
-    
+    private TextArea summary;
+
     @FXML
     private BorderPane userBorderPane;
+
     private LoginController loginController;
     
     private static UserController instance;
@@ -299,7 +290,7 @@ public class UserController implements Initializable{
 		loginController = LoginController.getInstance();
 		String currentUsername = User.getInstance().getUsername();
 		getUserInfo(currentUsername);
-		System.out.println(user.toString());
+		//System.out.println(user.toString());
 		myShelvesPageController = MyShelvesPageController.getInstance();
 		instance = this;
 		
