@@ -122,11 +122,21 @@ public class DAOUser implements DAOInterface<User> {
 
                 String phoneNumber = result.getString("phoneNumber");
                 Long userId = result.getLong("user_id");
-
+                
 
                 user.setUsername(username1);
                 user.setUserId(userId);
                 user.setPassword(password);
+                user.setPhoneNumber(phoneNumber);
+                user.setEmail(email);
+                Blob imageBlob = result.getBlob("user_image");
+			    if (imageBlob != null) {
+			        // Chuyển đổi Blob thành mảng byte
+			        byte[] imageData = imageBlob.getBytes(1, (int) imageBlob.length());
+			        
+			        // Lưu dữ liệu ảnh vào thuộc tính imageBook của đối tượng Book
+			        user.setImageUser(new SerialBlob(imageData));
+			    }
                 return true;
             }
         } catch (SQLException e) {

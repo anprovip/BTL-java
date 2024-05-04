@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.sql.Blob;
 import java.sql.SQLException;
 
@@ -16,6 +17,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.*;
 import model.Book;
 import model.Review;
+import model.User;
 
 public class ReviewController {
 
@@ -37,6 +39,11 @@ public class ReviewController {
     @FXML
     private Label username;
     
+    private Stage stage;
+	private Scene scene;
+    
+	public static Review currentReview;
+	
     public void setData(Review review) {
         reviewText.setText(review.getReviewText());
         rating.setText(String.valueOf(review.getRating())); // Chuyển đổi rating sang String
@@ -44,7 +51,9 @@ public class ReviewController {
         reviewDate.setText(review.getReviewDate().toString()); // Chuyển đổi reviewDate sang String
         userId.setVisible(false);
         username.setText(review.getUsername());
+        
         Blob imageBlob = review.getUserImage(); // Lấy Blob chứa hình ảnh người dùng từ đối tượng Review
+        
         if (imageBlob != null) {
             try {
                 byte[] imageData = imageBlob.getBytes(1, (int) imageBlob.length());
@@ -54,22 +63,24 @@ public class ReviewController {
                 e.printStackTrace();
             }
         }
+        currentReview = review;
     }
     
     @FXML
-    void onClickImage(MouseEvent event) {
-    	/*
-    	FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/BookDetailsScene.fxml"));
+    void onClickImage(MouseEvent event) throws IOException {
+    	
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/UserProfileScene.fxml"));
         Parent root = loader.load();
-        //BookDetailsController controller = loader.getController();
-        //Book book = new Book();
-        //book.setBookID(bookID.getText());
-        //controller.setData(book);
+        UserProfileController controller = loader.getController();
+        User clickedUser = new User();
+        clickedUser.setUsername(username.getText());
+        
+        controller.setData(clickedUser);
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root, 1440, 900);
         stage.setScene(scene);
         stage.show();
-        */
+        
     }
     
 }

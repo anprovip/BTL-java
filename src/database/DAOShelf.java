@@ -250,5 +250,37 @@ public class DAOShelf implements DAOInterface<Shelf>{
 	    }
 	    return shelfNames;
 	}
-
+	// Phương thức để đếm số lượng shelf của một người dùng dựa trên user_id
+    public int countShelvesByUserID(long userID) {
+        int count = 0;
+        try (Connection connection = JDBCUtil.getConnection()) {
+            String sql = "SELECT COUNT(DISTINCT shelf_name) AS shelfCount FROM shelf WHERE user_id = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setLong(1, userID);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                count = resultSet.getInt("shelfCount");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+    
+    // Phương thức để lấy tổng số sách trong tất cả các shelf của một người dùng
+    public int getTotalBooksByUserID(long userID) {
+        int totalCount = 0;
+        try (Connection connection = JDBCUtil.getConnection()) {
+            String sql = "SELECT COUNT(DISTINCT isbn) AS bookCount FROM shelf WHERE user_id = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setLong(1, userID);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                totalCount = resultSet.getInt("bookCount");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return totalCount;
+    }
 }

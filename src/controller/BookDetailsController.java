@@ -160,12 +160,36 @@ public class BookDetailsController implements Initializable {
             DAOReview.getInstance().insert(review);
             JOptionPane.showMessageDialog(null, "Add review successfully!");
             System.out.println("co update binh luan khong?");
-            
+            reloadReviewData();
         } else {
         	JOptionPane.showMessageDialog(null, "Please make sure you do not leave the review blank!");
         }
     }
 
+    public void reloadReviewData() {
+        // Xóa tất cả các đánh giá hiện tại
+        allReviews.clear();
+        recentlyAdded = DAOReview.getInstance().selectByCondition(currentBook.getBookID());
+        allReviews.addAll(recentlyAdded);
+        
+        int startIndex = (currentPage - 1) * itemsPerPage;
+        showReviews(startIndex, itemsPerPage);
+
+        if (currentPage > 1) {
+	        backButton.setDisable(false);
+	    } else {
+	        backButton.setDisable(true);
+	    }
+	    
+	    // Hiển thị lại nút "Next" nếu cần
+	    int remainingBooks = allReviews.size() - (currentPage * itemsPerPage);
+	    if (remainingBooks > 0) {
+	        nextButton.setDisable(false);
+	    } else {
+	        nextButton.setDisable(true);
+	    }
+        
+    }
     
     @FXML
     void onClickHome(MouseEvent event) throws IOException {
@@ -281,7 +305,9 @@ public class BookDetailsController implements Initializable {
     		shelf.setShelfName("Want-to-read");
     		shelf.setBookID(currentBook.getBookID());
     		DAOShelf.getInstance().insert(shelf);
-    		
+    		if(myShelvesPageController!=null) {
+            	myShelvesPageController.reloadDataAndRefreshUI();
+            }
 		}
     }
 	@FXML
