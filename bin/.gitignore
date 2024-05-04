@@ -1,4 +1,6 @@
-/model/
+/application/
 /controller/
 /database/
-/views/
+/model/
+/module-info.class
+/test/
