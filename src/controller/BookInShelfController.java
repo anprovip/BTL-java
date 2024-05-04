@@ -2,18 +2,25 @@ package controller;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
 
 import database.DAOShelf;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -22,7 +29,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Book;
 
-public class BookInShelfController {
+public class BookInShelfController implements Initializable{
 
     @FXML
     private Label authorName;
@@ -40,7 +47,7 @@ public class BookInShelfController {
     private ImageView deleteButton;
 
     @FXML
-    private Label shelfNameDetail;
+    private ListView<String> shelfNameDetail;
     
     private Book currentBook;
     
@@ -57,7 +64,13 @@ public class BookInShelfController {
         authorName.setText(book.getAuthor());
         averageRating.setText(Float.toString(book.getAverageRating()));
         Blob imageBlob = book.getImageBook();
-        shelfNameDetail.setText(book.getShelfName());
+        ArrayList<String> shelfNames = DAOShelf.getInstance().getShelfNamesByBookID(book.getBookID());
+        
+        if (shelfNames != null) {
+            // Nếu sử dụng ListView
+            shelfNameDetail.setItems(FXCollections.observableArrayList(shelfNames));
+            
+        }
         if (imageBlob != null) {
             try {
                 // Chuyển đổi Blob thành mảng byte
@@ -98,6 +111,12 @@ public class BookInShelfController {
             }
         }
     }
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		shelfNameDetail.setStyle("-fx-font-size: 16px;");
+		
+	}
 
 
     

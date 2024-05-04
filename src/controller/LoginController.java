@@ -164,6 +164,10 @@ public class LoginController implements Initializable{
 	        String imagePath = selectedFile.getAbsolutePath();
 	        newUser.setImageSrc(imagePath);
 	    }
+	    else{
+	    	String defaultImagePath = "/img/banana.png"; // Thay đổi đường dẫn tới ảnh mặc định tại đây
+	    	newUser.setImageSrc(defaultImagePath);
+	    }
 	}
 
     public void login(ActionEvent e) throws IOException {

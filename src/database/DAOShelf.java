@@ -235,5 +235,20 @@ public class DAOShelf implements DAOInterface<Shelf>{
 	    }
 	    return false;
 	}
+	public ArrayList<String> getShelfNamesByBookID(String bookID) {
+	    ArrayList<String> shelfNames = new ArrayList<>();
+	    try (Connection connection = JDBCUtil.getConnection()) {
+	        String sql = "SELECT DISTINCT shelf_name FROM shelf WHERE isbn = ?";
+	        PreparedStatement statement = connection.prepareStatement(sql);
+	        statement.setString(1, bookID);
+	        ResultSet resultSet = statement.executeQuery();
+	        while (resultSet.next()) {
+	            shelfNames.add(resultSet.getString("shelf_name"));
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return shelfNames;
+	}
 
 }

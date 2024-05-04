@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -33,7 +35,7 @@
                         <Font name="Tahoma" size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="authorName" alignment="TOP_LEFT" prefHeight="236.0" prefWidth="165.0" text="Nisio Isin" wrapText="true">
+                  <Label fx:id="authorName" alignment="TOP_LEFT" prefHeight="236.0" prefWidth="174.0" text="Nisio Isin" wrapText="true">
                      <HBox.margin>
                         <Insets left="2.0" />
                      </HBox.margin>
@@ -64,14 +66,12 @@
                         </ImageView>
                      </children>
                   </HBox>
-                  <Label fx:id="shelfNameDetail" alignment="TOP_LEFT" prefHeight="236.0" prefWidth="239.0" text="Want-to-read" wrapText="true">
-                     <HBox.margin>
-                        <Insets left="1.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
+                  <ListView fx:id="shelfNameDetail" prefHeight="236.0" prefWidth="239.0" stylesheets="@application2.css">
+                     <styleClass>
+                        <String fx:value="transparent" />
+                        <String fx:value="white-background" />
+                     </styleClass>
+                  </ListView>
                   <ImageView fx:id="deleteButton" fitHeight="24.0" fitWidth="24.0" onMouseClicked="#onClickImage" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../img/close.png" />

@@ -36,7 +36,7 @@ public class BookController {
 	  
 	  private Stage stage;
 	  private Scene scene;
-    
+	  
     public void setData(Book book) {
         bookName.setText(book.getName());
         authorName.setText(book.getAuthor());
@@ -54,6 +54,7 @@ public class BookController {
                 e.printStackTrace();
             }
         }
+        
     } 
     @FXML
     void onClickImage(MouseEvent event) throws IOException {

@@ -41,8 +41,15 @@ public class DAOUser implements DAOInterface<User> {
             statement.setString(2, user.getPassword());
             statement.setString(3, user.getEmail());
             statement.setString(4, user.getPhoneNumber());
-            InputStream inputStream = new FileInputStream(new File(user.getImageSrc()));
-            statement.setBlob(5, inputStream);
+            if (user.getImageSrc() != null && new File(user.getImageSrc()).exists()) {
+                InputStream inputStream = new FileInputStream(new File(user.getImageSrc()));
+                statement.setBlob(5, inputStream);
+            } else {
+                // If user.getImageSrc() is null or points to an invalid file, use default image
+                String defaultImagePath = "/img/banana.png"; // Replace this with the path to your default image
+                InputStream defaultInputStream = getClass().getResourceAsStream(defaultImagePath);
+                statement.setBlob(5, defaultInputStream);
+            }
             statement.executeUpdate();
         } catch (SQLException | FileNotFoundException e) {
             e.printStackTrace();

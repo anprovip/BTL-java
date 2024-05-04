@@ -146,7 +146,10 @@ public class UserController implements Initializable{
     			loginController = LoginController.getInstance();
     			loginController.resetApp();
     			User.getInstance().clearUserData();
-    			myShelvesPageController.reloadDataAndRefreshUI();
+    			if (myShelvesPageController != null) {
+                    myShelvesPageController.reloadDataAndRefreshUI();
+                }
+    			
     			new ChangeScene(userBorderPane, "/views/LoginScene.fxml");
     		}
     	}
@@ -294,10 +297,10 @@ public class UserController implements Initializable{
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		loginController = LoginController.getInstance();
-		myShelvesPageController = MyShelvesPageController.getInstance();
 		String currentUsername = User.getInstance().getUsername();
 		getUserInfo(currentUsername);
 		System.out.println(user.toString());
+		myShelvesPageController = MyShelvesPageController.getInstance();
 		instance = this;
 		
 	}
