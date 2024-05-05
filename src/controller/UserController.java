@@ -12,12 +12,15 @@ import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
 
 import database.DAOUser;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -52,6 +55,9 @@ public class UserController implements Initializable{
 
     @FXML
     private TextField displayName;
+    
+    @FXML
+    private Label displayNameLable;
 
     @FXML
     private Button editButton;
@@ -64,6 +70,9 @@ public class UserController implements Initializable{
 
     @FXML
     private TextField isbn;
+    
+    @FXML
+    private Label selection;
 
     @FXML
     private ListView<String> listView;
@@ -294,6 +303,17 @@ public class UserController implements Initializable{
         System.out.println("User data reloaded and UI refreshed.");
     }
 
+
+    @FXML
+    void onClickAddBook(MouseEvent event) {
+
+    }
+    
+    @FXML
+    void addBookCover(MouseEvent event) {
+
+    }
+    
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		loginController = LoginController.getInstance();
@@ -301,7 +321,20 @@ public class UserController implements Initializable{
 		getUserInfo(currentUsername);
 		//System.out.println(user.toString());
 		myShelvesPageController = MyShelvesPageController.getInstance();
+		displayName.setText(displayName.getText());
 		instance = this;
+		
+		String[] items = {"Romance","fantasy", "Horror", "Fiction", "Classics"};
+		listView.getItems().addAll(items);
+		
+		listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		listView.getSelectionModel().selectedItemProperty().addListener(this::selectionChanged);
+	}
+	
+	private void selectionChanged(ObservableValue<? extends String> Obsevable,String oldVal, String newVal) {
+		ObservableList<String> selectedItems = listView.getSelectionModel().getSelectedItems();
+		String getSelectedItem = (selectedItems.isEmpty())?"Nothing selected":selectedItems.toString();
+		selection.setText(getSelectedItem);
 		
 	}
 
