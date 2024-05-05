@@ -39,8 +39,30 @@ public class DAOGenre implements DAOInterface<Genre> {
 
 	@Override
 	public ArrayList<Genre> selectByCondition(String condition) {
-		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public Genre selectByName(String genreName) {
+		Genre genre = new Genre();
+		
+		try {
+			Connection connection = JDBCUtil.getConnection();
+			String sql ="SELECT * FROM Genre where genre_name = ?;";
+			PreparedStatement st = connection.prepareStatement(sql);
+			st.setString(1, genreName);
+			ResultSet rs = st.executeQuery();
+			
+			while(rs.next()) {
+				genre.setGenreName(rs.getString("genre_name"));
+				genre.setDescription(rs.getString("description"));
+			}
+			
+			JDBCUtil.closeConnection(connection);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return genre;
 	}
 
 	@Override

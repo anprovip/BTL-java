@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.Blob;
+import java.util.ArrayList;
 
 public class Book {
 	private String bookID;
@@ -11,10 +12,24 @@ public class Book {
 	private int publishDate;
 	private float averageRating;
 	private String shelfName;
+	private ArrayList<Genre> GenresOfBook;
 	
+	public String getSummary() {
+		return summary;
+	}
+
+	public void setSummary(String summary) {
+		this.summary = summary;
+	}
+
+	private String summary;
 	
 
-	public Book(String bookID, String name, String imageSrc, String author, Blob imageBook, int publishDate, float averageRating, String shelfName) {
+	public Book(String bookID, String name, 
+			String imageSrc, String author, Blob imageBook, int publishDate, 
+			float averageRating, String shelfName, String summary, 
+			ArrayList<Genre> GenresOfBook) 
+	{
 		super();
 		this.bookID = bookID;
 		this.name = name;
@@ -24,6 +39,8 @@ public class Book {
 		this.publishDate = publishDate;
 		this.averageRating = averageRating;
 		this.shelfName = shelfName;
+		this.summary = summary;
+		this.GenresOfBook = GenresOfBook;
 	}
 	
 	public Book() {super();}
@@ -90,6 +107,14 @@ public class Book {
 
 	public void setShelfName(String shelfName) {
 		this.shelfName = shelfName;
+	}
+
+	public ArrayList<Genre> getGenresOfBook() {
+		return GenresOfBook;
+	}
+
+	public void setGenresOfBook(ArrayList<Genre> genresOfBook) {
+		GenresOfBook = genresOfBook;
 	}
 
 	

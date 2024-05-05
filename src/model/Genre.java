@@ -1,11 +1,13 @@
 package model;
 
 public class Genre {
+	private int genreID;
 	private String genreName;
 	private String description;
 	 
-	public Genre(String genreName, String description) {
+	public Genre(String genreName, String description, int genreID) {
 		super();
+		this.setGenreID(genreID);
 		this.genreName = genreName;
 		this.description = description;
 	}
@@ -25,5 +27,11 @@ public class Genre {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	public int getGenreID() {
+		return genreID;
+	}
+	public void setGenreID(int genreID) {
+		this.genreID = genreID;
 	}
 }
