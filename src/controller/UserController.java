@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
 
+import database.DAOBook;
 import database.DAOGenre;
 import database.DAOUser;
 import javafx.beans.value.ObservableValue;
@@ -19,6 +20,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -33,6 +36,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import model.Book;
 import model.ChangeScene;
 import model.User;
 import model.Genre;
@@ -363,13 +367,54 @@ public class UserController implements Initializable{
     
     @FXML
     void onClickAddBook(ActionEvent event) {
-    	String bookTitle1 = bookTitle.getText();
-    	String author1 = author.getText();
-    	String isbn1 = isbn.getText();
-    	String publication = pubYear.getText();
-    	String summary1 = summary.getText();
-    	
+        // Lấy thông tin về sách từ các trường nhập liệu
+        String title = bookTitle.getText();
+        String authorName = author.getText();
+        String bookId = isbn.getText();
+        String yearText = pubYear.getText();
+        String bookSummary = summary.getText();
+        
+        if (title.isEmpty() || authorName.isEmpty() || bookId.isEmpty() || yearText.isEmpty() || bookSummary.isEmpty()) {
+            // Thông báo cho người dùng nhập đầy đủ thông tin
+            //Alert.showMessage(AlertType.ERROR, "Lỗi", "Vui lòng nhập đầy đủ thông tin.");
+            return;
+        }
+        
+        int year;
+        try {
+            year = Integer.parseInt(yearText);
+        } catch (NumberFormatException e) {
+            // Thông báo cho người dùng nhập đúng định dạng năm
+        	//Alert.showMessage(AlertType.ERROR, "Lỗi", "Năm xuất bản phải là số.");
+            return;
+        }
+        
+        // Lấy danh sách thể loại được chọn từ ListView
+        ObservableList<String> selectedGenres = listView.getSelectionModel().getSelectedItems();
+        
+        // Chuyển đổi tên thể loại thành ID thể loại
+        ArrayList<Genre> genres = new ArrayList<>();
+        for (String genreName : selectedGenres) {
+            genres.add(DAOGenre.getInstance().selectByName(genreName));
+        }
+        
+        if (genres.isEmpty()) {
+            // Thông báo cho người dùng chọn ít nhất một thể loại
+            //Alert.showMessage(AlertType.ERROR, "Lỗi", "Vui lòng chọn ít nhất một thể loại.");
+            return;
+        }
+        
+     // Thêm sách vào cơ sở dữ liệu
+        Book book = new Book();
+        book.setName(title);
+        book.setAuthor(authorName);
+        book.setBookID(bookId);
+        book.setPublishDate(year);
+        book.setSummary(bookSummary);
+        book.setGenresOfBook(genres);
+        
+        DAOBook.getInstance().insert(book);
     }
-    
+
 
 }
