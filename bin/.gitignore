@@ -1,7 +1,3 @@
-/controller/
-/database/
 /model/
-/test/
-/img/
-/views/
-/img/
+/database/
+/controller/
