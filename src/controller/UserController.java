@@ -91,6 +91,9 @@ public class UserController implements Initializable{
 
     @FXML
     private VBox passwordBox;
+    
+    @FXML
+    private TextField author;
 
     @FXML
     private TextField phoneInfo;
@@ -189,7 +192,8 @@ public class UserController implements Initializable{
     
     public void getUserInfo(String currentUsername) {
         User user = daoUser.selectByUsername(currentUsername);
-
+        	displayNameLable.setText(user.getDisplayName());
+        	System.out.println(user.getDisplayName()+"   1");
         if (user != null) {
             emailInfo.setText(user.getEmail());
             phoneInfo.setText(user.getPhoneNumber());
@@ -302,17 +306,6 @@ public class UserController implements Initializable{
         reenterPasswordField.setText("");
         System.out.println("User data reloaded and UI refreshed.");
     }
-
-
-    @FXML
-    void onClickAddBook(MouseEvent event) {
-
-    }
-    
-    @FXML
-    void addBookCover(MouseEvent event) {
-
-    }
     
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -337,5 +330,16 @@ public class UserController implements Initializable{
 		selection.setText(getSelectedItem);
 		
 	}
+	
+    @FXML
+    void addBookCover(ActionEvent event) {
+
+    }
+    
+    @FXML
+    void onClickAddBook(ActionEvent event) {
+
+    }
+    
 
 }

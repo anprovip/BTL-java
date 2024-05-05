@@ -308,7 +308,7 @@
                               <Image url="@../img/dragonCover.png" />
                            </image>
                         </ImageView>
-                        <Button fx:id="addCover" mnemonicParsing="false" onAction="#editImage" onMouseClicked="#addBookCover" prefHeight="31.0" prefWidth="132.0" style="-fx-background-color: #FFFFFF;" stylesheets="@application3.css" text="add book cover">
+                        <Button fx:id="addCover" mnemonicParsing="false" onAction="#addBookCover" prefHeight="31.0" prefWidth="132.0" style="-fx-background-color: #FFFFFF;" stylesheets="@application3.css" text="add book cover">
                            <font>
                               <Font size="13.0" />
                            </font>
@@ -325,6 +325,17 @@
                               </Label>
                               <Pane prefHeight="200.0" prefWidth="140.0" />
                               <TextField fx:id="bookTitle" prefHeight="32.0" prefWidth="522.0" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="264.0" prefHeight="41.0" prefWidth="1074.0">
+                           <children>
+                              <Label prefHeight="36.0" prefWidth="121.0" text="author">
+                                 <font>
+                                    <Font size="17.0" />
+                                 </font>
+                              </Label>
+                              <Pane prefHeight="200.0" prefWidth="140.0" />
+                              <TextField fx:id="author" prefHeight="26.0" prefWidth="523.0" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="223.0" prefHeight="41.0" prefWidth="1074.0">
@@ -364,7 +375,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Button mnemonicParsing="false" onAction="#savePassword" onMouseClicked="#onClickAddBook" prefHeight="50.0" prefWidth="155.0" style="-fx-background-color: #FFFFFF;" styleClass="selected" stylesheets="@application3.css" text="Add book">
+                        <Button mnemonicParsing="false" onAction="#onClickAddBook" prefHeight="50.0" prefWidth="155.0" style="-fx-background-color: #FFFFFF;" styleClass="selected" stylesheets="@application3.css" text="Add book">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
