@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import javax.sql.rowset.serial.SerialBlob;
 
 import model.Book;
+import model.Genre;
 import model.User;
 
 public class DAOBook implements DAOInterface<Book> {
@@ -68,6 +69,23 @@ public class DAOBook implements DAOInterface<Book> {
 	            linkBookAuthorStatement.setString(1, t.getBookID());
 	            linkBookAuthorStatement.setLong(2, authorId);
 	            linkBookAuthorStatement.executeUpdate();
+	            
+	         // Lấy ID của sách vừa thêm vào cơ sở dữ liệu
+	            ResultSet generatedKeys = insertBookStatement.getGeneratedKeys();
+	            int bookId;
+	            if (generatedKeys.next()) {
+	                bookId = generatedKeys.getInt(1);
+	            } else {
+	                throw new SQLException("Failed to get book ID.");
+	            }
+	            
+	            for (Genre genre : t.getGenresOfBook()) {
+	                // Thêm thông tin liên kết giữa sách và thể loại vào bảng book_genre
+	                PreparedStatement linkBookGenreStatement = connection.prepareStatement("INSERT INTO book_genre (book_id, genre_id) VALUES (?, ?)");
+	                linkBookGenreStatement.setInt(1, bookId);
+	                linkBookGenreStatement.setInt(2, genre.getGenreID());  // Giả sử genre.getId() trả về ID của thể loại
+	                linkBookGenreStatement.executeUpdate();
+	            }
 	        } else {
 	            // Tác giả chưa tồn tại, thêm tác giả mới vào cơ sở dữ liệu và sau đó thêm thông tin sách và liên kết với tác giả mới
 	            PreparedStatement insertAuthorStatement = connection.prepareStatement("INSERT INTO author (author_name) VALUES (?)", Statement.RETURN_GENERATED_KEYS);

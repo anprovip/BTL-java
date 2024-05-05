@@ -230,6 +230,7 @@ public class DAOUser implements DAOInterface<User> {
                 user.setUsername(result.getString("username"));
                 Blob imageBlob = result.getBlob("user_image");
                 user.setUserId(result.getLong("user_id"));
+                user.setDisplayName(result.getString("display_name"));
 			    if (imageBlob != null) {
 			        // Chuyển đổi Blob thành mảng byte
 			        byte[] imageData = imageBlob.getBytes(1, (int) imageBlob.length());

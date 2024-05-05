@@ -7,16 +7,21 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
 
+import database.DAOBook;
+import database.DAOGenre;
 import database.DAOUser;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -31,8 +36,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import model.Book;
 import model.ChangeScene;
 import model.User;
+import model.Genre;
 
 public class UserController implements Initializable{
 	
@@ -91,6 +98,9 @@ public class UserController implements Initializable{
 
     @FXML
     private VBox passwordBox;
+    
+    @FXML
+    private TextField author;
 
     @FXML
     private TextField phoneInfo;
@@ -156,7 +166,7 @@ public class UserController implements Initializable{
     }
     @FXML
     private void editImage(ActionEvent event) {
-        FileChooser fileChooser = new FileChooser();
+    	FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choose image");
         
         // Set filter cho file chooser để chỉ chấp nhận các file ảnh
@@ -189,7 +199,8 @@ public class UserController implements Initializable{
     
     public void getUserInfo(String currentUsername) {
         User user = daoUser.selectByUsername(currentUsername);
-
+        	displayNameLable.setText(user.getDisplayName());
+        	System.out.println(user.getDisplayName()+"   1");
         if (user != null) {
             emailInfo.setText(user.getEmail());
             phoneInfo.setText(user.getPhoneNumber());
@@ -302,17 +313,6 @@ public class UserController implements Initializable{
         reenterPasswordField.setText("");
         System.out.println("User data reloaded and UI refreshed.");
     }
-
-
-    @FXML
-    void onClickAddBook(MouseEvent event) {
-
-    }
-    
-    @FXML
-    void addBookCover(MouseEvent event) {
-
-    }
     
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -323,9 +323,11 @@ public class UserController implements Initializable{
 		myShelvesPageController = MyShelvesPageController.getInstance();
 		displayName.setText(displayName.getText());
 		instance = this;
+		ArrayList<Genre> allGenres = DAOGenre.getInstance().selectAll();
 		
-		String[] items = {"Romance","fantasy", "Horror", "Fiction", "Classics"};
-		listView.getItems().addAll(items);
+		for (Genre genre : allGenres) {
+	        listView.getItems().add(genre.getGenreName());
+	    }
 		
 		listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		listView.getSelectionModel().selectedItemProperty().addListener(this::selectionChanged);
@@ -337,5 +339,82 @@ public class UserController implements Initializable{
 		selection.setText(getSelectedItem);
 		
 	}
+	
+    @FXML
+    void addBookCover(ActionEvent event) {
+    	FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choose image");
+        
+        // Set filter cho file chooser để chỉ chấp nhận các file ảnh
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Image files (*.png)", "*.png");
+        fileChooser.getExtensionFilters().add(extFilter);
+        
+        // Mở hộp thoại chọn tập tin
+        File file = fileChooser.showOpenDialog(stage);
+        
+        if (file != null) {
+            try {
+                String localUrl = file.toURI().toURL().toString();
+                
+                Image image = new Image(localUrl);  
+                coverImage.setImage(image);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+                // Xử lý lỗi nếu không thể chuyển đổi đường dẫn thành URL
+            }
+        }
+    }
+    
+    @FXML
+    void onClickAddBook(ActionEvent event) {
+        // Lấy thông tin về sách từ các trường nhập liệu
+        String title = bookTitle.getText();
+        String authorName = author.getText();
+        String bookId = isbn.getText();
+        String yearText = pubYear.getText();
+        String bookSummary = summary.getText();
+        
+        if (title.isEmpty() || authorName.isEmpty() || bookId.isEmpty() || yearText.isEmpty() || bookSummary.isEmpty()) {
+            // Thông báo cho người dùng nhập đầy đủ thông tin
+            //Alert.showMessage(AlertType.ERROR, "Lỗi", "Vui lòng nhập đầy đủ thông tin.");
+            return;
+        }
+        
+        int year;
+        try {
+            year = Integer.parseInt(yearText);
+        } catch (NumberFormatException e) {
+            // Thông báo cho người dùng nhập đúng định dạng năm
+        	//Alert.showMessage(AlertType.ERROR, "Lỗi", "Năm xuất bản phải là số.");
+            return;
+        }
+        
+        // Lấy danh sách thể loại được chọn từ ListView
+        ObservableList<String> selectedGenres = listView.getSelectionModel().getSelectedItems();
+        
+        // Chuyển đổi tên thể loại thành ID thể loại
+        ArrayList<Genre> genres = new ArrayList<>();
+        for (String genreName : selectedGenres) {
+            genres.add(DAOGenre.getInstance().selectByName(genreName));
+        }
+        
+        if (genres.isEmpty()) {
+            // Thông báo cho người dùng chọn ít nhất một thể loại
+            //Alert.showMessage(AlertType.ERROR, "Lỗi", "Vui lòng chọn ít nhất một thể loại.");
+            return;
+        }
+        
+     // Thêm sách vào cơ sở dữ liệu
+        Book book = new Book();
+        book.setName(title);
+        book.setAuthor(authorName);
+        book.setBookID(bookId);
+        book.setPublishDate(year);
+        book.setSummary(bookSummary);
+        book.setGenresOfBook(genres);
+        
+        DAOBook.getInstance().insert(book);
+    }
+
 
 }
