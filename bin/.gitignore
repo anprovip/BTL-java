@@ -1,5 +1,6 @@
+/application/
+/controller/
+/database/
 /model/
 /test/
-/controller/
 /views/
-/database/

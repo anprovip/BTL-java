@@ -84,8 +84,8 @@ public class MyShelvesPageController implements Initializable{
 			
     }
     
-    	@Override
-    	public void initialize(URL arg0, ResourceBundle arg1) {
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1) {
     		User user = User.getInstance();
     		System.out.println(user.getUserId());
     		recentlyAddedShelf = new ArrayList<>(getAllShelvesFromDatabase(user));

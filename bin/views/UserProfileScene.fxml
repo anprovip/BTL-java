@@ -14,6 +14,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -155,13 +156,33 @@
                         <Font name="System Bold" size="24.0" />
                      </font>
                   </Label>
-                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="147.0" prefWidth="1108.0">
+                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="147.0" prefWidth="1152.0">
                      <children>
                         <ImageView fx:id="imageUser" fitHeight="150.0" fitWidth="147.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../img/user1.png" />
                            </image>
                         </ImageView>
+                        <StackPane prefHeight="147.0" prefWidth="244.0">
+                           <children>
+                              <Button fx:id="followButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="186.0" style="-fx-background-color: #FF5056;" styleClass="selected" stylesheets="@application.css" text="Follow" textFill="WHITE">
+                                 <font>
+                                    <Font name="Berlin Sans FB" size="16.0" />
+                                 </font>
+                                 <StackPane.margin>
+                                    <Insets top="80.0" />
+                                 </StackPane.margin>
+                              </Button>
+                              <Button fx:id="unfollowButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="186.0" style="-fx-background-color: #D3D3D3;" styleClass="selected" stylesheets="@application.css" text="Unfollow" visible="false">
+                                 <font>
+                                    <Font name="Berlin Sans FB" size="16.0" />
+                                 </font>
+                                 <StackPane.margin>
+                                    <Insets top="80.0" />
+                                 </StackPane.margin>
+                              </Button>
+                           </children>
+                        </StackPane>
                         <Separator orientation="VERTICAL" prefHeight="196.0" prefWidth="61.0" />
                         <Label fx:id="numberOfBooks" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="37.0" prefWidth="58.0" text="516">
                            <font>

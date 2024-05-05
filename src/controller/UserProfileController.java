@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import database.DAOBook;
@@ -15,6 +17,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -29,6 +33,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Book;
 import model.ChangeScene;
+import model.Shelf;
 import model.User;
 
 public class UserProfileController implements Initializable {
@@ -69,17 +74,34 @@ public class UserProfileController implements Initializable {
     private Label userName;
     
     @FXML
+    private Button followButton;
+    
+    @FXML
+    private Button unfollowButton;
+    
+    @FXML
     private MyShelvesPageController myShelvesPageController;
 	
     @FXML
     private GridPane ShelfContainer;
     
-    private User currentUser;
+    private List<Shelf> recentlyAddedShelf;
+    private List<Shelf> allShelves = new ArrayList<>();
+    private List<Node> displayedShelves = new ArrayList<>();
+    
+    public User currentUserInReview;
+    
+    private static UserProfileController instance;
+    
+    public static UserProfileController getInstance() {
+        return instance;
+    }
+    
     public void setData(User user) {
     	userName.setText(user.getUsername());
-    	currentUser = DAOUser.getInstance().selectByUsername(user.getUsername());
-        if (currentUser != null) {
-            Blob imageBlob = currentUser.getImageUser();
+    	currentUserInReview = DAOUser.getInstance().selectByUsername(user.getUsername());
+        if (currentUserInReview != null) {
+            Blob imageBlob = currentUserInReview.getImageUser();
             if (imageBlob != null) {
                 try {
                     // Chuyển đổi Blob thành mảng byte
@@ -92,7 +114,7 @@ public class UserProfileController implements Initializable {
                     e.printStackTrace();
                 }
             }
-            long userID = currentUser.getUserId();
+            long userID = currentUserInReview.getUserId();
             int shelfCount = DAOShelf.getInstance().countShelvesByUserID(userID);
             int bookCount = DAOShelf.getInstance().getTotalBooksByUserID(userID);
             numberOfShelves.setText(String.valueOf(shelfCount));
@@ -100,7 +122,7 @@ public class UserProfileController implements Initializable {
         } else {
             // Xử lý khi không tìm thấy user
         }
-        
+        afterUI();
     }
     
 	@FXML
@@ -147,10 +169,62 @@ public class UserProfileController implements Initializable {
         }
 		
     }
-
+    
+    private List<Shelf> getAllShelvesFromDatabase(User user) {
+		return DAOShelf.getInstance().selectByCondition(Long.toString(user.getUserId()));
+		
+    }
+    
+    private void showShelves() {
+    	if (ShelfContainer == null) {
+            System.err.println("Error: shelfContainer is null.");
+            return;
+        }
+        int column = 0;
+        int row = 1;
+        for (int i = 0; i < allShelves.size(); i++) {
+            Shelf shelf = allShelves.get(i);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ShelfCard.fxml"));
+            
+            try {
+            	BorderPane shelfPane = loader.load();
+                ShelfController shelfController = loader.getController();
+                shelfController.setData(shelf);
+                //shelfController.getInstance();
+                shelfController.unableDeleteButton();
+                
+                if (column == 3) {
+                    column = 0;
+                    row++;
+                }
+                ShelfContainer.add(shelfPane, column++, row);
+                GridPane.setMargin(shelfPane, new Insets(25));
+                displayedShelves.add(shelfPane);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		myShelvesPageController = MyShelvesPageController.getInstance();
 		
+	}
+	public void afterUI() {
+		User user = DAOUser.getInstance().selectByUsername(currentUserInReview.getUsername());
+		myShelvesPageController = MyShelvesPageController.getInstance();
+		recentlyAddedShelf = new ArrayList<>(getAllShelvesFromDatabase(user));
+
+	    allShelves.addAll(recentlyAddedShelf);
+		showShelves();
+		
+		//reloadDataAndRefreshUI();
+		instance = this;
+	}
+	public void reloadDataAndRefreshUI() {
+	    // Reload dữ liệu từ cơ sở dữ liệu hoặc làm bất kỳ công việc nào cần thiết để cập nhật dữ liệu mới
+	    User user = currentUserInReview;
+	    allShelves.clear();
+	    allShelves.addAll(getAllShelvesFromDatabase(user));
+	    
 	}
 }

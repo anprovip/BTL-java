@@ -57,14 +57,15 @@ public class BookInShelfController implements Initializable{
     
     private Scene scene;
     
-
+    private long userID;
     
-    public void setData(Book book) {
+    public void setData(Book book, long userID) {
+    	this.userID = userID;
         bookName.setText(book.getName());
         authorName.setText(book.getAuthor());
         averageRating.setText(Float.toString(book.getAverageRating()));
         Blob imageBlob = book.getImageBook();
-        ArrayList<String> shelfNames = DAOShelf.getInstance().getShelfNamesByBookID(book.getBookID());
+        ArrayList<String> shelfNames = DAOShelf.getInstance().getShelfNamesByBookID(book.getBookID(), this.userID);
         
         if (shelfNames != null) {
             // Nếu sử dụng ListView

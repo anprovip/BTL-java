@@ -80,15 +80,23 @@ public class ShelfDetailController implements Initializable{
     private List<Book> allBooksInShelf = new ArrayList<>();
     private List<Book> recentlyAdded;
     
+    private long userID;
+    
     public void setData(Shelf shelf) {
     	nextButton.setDisable(false);
     	System.out.println("Nhận được dữ liệu khi click: " + shelf.getShelfID());
-    	shelf = DAOShelf.getInstance().selectByID(shelf);
     	
-    	recentlyAdded = DAOBook.getInstance().selectByShelfName(shelf.getShelfName(), shelf.getUserID());
-    	System.out.println(shelf.getShelfName());
-    	System.out.println(shelf.getUserID());
-    	System.out.println(shelf.getBookID());
+    	System.out.println(shelf.getUserID()+" LUC SANG SET DATA CUA SHELF DETAILS");
+    	
+    	Shelf updatedShelf = DAOShelf.getInstance().selectByID(shelf);
+    	
+    	System.out.println(updatedShelf.getUserID()+" sau khi xu ly bang db");
+    	userID = shelf.getUserID();
+    	
+    	recentlyAdded = DAOBook.getInstance().selectByShelfName(updatedShelf.getShelfName(), updatedShelf.getUserID());
+    	System.out.println(updatedShelf.getShelfName());
+    	
+    	System.out.println(updatedShelf.getBookID());
     	allBooksInShelf.addAll(recentlyAdded);
     	if(allBooksInShelf.size()<=itemsPerPage) nextButton.setDisable(true);
 	    backButton.setDisable(true);
@@ -112,7 +120,9 @@ public class ShelfDetailController implements Initializable{
             try {
             	BorderPane bookInShelfPane = loader.load();
                 BookInShelfController bookInShelfController = loader.getController();
-                bookInShelfController.setData(book);
+                System.out.println(book.getName());
+                bookInShelfController.setData(book, userID);
+                System.out.println(book.getName());
                 bookInShelfContainer.add(bookInShelfPane, column, row++);
                 GridPane.setMargin(bookInShelfPane, new Insets(15));
                 
