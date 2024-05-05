@@ -97,7 +97,7 @@ public class DAOUser implements DAOInterface<User> {
 
     @Override
     public User selectByID(User user) {
-        // Viết code xử lý lấy user theo ID nếu cần
+        
         return null;
     }
 
@@ -195,12 +195,14 @@ public class DAOUser implements DAOInterface<User> {
         }
         return user;
     }
+    
     public boolean updateUserInfo(User user) {
         try {
-            String sql = "UPDATE user SET  email = ?, phoneNumber = ?, user_image = ? WHERE username = ?";
+            String sql = "UPDATE user SET  email = ?, phoneNumber = ?, user_image = ?,display_name= ? WHERE username = ?";
             statement = connect.prepareStatement(sql);
             statement.setString(1, user.getEmail());
             statement.setString(2, user.getPhoneNumber());
+            
             if (user.getImageSrc() != null) {
 
                 // Tạo inputStream từ file ảnh
@@ -215,7 +217,8 @@ public class DAOUser implements DAOInterface<User> {
                 statement.setBytes(3, null);
 
             }
-            statement.setString(4, user.getUsername()); // Thêm username cũ vào để xác định dòng cần cập nhật
+            statement.setString(4, user.getDisplayName());
+            statement.setString(5, user.getUsername()); // Thêm username cũ vào để xác định dòng cần cập nhật
             int rowsAffected = statement.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException | IOException e) {
@@ -223,6 +226,7 @@ public class DAOUser implements DAOInterface<User> {
             return false;
         }
     }
+    
     public boolean changePassword(String username, String newPassword) {
         // Kiểm tra xem email và số điện thoại có khớp với thông tin trong database không
         

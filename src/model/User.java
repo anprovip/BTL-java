@@ -10,12 +10,13 @@ public class User {
     private String phoneNumber;
     private Blob imageUser;
     private String imageSrc;
+    private String displayName;
     private static final User instance = new User();
     public static User getInstance() {
         return instance;
     }
     public User() {super();};    
-	public User(String username, String password, String email, String phoneNumber, Blob imageUser, String imageSrc) {
+	public User(String username, String password, String email, String phoneNumber, Blob imageUser, String imageSrc, String displayName) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -23,6 +24,13 @@ public class User {
 		this.phoneNumber = phoneNumber;
 		this.imageSrc = imageSrc;
 		this.imageUser = imageUser;
+		this.displayName = displayName;
+	}
+	public String getDisplayName() {
+		return displayName;
+	}
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
 	}
 	public String getUsername() {
 		return username;
