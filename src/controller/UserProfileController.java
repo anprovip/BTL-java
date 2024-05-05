@@ -9,7 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javax.swing.JOptionPane;
+
 import database.DAOBook;
+import database.DAOFollow;
 import database.DAOReview;
 import database.DAOShelf;
 import database.DAOUser;
@@ -33,6 +36,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Book;
 import model.ChangeScene;
+import model.Follow;
 import model.Shelf;
 import model.User;
 
@@ -117,8 +121,12 @@ public class UserProfileController implements Initializable {
             long userID = currentUserInReview.getUserId();
             int shelfCount = DAOShelf.getInstance().countShelvesByUserID(userID);
             int bookCount = DAOShelf.getInstance().getTotalBooksByUserID(userID);
+            int followerCount = DAOFollow.getInstance().countFollowersByUserID(userID);
+            int followingCount = DAOFollow.getInstance().countFollowingByUserID(userID);
             numberOfShelves.setText(String.valueOf(shelfCount));
             numberOfBooks.setText(String.valueOf(bookCount));
+            numberOfFollowers.setText(String.valueOf(followerCount));
+            numberOfFollowing.setText(String.valueOf(followingCount));
         } else {
             // Xử lý khi không tìm thấy user
         }
@@ -227,4 +235,131 @@ public class UserProfileController implements Initializable {
 	    allShelves.addAll(getAllShelvesFromDatabase(user));
 	    
 	}
+	
+	@FXML
+	public void followShelf(ActionEvent event) {
+		if (checkIfCurrentUserIsReviewUser()) {
+	        // Nếu là người dùng đang xem, không thực hiện thêm vào cơ sở dữ liệu
+	        return;
+	    }
+		long currentUserId = User.getInstance().getUserId();
+	    if (DAOFollow.getInstance().checkIfFollowed(currentUserId, currentUserInReview.getUserId())) {
+	        // Hiển thị thông báo đã follow và không thực hiện thêm vào cơ sở dữ liệu
+	        JOptionPane.showMessageDialog(null, "You have followed this user before.");
+	    }
+	    else {
+		    // Thêm userId hiện tại vào follower của shelf.getUserID
+		    Follow follow = new Follow();
+		    follow.setFollowerId((int)User.getInstance().getUserId());
+		    System.out.println(follow.getFollowerId()+" FOLLOWER ID CUA FOLLOW NAY");
+		    
+		    follow.setUserId(currentUserInReview.getUserId());
+		    System.out.println(follow.getUserId()+" USERID CUA FOLLOW NAY");
+		    
+		    follow.setFollowingId((int)currentUserInReview.getUserId());
+		    System.out.println(follow.getFollowingId() + " FOLLOWING ID CUA FOLLOW NAY");
+		    DAOFollow.getInstance().insert(follow);
+		    
+	    }
+	    // Cập nhật giao diện
+	    followButton.setVisible(false);
+	    followButton.setDisable(true);
+	    unfollowButton.setVisible(true);
+	    unfollowButton.setDisable(false);
+	}
+
+	@FXML
+	public void unfollowShelf(ActionEvent event) {
+	    // Xóa shelf.getUserID trong following của userId hiện tại
+	    Follow follow = new Follow();
+	    follow.setFollowerId((int)User.getInstance().getUserId());
+	    follow.setUserId((int)currentUserInReview.getUserId());
+	    follow.setFollowingId((int)currentUserInReview.getUserId());
+	    DAOFollow.getInstance().delete(follow);
+
+	    // Cập nhật giao diện
+	    followButton.setVisible(true);
+	    followButton.setDisable(false);
+	    unfollowButton.setVisible(false);
+	    unfollowButton.setDisable(true);
+	}
+	
+	public boolean checkIfCurrentUserIsReviewUser() {
+	    long currentUserId = User.getInstance().getUserId();
+	    long reviewUserId = currentUserInReview.getUserId();
+	    if (currentUserId == reviewUserId) {
+	        // Hiển thị thông báo không thể follow chính account của mình
+	        JOptionPane.showMessageDialog(null, "You cannot follow your own account.");
+	        return true;
+	    } else {
+	        return false;
+	    }
+	}
+	@FXML
+    public void onCLickToFollowers(MouseEvent event) {
+		try {
+            // Tạo một Stage mới cho cửa sổ popup
+			Follow follow = new Follow();
+		    follow.setFollowerId((int)User.getInstance().getUserId());
+		    System.out.println(follow.getFollowerId()+" FOLLOWER ID CUA FOLLOW NAY");
+		    
+		    follow.setUserId(currentUserInReview.getUserId());
+		    System.out.println(follow.getUserId()+" USERID CUA FOLLOW NAY");
+		    
+		    follow.setFollowingId((int)currentUserInReview.getUserId());
+		    System.out.println(follow.getFollowingId() + " FOLLOWING ID CUA FOLLOW NAY");
+		    FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/FollowerPopupScene.fxml"));
+		    VBox root = loader.load();
+		    
+		    FollowerPopupController followerPopupController = loader.getController();
+		    followerPopupController.setData(follow);
+		    
+            Stage popupStage = new Stage();
+            popupStage.initModality(Modality.APPLICATION_MODAL);
+
+            // Load nội dung từ file FXML
+            
+
+            // Gán controller cho cửa sổ popup
+            //AddShelfPopupController controller = loader.getController();
+            popupStage.setScene(new Scene(root));
+            popupStage.showAndWait();
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void onCLickToFollowing(MouseEvent event) {
+    	try {
+    		Follow follow = new Follow();
+		    follow.setFollowerId((int)User.getInstance().getUserId());
+		    System.out.println(follow.getFollowerId()+" FOLLOWER ID CUA FOLLOW NAY");
+		    
+		    follow.setUserId(currentUserInReview.getUserId());
+		    System.out.println(follow.getUserId()+" USERID CUA FOLLOW NAY");
+		    
+		    follow.setFollowingId((int)currentUserInReview.getUserId());
+		    System.out.println(follow.getFollowingId() + " FOLLOWING ID CUA FOLLOW NAY");
+            // Tạo một Stage mới cho cửa sổ popup
+            Stage popupStage = new Stage();
+            popupStage.initModality(Modality.APPLICATION_MODAL);
+
+            // Load nội dung từ file FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/FollowingPopupScene.fxml"));
+            VBox root = loader.load();
+            FollowingPopupController followingPopupController = loader.getController();
+			followingPopupController.setData(follow);
+            // Gán controller cho cửa sổ popup
+            //AddShelfPopupController controller = loader.getController();
+            popupStage.setScene(new Scene(root));
+            popupStage.showAndWait();
+            
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
 }

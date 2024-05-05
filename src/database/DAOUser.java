@@ -97,7 +97,62 @@ public class DAOUser implements DAOInterface<User> {
 
     @Override
     public User selectByID(User user) {
+		return null;
         
+    }
+    public User selectByFollowerID(long condition) {
+        String sql = "SELECT * FROM user WHERE user_id = ?";
+        try (Connection conn = JDBCUtil.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setLong(1, condition);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    User selectedUser = new User();
+                    selectedUser.setUserId(rs.getLong("user_id"));
+                    selectedUser.setUsername(rs.getString("username"));
+                    selectedUser.setPassword(rs.getString("password"));
+                    selectedUser.setEmail(rs.getString("email"));
+                    selectedUser.setPhoneNumber(rs.getString("phoneNumber"));
+                    Blob imageBlob = rs.getBlob("user_image"); // Sử dụng rs thay vì result
+                    if (imageBlob != null) {
+                        byte[] imageData = imageBlob.getBytes(1, (int) imageBlob.length());
+                        selectedUser.setImageUser(new SerialBlob(imageData));
+                    }
+                    selectedUser.setDisplayName(rs.getString("display_name"));
+                    return selectedUser;
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    public User selectByFollowingID(long condition) {
+        String sql = "SELECT * FROM user WHERE user_id = ?";
+        try (Connection conn = JDBCUtil.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setLong(1, condition);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    User selectedUser = new User();
+                    selectedUser.setUserId(rs.getLong("user_id"));
+                    selectedUser.setUsername(rs.getString("username"));
+                    selectedUser.setPassword(rs.getString("password"));
+                    selectedUser.setEmail(rs.getString("email"));
+                    selectedUser.setPhoneNumber(rs.getString("phoneNumber"));
+                    Blob imageBlob = rs.getBlob("user_image"); // Sử dụng rs thay vì result
+                    if (imageBlob != null) {
+                        byte[] imageData = imageBlob.getBytes(1, (int) imageBlob.length());
+                        selectedUser.setImageUser(new SerialBlob(imageData));
+                    }
+                    selectedUser.setDisplayName(rs.getString("display_name"));
+                    return selectedUser;
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
         return null;
     }
 
@@ -198,7 +253,7 @@ public class DAOUser implements DAOInterface<User> {
     
     public boolean updateUserInfo(User user) {
         try {
-            String sql = "UPDATE user SET  email = ?, phoneNumber = ?, user_image = ?,display_name= ? WHERE username = ?";
+            String sql = "UPDATE user SET  email = ?, phoneNumber = ?, user_image = ?, display_name= ? WHERE username = ?";
             statement = connect.prepareStatement(sql);
             statement.setString(1, user.getEmail());
             statement.setString(2, user.getPhoneNumber());

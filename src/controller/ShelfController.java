@@ -156,7 +156,7 @@ public class ShelfController implements Initializable {
         }
      
     }
-
+    
 	public void unableDeleteButton() {
 		deleteButton.setDisable(true);
     	deleteButton.setVisible(false);

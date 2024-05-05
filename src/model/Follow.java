@@ -4,13 +4,13 @@ public class Follow {
 	private int followId;
     private int followerId;
     private int followingId;
-    private int userId;
+    private long userId;
     private static final Follow instance = new Follow();
     public static Follow getInstance() {
         return instance;
     }
     public Follow() {super();}
-	public Follow(int followId, int followerId, int followingId, int userId) {
+	public Follow(int followId, int followerId, int followingId, long userId) {
 		super();
 		this.followId = followId;
 		this.followerId = followerId;
@@ -35,10 +35,10 @@ public class Follow {
 	public void setFollowingId(int followingId) {
 		this.followingId = followingId;
 	}
-	public int getUserId() {
+	public long getUserId() {
 		return userId;
 	}
-	public void setUserId(int userId) {
+	public void setUserId(long userId) {
 		this.userId = userId;
 	}
     
