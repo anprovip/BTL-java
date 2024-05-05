@@ -199,7 +199,9 @@ public class UserProfileController implements Initializable {
                 ShelfController shelfController = loader.getController();
                 shelfController.setData(shelf);
                 //shelfController.getInstance();
-                shelfController.unableDeleteButton();
+                
+                shelfController.setDeleteButtonVisible(false);
+                shelfController.setDeleteButtonDisable(true);
                 
                 if (column == 3) {
                     column = 0;

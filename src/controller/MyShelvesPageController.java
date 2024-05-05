@@ -118,7 +118,8 @@ public class MyShelvesPageController implements Initializable{
             	BorderPane shelfPane = loader.load();
                 ShelfController shelfController = loader.getController();
                 shelfController.setData(shelf);
-
+                shelfController.setAddShelfListVisible(false);
+                shelfController.setAddShelfListDisable(true);
                 if (column == 3) {
                     column = 0;
                     row++;

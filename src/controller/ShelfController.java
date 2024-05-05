@@ -70,18 +70,22 @@ public class ShelfController implements Initializable {
     
     @FXML
     public void onMouseEntered(MouseEvent event) throws IOException {
+    	/*
         if (event.getSource() == ShelfCardBox) {
         	deleteButton.setDisable(false);
         	deleteButton.setVisible(true);
         }
+        */
     }
     
     @FXML
     public void onMouseExited(MouseEvent event) throws IOException {
-        if (event.getSource() == ShelfCardBox) {
+        /*
+    	if (event.getSource() == ShelfCardBox) {
         	deleteButton.setDisable(true);
         	deleteButton.setVisible(false);
         }
+        */
     }
     
     @FXML
@@ -93,7 +97,7 @@ public class ShelfController implements Initializable {
     @FXML
     public void onMouseExitedDelete(MouseEvent event) throws IOException {
         if (event.getSource() == deleteButton) {
-        	deleteButton.setOpacity(0.6);
+        	deleteButton.setOpacity(0.5);
         }
     }
     @FXML
@@ -157,11 +161,21 @@ public class ShelfController implements Initializable {
      
     }
     
-	public void unableDeleteButton() {
-		deleteButton.setDisable(true);
-    	deleteButton.setVisible(false);
-		
-	}
+    public void setDeleteButtonVisible(boolean visible) {
+        deleteButton.setVisible(visible);
+    }
+
+    public void setDeleteButtonDisable(boolean disable) {
+        deleteButton.setDisable(disable);
+    }
+    
+    public void setAddShelfListVisible(boolean visible) {
+    	addShelfList.setVisible(visible);
+    }
+
+    public void setAddShelfListDisable(boolean disable) {
+    	addShelfList.setDisable(disable);
+    }
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		instance = this;
