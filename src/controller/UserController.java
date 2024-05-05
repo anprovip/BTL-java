@@ -7,10 +7,12 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
 
+import database.DAOGenre;
 import database.DAOUser;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -33,6 +35,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.ChangeScene;
 import model.User;
+import model.Genre;
 
 public class UserController implements Initializable{
 	
@@ -159,7 +162,7 @@ public class UserController implements Initializable{
     }
     @FXML
     private void editImage(ActionEvent event) {
-        FileChooser fileChooser = new FileChooser();
+    	FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choose image");
         
         // Set filter cho file chooser để chỉ chấp nhận các file ảnh
@@ -316,9 +319,11 @@ public class UserController implements Initializable{
 		myShelvesPageController = MyShelvesPageController.getInstance();
 		displayName.setText(displayName.getText());
 		instance = this;
+		ArrayList<Genre> allGenres = DAOGenre.getInstance().selectAll();
 		
-		String[] items = {"Romance","fantasy", "Horror", "Fiction", "Classics"};
-		listView.getItems().addAll(items);
+		for (Genre genre : allGenres) {
+	        listView.getItems().add(genre.getGenreName());
+	    }
 		
 		listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		listView.getSelectionModel().selectedItemProperty().addListener(this::selectionChanged);
@@ -333,12 +338,37 @@ public class UserController implements Initializable{
 	
     @FXML
     void addBookCover(ActionEvent event) {
-
+    	FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choose image");
+        
+        // Set filter cho file chooser để chỉ chấp nhận các file ảnh
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Image files (*.png)", "*.png");
+        fileChooser.getExtensionFilters().add(extFilter);
+        
+        // Mở hộp thoại chọn tập tin
+        File file = fileChooser.showOpenDialog(stage);
+        
+        if (file != null) {
+            try {
+                String localUrl = file.toURI().toURL().toString();
+                
+                Image image = new Image(localUrl);  
+                coverImage.setImage(image);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+                // Xử lý lỗi nếu không thể chuyển đổi đường dẫn thành URL
+            }
+        }
     }
     
     @FXML
     void onClickAddBook(ActionEvent event) {
-
+    	String bookTitle1 = bookTitle.getText();
+    	String author1 = author.getText();
+    	String isbn1 = isbn.getText();
+    	String publication = pubYear.getText();
+    	String summary1 = summary.getText();
+    	
     }
     
 
