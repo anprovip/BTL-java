@@ -2,8 +2,10 @@ package controller;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
 
@@ -11,6 +13,7 @@ import database.DAOShelf;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -30,7 +33,7 @@ import model.Book;
 import model.Shelf;
 import model.User;
 
-public class ShelfController {
+public class ShelfController implements Initializable {
     @FXML
     private Label shelfName;
     
@@ -39,6 +42,12 @@ public class ShelfController {
 
     @FXML
     private ImageView deleteButton;
+    public ImageView getDeleteButton() {
+        return deleteButton;
+    }
+    @FXML
+    private ImageView addShelfList;
+    
     @FXML
     private VBox ShelfCardBox;
     private Shelf currentShelf;
@@ -46,11 +55,16 @@ public class ShelfController {
     private HBox user;
     @FXML
     private MyShelvesPageController myShelvesPageController;
+    private static ShelfController instance;
     
+    public static ShelfController getInstance() {
+        return instance;
+    }
     public void setData(Shelf shelf) {
         shelfName.setText(shelf.getShelfName());
-        shelf.setUserID(User.getInstance().getUserId());
+        //shelf.setUserID(User.getInstance().getUserId());
         currentShelf = shelf;
+        System.out.println(currentShelf.getUserID());
         
     }
     
@@ -83,19 +97,31 @@ public class ShelfController {
         }
     }
     @FXML
+    public void onMouseEnteredAdd(MouseEvent event) throws IOException {
+        if (event.getSource() == addShelfList) {
+        	addShelfList.setOpacity(1);
+        }
+    }
+    @FXML
+    public void onMouseExitedAdd(MouseEvent event) throws IOException {
+        if (event.getSource() == addShelfList) {
+        	addShelfList.setOpacity(0.5);
+        }
+    }
+    @FXML
     void onClickShelf(MouseEvent event) throws IOException {
-    	FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ShelfDetailsScene.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ShelfDetailsScene.fxml"));
         Parent root = loader.load();
         ShelfDetailController controller = loader.getController();
-        Shelf shelf = new Shelf();
-        
-        shelf.setShelfName(shelfName.getText());
-        controller.setData(shelf);
+        System.out.println(currentShelf.getUserID() + " Sao luc truoc no la nhu nay ma");
+        controller.setData(currentShelf);
+        System.out.println(currentShelf.getUserID() + " Sao luc sau no lai la nhu nay ????");
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root, 1440, 900);
         stage.setScene(scene);
         stage.show();
     }
+
     
     @FXML
     public void onClickImage(MouseEvent event) throws IOException {
@@ -113,4 +139,32 @@ public class ShelfController {
         }
      
     }
+    @FXML
+    public void onClickImageAdd(MouseEvent event) throws IOException {
+        if (event.getSource() == addShelfList) {
+            if (currentShelf != null) {
+            	int dialogResult = JOptionPane.showConfirmDialog(null, "Are you sure you want to add this shelf?", "Add this shelf.", JOptionPane.YES_NO_OPTION);
+            	if(dialogResult == JOptionPane.YES_OPTION) {
+            		DAOShelf.getInstance().otherUserInsertShelf(currentShelf);
+                    // Sau khi thêm xong, cập nhật lại dữ liệu và làm mới giao diện
+                    //myShelvesPageController = MyShelvesPageController.getInstance();
+                   // myShelvesPageController.reloadDataAndRefreshUI();
+            	}
+            } else {
+                // Xử lý khi không có tủ sách hiện tại
+            }
+        }
+     
+    }
+    
+	public void unableDeleteButton() {
+		deleteButton.setDisable(true);
+    	deleteButton.setVisible(false);
+		
+	}
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		instance = this;
+		
+	}
 }

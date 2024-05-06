@@ -44,10 +44,17 @@ public class ReviewController {
     
 	public static Review currentReview;
 	
+
+	@FXML
+    private UserProfileController myUserProfileController;
+	
+	private int savedID;
+	
     public void setData(Review review) {
         reviewText.setText(review.getReviewText());
         rating.setText(String.valueOf(review.getRating())); // Chuyển đổi rating sang String
         userId.setText(String.valueOf(review.getUserId())); // Chuyển đổi userId sang String
+        savedID = review.getUserId();
         reviewDate.setText(review.getReviewDate().toString()); // Chuyển đổi reviewDate sang String
         userId.setVisible(false);
         username.setText(review.getUsername());
@@ -74,7 +81,7 @@ public class ReviewController {
         UserProfileController controller = loader.getController();
         User clickedUser = new User();
         clickedUser.setUsername(username.getText());
-        
+        clickedUser.setUserId(savedID);
         controller.setData(clickedUser);
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root, 1440, 900);

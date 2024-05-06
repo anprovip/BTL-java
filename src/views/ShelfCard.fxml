@@ -25,13 +25,16 @@
             </ImageView>
             <HBox>
                <children>
-                  <ImageView fitHeight="23.0" fitWidth="32.0" onMouseClicked="#onClickShelf" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="addShelfList" fitHeight="24.0" fitWidth="32.0" onMouseClicked="#onClickImageAdd" onMouseEntered="#onMouseEnteredAdd" onMouseExited="#onMouseExitedAdd" opacity="0.5" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../img/list.png" />
+                        <Image url="@../img/add-to-playlist.png" />
                      </image>
                      <HBox.margin>
                         <Insets left="9.0" />
                      </HBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </ImageView>
                   <Label fx:id="shelfName" onMouseClicked="#onClickShelf" prefHeight="22.0" prefWidth="169.0" text="Want-to-read">
                      <font>

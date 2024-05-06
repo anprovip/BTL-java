@@ -94,6 +94,26 @@ public class DAOShelf implements DAOInterface<Shelf>{
 	    }
 		
 	}
+	public void otherUserInsertShelf(Shelf shelf) {
+		try (Connection connection = JDBCUtil.getConnection()) {
+			
+	        String sql = "INSERT INTO shelf (shelf_name, user_id) VALUES (?, ?)";
+	        PreparedStatement statement = connection.prepareStatement(sql);
+	        statement.setString(1, shelf.getShelfName());
+	        statement.setLong(2, shelf.getUserID());
+	        
+	        int rowsInserted = statement.executeUpdate();
+	        if (rowsInserted > 0) {
+	            System.out.println("A new shelf was inserted successfully!");
+	            
+	        } else {
+	            System.out.println("Failed to insert the shelf!");
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+		
+	}
 	@Override
 	public void update(Shelf t) {
 		// TODO Auto-generated method stub
@@ -133,7 +153,7 @@ public class DAOShelf implements DAOInterface<Shelf>{
 		
 		try {
 			Connection connection = JDBCUtil.getConnection();
-			 String sql = "SELECT DISTINCT shelf_name FROM shelf "
+			 String sql = "SELECT DISTINCT shelf_name, user_id FROM shelf "
 	                    + "WHERE user_id = ?";
 	            PreparedStatement statement = connection.prepareStatement(sql);
 	            statement.setString(1, condition);
@@ -142,7 +162,7 @@ public class DAOShelf implements DAOInterface<Shelf>{
 			while(rs.next()) {
 				Shelf shelf = new Shelf();
 			    shelf.setShelfName(rs.getString("shelf_name"));
-			    
+			    shelf.setUserID(rs.getLong("user_id"));
 			    listShelf.add(shelf);
 			}
 			JDBCUtil.closeConnection(connection);
@@ -169,7 +189,7 @@ public class DAOShelf implements DAOInterface<Shelf>{
 	        PreparedStatement st = connection.prepareStatement(sql);
 	        st.setString(1, shelf.getShelfName());
 	        
-	        st.setLong(2, User.getInstance().getUserId());
+	        st.setLong(2, shelf.getUserID());
 	        ResultSet rs = st.executeQuery();
 	        while (rs.next()) {
 	        	shelf.setShelfID(rs.getInt("shelf_id"));
@@ -235,12 +255,13 @@ public class DAOShelf implements DAOInterface<Shelf>{
 	    }
 	    return false;
 	}
-	public ArrayList<String> getShelfNamesByBookID(String bookID) {
+	public ArrayList<String> getShelfNamesByBookID(String bookID, long userID) {
 	    ArrayList<String> shelfNames = new ArrayList<>();
 	    try (Connection connection = JDBCUtil.getConnection()) {
-	        String sql = "SELECT DISTINCT shelf_name FROM shelf WHERE isbn = ?";
+	        String sql = "SELECT DISTINCT shelf_name FROM shelf WHERE isbn = ? AND user_id = ?";
 	        PreparedStatement statement = connection.prepareStatement(sql);
 	        statement.setString(1, bookID);
+	        statement.setLong(2, userID);
 	        ResultSet resultSet = statement.executeQuery();
 	        while (resultSet.next()) {
 	            shelfNames.add(resultSet.getString("shelf_name"));
