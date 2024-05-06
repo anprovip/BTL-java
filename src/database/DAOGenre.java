@@ -53,6 +53,7 @@ public class DAOGenre implements DAOInterface<Genre> {
 			ResultSet rs = st.executeQuery();
 			
 			while(rs.next()) {
+				genre.setGenreID(rs.getInt("genre_id"));
 				genre.setGenreName(rs.getString("genre_name"));
 				genre.setDescription(rs.getString("description"));
 			}
@@ -77,6 +78,7 @@ public class DAOGenre implements DAOInterface<Genre> {
 			
 			while(rs.next()) {
 				Genre genre = new Genre();
+				genre.setGenreID(rs.getInt("genre_id"));
 				genre.setGenreName(rs.getString("genre_name"));
 				genre.setDescription(rs.getString("description"));
 				allGenres.add(genre);

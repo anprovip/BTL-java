@@ -21,6 +21,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -99,6 +100,10 @@ public class BookDetailsController implements Initializable {
     @FXML
     private Label createDefaultShelf;
     
+
+    @FXML
+    private TextArea summaryOfBook;
+    
     @FXML
     private ChoiceBox<String> userRate;
     private String[] rating = {"1 Star", "2 Stars","3 Stars","4 Stars","5 Stars"};
@@ -127,6 +132,7 @@ public class BookDetailsController implements Initializable {
             bookName.setText(book.getName());
             authorName.setText(book.getAuthor());
             averageRating.setText(Float.toString(book.getAverageRating()));
+            summaryOfBook.setText(book.getSummary());
             Blob imageBlob = book.getImageBook();
             if (imageBlob != null) {
                 try {
@@ -207,14 +213,13 @@ public class BookDetailsController implements Initializable {
     	new ChangeScene(DBookBorderPane, "/views/UserScene.fxml");
     }
     public void switchtoMyShelves(MouseEvent e) throws IOException {
-		if(e.getSource() == myShelves) {
-			new ChangeScene(DBookBorderPane, "/views/MyShelvesPageScene.fxml");
-		}
+		new ChangeScene(DBookBorderPane, "/views/MyShelvesPageScene.fxml");
+
 	}
 
 	private void showReviews(int startIndex, int count) {
         reviewContainer.getChildren().clear(); // Xóa các sách hiện tại trước khi hiển thị sách mới
-        System.out.println("Co den day khong");
+        //System.out.println("Co den day khong");
         int column = 0;
         int row = 1;
         for (int i = startIndex; i < Math.min(startIndex + count, allReviews.size()); i++) {

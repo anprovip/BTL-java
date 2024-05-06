@@ -8,6 +8,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -238,14 +239,11 @@
                                           <Insets left="15.0" />
                                        </padding>
                                     </HBox>
-                                    <Label prefHeight="137.0" prefWidth="916.0" text="Sixteen-year-old and not-so-openly gay Simon Spier prefers to save his drama for the school musical. But when an email falls into the wrong hands, his secret is at risk of being thrust into the spotlight. Now Simon is actually being blackmailed: if he doesn’t play wingman for class clown Martin, his sexual identity will become everyone’s business. Worse, the privacy of Blue, the pen name of the boy he’s been emailing, will be compromised." wrapText="true">
+                                    <TextArea fx:id="summaryOfBook" editable="false" prefHeight="148.0" prefWidth="916.0" promptText="You see We will soon update the summary for this book" wrapText="true">
                                        <font>
-                                          <Font size="16.0" />
+                                          <Font size="14.0" />
                                        </font>
-                                       <padding>
-                                          <Insets left="15.0" />
-                                       </padding>
-                                    </Label>
+                                    </TextArea>
                                  </children>
                               </VBox>
                            </children>
