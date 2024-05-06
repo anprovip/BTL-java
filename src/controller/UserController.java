@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -10,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
 import database.DAOBook;
@@ -17,6 +19,7 @@ import database.DAOGenre;
 import database.DAOUser;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -376,7 +379,11 @@ public class UserController implements Initializable{
         
         if (title.isEmpty() || authorName.isEmpty() || bookId.isEmpty() || yearText.isEmpty() || bookSummary.isEmpty()) {
             // Thông báo cho người dùng nhập đầy đủ thông tin
-            //Alert.showMessage(AlertType.ERROR, "Lỗi", "Vui lòng nhập đầy đủ thông tin.");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Lỗi");
+            alert.setHeaderText(null);
+            alert.setContentText("Vui lòng nhập đầy đủ thông tin.");
+            alert.showAndWait();
             return;
         }
         
@@ -385,12 +392,42 @@ public class UserController implements Initializable{
             year = Integer.parseInt(yearText);
         } catch (NumberFormatException e) {
             // Thông báo cho người dùng nhập đúng định dạng năm
-        	//Alert.showMessage(AlertType.ERROR, "Lỗi", "Năm xuất bản phải là số.");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Lỗi");
+            alert.setHeaderText(null);
+            alert.setContentText("Năm xuất bản phải là số.");
+            alert.showAndWait();
             return;
         }
         
         // Lấy danh sách thể loại được chọn từ ListView
         ObservableList<String> selectedGenres = listView.getSelectionModel().getSelectedItems();
+        
+        if (selectedGenres.isEmpty()) {
+            // Thông báo cho người dùng chọn ít nhất một thể loại
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Lỗi");
+            alert.setHeaderText(null);
+            alert.setContentText("Vui lòng chọn ít nhất một thể loại.");
+            alert.showAndWait();
+            return;
+        }
+        
+        // Chuyển đổi hình ảnh thành byte array
+        Image image = coverImage.getImage();
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        try {
+            ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", outputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        byte[] imageData = outputStream.toByteArray();
+        Blob imageBlob = null;
+        try {
+            imageBlob = new javax.sql.rowset.serial.SerialBlob(imageData);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         
         // Chuyển đổi tên thể loại thành ID thể loại
         ArrayList<Genre> genres = new ArrayList<>();
@@ -398,23 +435,17 @@ public class UserController implements Initializable{
             genres.add(DAOGenre.getInstance().selectByName(genreName));
         }
         
-        if (genres.isEmpty()) {
-            // Thông báo cho người dùng chọn ít nhất một thể loại
-            //Alert.showMessage(AlertType.ERROR, "Lỗi", "Vui lòng chọn ít nhất một thể loại.");
-            return;
-        }
-        
-     // Thêm sách vào cơ sở dữ liệu
+        // Thêm sách vào cơ sở dữ liệu
         Book book = new Book();
         book.setName(title);
         book.setAuthor(authorName);
         book.setBookID(bookId);
         book.setPublishDate(year);
         book.setSummary(bookSummary);
+        book.setImageBook(imageBlob);
         book.setGenresOfBook(genres);
         
         DAOBook.getInstance().insert(book);
     }
-
 
 }

@@ -56,13 +56,13 @@ public class DAOBook implements DAOInterface<Book> {
 	            int authorId = resultSet.getInt("author_id");
 
 	            // Thêm thông tin sách và liên kết với tác giả vào cơ sở dữ liệu
-	            PreparedStatement insertBookStatement = connection.prepareStatement("INSERT INTO book(isbn ,book_title ,publication_year, book_image) VALUES(?,?,?,?)");
-	            insertBookStatement.setString(1, t.getBookID());
-	            insertBookStatement.setString(2, t.getName());
-	            insertBookStatement.setLong(3, t.getPublishDate());
-	            InputStream inputStream = new FileInputStream(new File(t.getImageSrc()));
-	            insertBookStatement.setBlob(4, inputStream);
-	            insertBookStatement.executeUpdate();
+                PreparedStatement insertBookStatement = connection.prepareStatement("INSERT INTO book(isbn ,book_title ,publication_year, book_image, summary) VALUES(?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
+                insertBookStatement.setString(1, t.getBookID());
+                insertBookStatement.setString(2, t.getName());
+                insertBookStatement.setLong(3, t.getPublishDate());
+                insertBookStatement.setBlob(4,t.getImageBook());
+                insertBookStatement.setString(5, t.getSummary());
+                insertBookStatement.executeUpdate();
 
 	            // Liên kết sách và tác giả trong bảng trung gian Sách_TácGiả
 	            PreparedStatement linkBookAuthorStatement = connection.prepareStatement("INSERT INTO book_author (isbn, author_id) VALUES (?, ?)");
@@ -70,20 +70,12 @@ public class DAOBook implements DAOInterface<Book> {
 	            linkBookAuthorStatement.setLong(2, authorId);
 	            linkBookAuthorStatement.executeUpdate();
 	            
-	         // Lấy ID của sách vừa thêm vào cơ sở dữ liệu
-	            ResultSet generatedKeys = insertBookStatement.getGeneratedKeys();
-	            int bookId;
-	            if (generatedKeys.next()) {
-	                bookId = generatedKeys.getInt(1);
-	            } else {
-	                throw new SQLException("Failed to get book ID.");
-	            }
 	            
 	            for (Genre genre : t.getGenresOfBook()) {
 	                // Thêm thông tin liên kết giữa sách và thể loại vào bảng book_genre
-	                PreparedStatement linkBookGenreStatement = connection.prepareStatement("INSERT INTO book_genre (book_id, genre_id) VALUES (?, ?)");
-	                linkBookGenreStatement.setInt(1, bookId);
-	                linkBookGenreStatement.setInt(2, genre.getGenreID());  // Giả sử genre.getId() trả về ID của thể loại
+	                PreparedStatement linkBookGenreStatement = connection.prepareStatement("INSERT INTO book_genre (isbn, genre_id) VALUES (?, ?)");
+	                linkBookGenreStatement.setString(1, t.getBookID());
+	                linkBookGenreStatement.setInt(2, genre.getGenreID());
 	                linkBookGenreStatement.executeUpdate();
 	            }
 	        } else {
@@ -97,12 +89,12 @@ public class DAOBook implements DAOInterface<Book> {
 	                int authorId = generatedKeys.getInt(1);
 
 	                // Thêm thông tin sách và liên kết với tác giả vào cơ sở dữ liệu
-	                PreparedStatement insertBookStatement = connection.prepareStatement("INSERT INTO book(isbn ,book_title ,publication_year, book_image) VALUES(?,?,?,?)");
+	                PreparedStatement insertBookStatement = connection.prepareStatement("INSERT INTO book(isbn ,book_title ,publication_year, book_image, summary) VALUES(?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
 	                insertBookStatement.setString(1, t.getBookID());
 	                insertBookStatement.setString(2, t.getName());
 	                insertBookStatement.setLong(3, t.getPublishDate());
-	                InputStream inputStream = new FileInputStream(new File(t.getImageSrc()));
-	                insertBookStatement.setBlob(4, inputStream);
+	                insertBookStatement.setBlob(4,t.getImageBook());
+	                insertBookStatement.setString(5, t.getSummary());
 	                insertBookStatement.executeUpdate();
 
 	                // Liên kết sách và tác giả trong bảng trung gian Sách_TácGiả
@@ -110,6 +102,14 @@ public class DAOBook implements DAOInterface<Book> {
 	                linkBookAuthorStatement.setString(1, t.getBookID());
 	                linkBookAuthorStatement.setLong(2, authorId);
 	                linkBookAuthorStatement.executeUpdate();
+	                
+	                for (Genre genre : t.getGenresOfBook()) {
+		                // Thêm thông tin liên kết giữa sách và thể loại vào bảng book_genre
+		                PreparedStatement linkBookGenreStatement = connection.prepareStatement("INSERT INTO book_genre (isbn, genre_id) VALUES (?, ?)");
+		                linkBookGenreStatement.setString(1, t.getBookID());
+		                linkBookGenreStatement.setInt(2, genre.getGenreID());
+		                linkBookGenreStatement.executeUpdate();
+		            }
 	            }
 	        }
 
