@@ -151,8 +151,8 @@ public class ShelfController implements Initializable {
             	if(dialogResult == JOptionPane.YES_OPTION) {
             		DAOShelf.getInstance().otherUserInsertShelf(currentShelf);
                     // Sau khi thêm xong, cập nhật lại dữ liệu và làm mới giao diện
-                    //myShelvesPageController = MyShelvesPageController.getInstance();
-                   // myShelvesPageController.reloadDataAndRefreshUI();
+                    myShelvesPageController = MyShelvesPageController.getInstance();
+                    myShelvesPageController.reloadDataAndRefreshUI();
             	}
             } else {
                 // Xử lý khi không có tủ sách hiện tại

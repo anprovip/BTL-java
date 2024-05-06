@@ -100,7 +100,7 @@ public class DAOShelf implements DAOInterface<Shelf>{
 	        long loggedInUserId = User.getInstance().getUserId();
 	        
 	        // Kiểm tra xem shelf_name của shelf được chọn có trùng với shelf_name của user_id được chọn không
-	        ArrayList<Shelf> selectedUserShelves = selectByCondition(String.valueOf(shelf.getUserID()));
+	        ArrayList<Shelf> selectedUserShelves = selectByCondition(String.valueOf(loggedInUserId));
 	        boolean isSameShelfName = selectedUserShelves.stream().anyMatch(s -> s.getShelfName().equals(shelf.getShelfName()));
 
 	        // Nếu trùng shelf_name, hiển thị thông báo và không thực hiện thêm sách
@@ -118,18 +118,21 @@ public class DAOShelf implements DAOInterface<Shelf>{
 	        
 	        // Lấy danh sách các cuốn sách từ tủ sách của shelf.getUserId và thêm chúng vào tủ sách mới
 	        ArrayList<String> bookIDs = getBooksByShelfNameAndUserID(shelf.getShelfName(), shelf.getUserID());
+	        boolean check = true;
 	        for (String bookID : bookIDs) {
 	            insertNewShelfStatement.setString(3, bookID);
 	            int newShelfRowsInserted = insertNewShelfStatement.executeUpdate();
 	            if (newShelfRowsInserted > 0) {
-	            	JOptionPane.showMessageDialog(null, "A new shelf with book was inserted successfully!");
-	                
+	                check = true;
 	            } else {
 	                JOptionPane.showMessageDialog(null, "Failed to insert the new shelf with book!");
+	                check = false;
 	                return;
 	            }
 	        }
-
+	        if(check) {
+	        	JOptionPane.showMessageDialog(null, "A new shelf with book was inserted successfully!");
+	        }
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	    }
