@@ -47,7 +47,7 @@
                         <Insets top="1.0" />
                      </padding>
                   </Label>
-                  <ImageView fx:id="deleteButton" disable="true" fitHeight="24.0" fitWidth="24.0" onMouseClicked="#onClickImage" onMouseEntered="#onMouseEnteredDelete" onMouseExited="#onMouseExitedDelete" opacity="0.5" pickOnBounds="true" preserveRatio="true" visible="false">
+                  <ImageView fx:id="deleteButton" fitHeight="24.0" fitWidth="24.0" onMouseClicked="#onClickImage" onMouseEntered="#onMouseEnteredDelete" onMouseExited="#onMouseExitedDelete" opacity="0.5" pickOnBounds="true" preserveRatio="true">
                      <HBox.margin>
                         <Insets left="90.0" />
                      </HBox.margin>

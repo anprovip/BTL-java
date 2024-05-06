@@ -95,25 +95,66 @@ public class DAOShelf implements DAOInterface<Shelf>{
 		
 	}
 	public void otherUserInsertShelf(Shelf shelf) {
-		try (Connection connection = JDBCUtil.getConnection()) {
-			
-	        String sql = "INSERT INTO shelf (shelf_name, user_id) VALUES (?, ?)";
-	        PreparedStatement statement = connection.prepareStatement(sql);
-	        statement.setString(1, shelf.getShelfName());
-	        statement.setLong(2, shelf.getUserID());
+	    try (Connection connection = JDBCUtil.getConnection()) {
+	        // Lấy user_id của người dùng đang đăng nhập
+	        long loggedInUserId = User.getInstance().getUserId();
 	        
-	        int rowsInserted = statement.executeUpdate();
-	        if (rowsInserted > 0) {
-	            System.out.println("A new shelf was inserted successfully!");
-	            
-	        } else {
-	            System.out.println("Failed to insert the shelf!");
+	        // Kiểm tra xem shelf_name của shelf được chọn có trùng với shelf_name của user_id được chọn không
+	        ArrayList<Shelf> selectedUserShelves = selectByCondition(String.valueOf(loggedInUserId));
+	        boolean isSameShelfName = selectedUserShelves.stream().anyMatch(s -> s.getShelfName().equals(shelf.getShelfName()));
+
+	        // Nếu trùng shelf_name, hiển thị thông báo và không thực hiện thêm sách
+	        if (isSameShelfName) {
+	            System.out.println("This shelf already exists in the user's shelves, cannot add.");
+	            JOptionPane.showMessageDialog(null, "You already have this shelf in your shelves, cannot add.");
+	            return;
+	        }
+
+	        // Tạo một tủ sách mới cho người dùng hiện tại với shelf_name và user_id tương ứng
+	        String insertNewShelfSQL = "INSERT INTO shelf (shelf_name, user_id, isbn) VALUES (?, ?, ?)";
+	        PreparedStatement insertNewShelfStatement = connection.prepareStatement(insertNewShelfSQL);
+	        insertNewShelfStatement.setString(1, shelf.getShelfName());
+	        insertNewShelfStatement.setLong(2, loggedInUserId);
+	        
+	        // Lấy danh sách các cuốn sách từ tủ sách của shelf.getUserId và thêm chúng vào tủ sách mới
+	        ArrayList<String> bookIDs = getBooksByShelfNameAndUserID(shelf.getShelfName(), shelf.getUserID());
+	        boolean check = true;
+	        for (String bookID : bookIDs) {
+	            insertNewShelfStatement.setString(3, bookID);
+	            int newShelfRowsInserted = insertNewShelfStatement.executeUpdate();
+	            if (newShelfRowsInserted > 0) {
+	                check = true;
+	            } else {
+	                JOptionPane.showMessageDialog(null, "Failed to insert the new shelf with book!");
+	                check = false;
+	                return;
+	            }
+	        }
+	        if(check) {
+	        	JOptionPane.showMessageDialog(null, "A new shelf with book was inserted successfully!");
 	        }
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	    }
-		
 	}
+
+	public ArrayList<String> getBooksByShelfNameAndUserID(String shelfName, long userID) {
+	    ArrayList<String> bookIDs = new ArrayList<>();
+	    try (Connection connection = JDBCUtil.getConnection()) {
+	        String sql = "SELECT isbn FROM shelf WHERE shelf_name = ? AND user_id = ?";
+	        PreparedStatement statement = connection.prepareStatement(sql);
+	        statement.setString(1, shelfName);
+	        statement.setLong(2, userID);
+	        ResultSet resultSet = statement.executeQuery();
+	        while (resultSet.next()) {
+	            bookIDs.add(resultSet.getString("isbn"));
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return bookIDs;
+	}
+
 	@Override
 	public void update(Shelf t) {
 		// TODO Auto-generated method stub
