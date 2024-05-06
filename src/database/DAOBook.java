@@ -295,6 +295,28 @@ public class DAOBook implements DAOInterface<Book> {
 		return listBook;
 		
 	}
+	public void updateRate(String bookId) {
+	    try {
+	        Connection connection = JDBCUtil.getConnection();
+	        String sql = "UPDATE book " +
+	                     "SET average_rating = (" +
+	                     "    SELECT AVG(rating) " +
+	                     "    FROM review " +
+	                     "    WHERE review.isbn = ? " +
+	                     "    GROUP BY isbn" +
+	                     ") " +
+	                     "WHERE isbn = ?";
+
+	        PreparedStatement updateStatement = connection.prepareStatement(sql);
+	        updateStatement.setString(1, bookId);
+	        updateStatement.setString(2, bookId);
+	        updateStatement.executeUpdate();
+
+	        JDBCUtil.closeConnection(connection);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	}
 	
 	
 }

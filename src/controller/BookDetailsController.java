@@ -20,6 +20,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -34,9 +35,11 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Book;
 import model.ChangeScene;
+import model.Genre;
 import model.Review;
 import model.Shelf;
 import database.DAOBook;
+import database.DAOGenre;
 import database.DAOReview;
 import database.DAOShelf;
 
@@ -105,6 +108,9 @@ public class BookDetailsController implements Initializable {
     private TextArea summaryOfBook;
     
     @FXML
+    private ListView<String> genresList;
+    
+    @FXML
     private ChoiceBox<String> userRate;
     private String[] rating = {"1 Star", "2 Stars","3 Stars","4 Stars","5 Stars"};
     private final int itemsPerPage = 5;
@@ -146,6 +152,12 @@ public class BookDetailsController implements Initializable {
                     e.printStackTrace();
                 }
             }
+            ArrayList<Genre> allGenres = DAOGenre.getInstance().selectByCondition(book.getBookID());
+    		
+    		for (Genre genre : allGenres) {
+    	        genresList.getItems().add(genre.getGenreName());
+    	    }
+          
         } else {
             // Xử lý khi không tìm thấy sách
         }
@@ -164,6 +176,7 @@ public class BookDetailsController implements Initializable {
             review.setRating((int)userRate.getValue().charAt(0)-48);
             
             DAOReview.getInstance().insert(review);
+            DAOBook.getInstance().updateRate(BookID.getText());
             JOptionPane.showMessageDialog(null, "Add review successfully!");
             System.out.println("co update binh luan khong?");
             reloadReviewData();

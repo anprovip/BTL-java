@@ -39,8 +39,31 @@ public class DAOGenre implements DAOInterface<Genre> {
 
 	@Override
 	public ArrayList<Genre> selectByCondition(String condition) {
-		return null;
+		// Hàm lấy thể loại theo mã sách
+		ArrayList<Genre> genresOfBook = new ArrayList<>();
+		
+		try {
+			Connection connection = JDBCUtil.getConnection();
+			String sql ="SELECT * FROM genre join book_genre on genre.genre_id=book_genre.genre_id where isbn = ?;";
+			PreparedStatement st = connection.prepareStatement(sql);
+			st.setString(1, condition);
+			ResultSet rs = st.executeQuery();
+			
+			while(rs.next()) {
+				Genre genre = new Genre();
+				genre.setGenreID(rs.getInt("genre_id"));
+				genre.setGenreName(rs.getString("genre_name"));
+				genre.setDescription(rs.getString("description"));
+				genresOfBook.add(genre);
+			}
+			
+			JDBCUtil.closeConnection(connection);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return genresOfBook;
 	}
+
 	
 	public Genre selectByName(String genreName) {
 		Genre genre = new Genre();

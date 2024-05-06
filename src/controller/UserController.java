@@ -322,7 +322,7 @@ public class UserController implements Initializable{
 		loginController = LoginController.getInstance();
 		String currentUsername = User.getInstance().getUsername();
 		getUserInfo(currentUsername);
-		//System.out.println(user.toString());
+		
 		myShelvesPageController = MyShelvesPageController.getInstance();
 		displayName.setText(displayName.getText());
 		instance = this;
