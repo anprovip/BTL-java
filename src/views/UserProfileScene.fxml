@@ -20,7 +20,7 @@
 
 <BorderPane fx:id="UserProfileBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UserProfileController">
    <top>
-      <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="1315.0" spacing="20.0" styleClass="white-background" stylesheets="@application2.css" BorderPane.alignment="CENTER">
+      <HBox fx:id="titleToHide" alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="1315.0" spacing="20.0" styleClass="white-background" stylesheets="@application2.css" BorderPane.alignment="CENTER">
          <children>
             <Label alignment="CENTER" prefHeight="54.0" prefWidth="209.0" text="My Books">
                <font>
@@ -39,7 +39,7 @@
       </HBox>
    </top>
    <left>
-      <VBox prefHeight="200.0" prefWidth="250.0" spacing="10.0" styleClass="white-background" stylesheets="@application2.css" BorderPane.alignment="CENTER">
+      <VBox fx:id="boxToHide" prefHeight="200.0" prefWidth="250.0" spacing="10.0" styleClass="white-background" stylesheets="@application2.css" BorderPane.alignment="CENTER">
          <children>
             <VBox prefHeight="211.0" prefWidth="250.0" spacing="15.0">
                <children>
@@ -141,9 +141,9 @@
       </VBox>
    </left>
    <center>
-      <AnchorPane BorderPane.alignment="CENTER">
+      <AnchorPane prefWidth="1335.0" BorderPane.alignment="CENTER">
          <children>
-            <VBox layoutX="7.0" layoutY="14.0" prefHeight="716.8" prefWidth="1064.8" spacing="10.0" AnchorPane.bottomAnchor="-14.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="-7.0" AnchorPane.topAnchor="14.0">
+            <VBox fx:id="resizeVBox" layoutX="-181.0" layoutY="14.0" prefHeight="847.0" prefWidth="1192.0" spacing="10.0" AnchorPane.bottomAnchor="-14.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="-7.0" AnchorPane.topAnchor="14.0">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>

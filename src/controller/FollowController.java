@@ -88,9 +88,17 @@ public class FollowController {
         User user = new User();
         user.setUsername(usernameInFollow.getText());
         controller.setData(user);
+        controller.setBoxToHideDisable(true);
+        controller.setBoxToHideVisible(false);
+        controller.setTitleToHideDisable(true);
+        controller.setTitleToHideVisible(false);
+        controller.setResizeVBoxPref();
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root, 1440, 900);
+        
+        scene = new Scene(root, -1240, 900);
         stage.setScene(scene);
+        stage.setX(230);
+        stage.setY(40);
         stage.show();
     }
 }

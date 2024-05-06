@@ -85,7 +85,16 @@ public class UserProfileController implements Initializable {
     
     @FXML
     private MyShelvesPageController myShelvesPageController;
-	
+
+    @FXML
+    private VBox boxToHide;
+
+    @FXML
+    private HBox titleToHide;
+    
+    @FXML
+    private VBox resizeVBox;
+
     @FXML
     private GridPane ShelfContainer;
     
@@ -362,6 +371,29 @@ public class UserProfileController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setBoxToHideVisible(boolean visible) {
+    	boxToHide.setVisible(visible);
+    }
+
+    public void setTitleToHideVisible(boolean visible) {
+    	titleToHide.setVisible(visible);
+    }
+    public void setBoxToHideDisable(boolean disable) {
+    	boxToHide.setDisable(disable);
+    }
+
+    public void setTitleToHideDisable(boolean disable) {
+    	titleToHide.setDisable(disable);
+    }
+    public void setResizeVBoxPref() {
+    	resizeVBox.setPrefWidth(1380);
+    	resizeVBox.setPrefHeight(945);
+    	resizeVBox.setMaxHeight(945);
+    	resizeVBox.setMaxWidth(1380);
+    	resizeVBox.setMinHeight(945);
+    	resizeVBox.setMinWidth(1380);
     }
     
 }
