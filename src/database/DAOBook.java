@@ -189,6 +189,7 @@ public class DAOBook implements DAOInterface<Book> {
 	            book.setAuthor(rs.getString("author_name"));
 	            book.setBookID(rs.getString("isbn"));
 	            book.setAverageRating(rs.getFloat("average_rating"));
+	            book.setSummary(rs.getString("summary"));
 	            // Đọc dữ liệu ảnh từ cột "book_image"
 	            Blob imageBlob = rs.getBlob("book_image");
 	            if (imageBlob != null) {
