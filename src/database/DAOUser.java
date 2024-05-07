@@ -257,27 +257,32 @@ public class DAOUser implements DAOInterface<User> {
     
     public boolean updateUserInfo(User user) {
         try {
-            String sql = "UPDATE user SET  email = ?, phoneNumber = ?, user_image = ?, display_name= ? WHERE username = ?";
+            String sql = "UPDATE user SET email = ?, phoneNumber = ?, display_name = ?";
+            
+            // Nếu có ảnh mới được chọn
+            if (user.getImageSrc() != null) {
+                // Thêm trường user_image vào câu lệnh SQL
+                sql += ", user_image = ?";
+            }
+            
+            sql += " WHERE username = ?";
+            
             statement = connect.prepareStatement(sql);
             statement.setString(1, user.getEmail());
             statement.setString(2, user.getPhoneNumber());
+            statement.setString(3, user.getDisplayName());
             
+            // Nếu có ảnh mới được chọn
             if (user.getImageSrc() != null) {
-
                 // Tạo inputStream từ file ảnh
                 InputStream inputStream = new FileInputStream(new File(user.getImageSrc()));
-                statement.setBlob(3, inputStream);
-
-                // Tạo mảng byte từ file ảnh
-                byte[] imageData = Files.readAllBytes(Paths.get(user.getImageSrc()));
-                statement.setBytes(3, imageData);
+                statement.setBlob(4, inputStream);
+                statement.setString(5, user.getUsername());
             } else {
-                // Nếu không có ảnh được chọn, truyền null vào cột user_image
-                statement.setBytes(3, null);
-
+                // Nếu không có ảnh mới được chọn, chỉ cần thêm username để xác định dòng cần cập nhật
+                statement.setString(4, user.getUsername());
             }
-            statement.setString(4, user.getDisplayName());
-            statement.setString(5, user.getUsername()); // Thêm username cũ vào để xác định dòng cần cập nhật
+            
             int rowsAffected = statement.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException | IOException e) {
@@ -285,6 +290,7 @@ public class DAOUser implements DAOInterface<User> {
             return false;
         }
     }
+
     
     public boolean changePassword(String username, String newPassword) {
         // Kiểm tra xem email và số điện thoại có khớp với thông tin trong database không

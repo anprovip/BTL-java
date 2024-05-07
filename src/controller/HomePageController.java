@@ -115,7 +115,7 @@ public class HomePageController implements Initializable{
     	public void initialize(URL arg0, ResourceBundle arg1) {
     		User user = DAOUser.getInstance().selectByUsername(User.getInstance().getUsername());
             
-            displayName.setText(user.getDisplayName());
+            displayName.setText("@"+user.getDisplayName());
             
             if (user != null) {
             	Blob imageBlob = user.getImageUser();
@@ -279,5 +279,10 @@ public class HomePageController implements Initializable{
 	    }
 	    
 	}
+	public void refreshDisplayName(String currentUsername) {
+	    User user = DAOUser.getInstance().selectByUsername(currentUsername);
+	    displayName.setText(user.getDisplayName());
+	}
+
 	
 }
