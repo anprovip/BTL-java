@@ -1,12 +1,16 @@
 package controller;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import database.DAOBook;
+import database.DAOUser;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,6 +23,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -29,6 +34,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Book;
 import model.ChangeScene;
+import model.User;
 
 public class HomePageController implements Initializable{
 	
@@ -74,6 +80,11 @@ public class HomePageController implements Initializable{
     @FXML
     private Button backButton;
     
+    private static HomePageController instance;
+    
+    public static HomePageController getInstance() {
+        return instance;
+    }
 
     @FXML
     private GridPane searchContainer;
@@ -89,7 +100,7 @@ public class HomePageController implements Initializable{
     private int currentPage = 1;
     private List<Book> allBooks = new ArrayList<>();
     private List<Node> displayedBooks = new ArrayList<>();
-
+    
     
     public void switchBox(MouseEvent event) throws IOException {
             new ChangeScene(homePageBorderPane, "/views/SearchPageScene.fxml");
@@ -102,10 +113,26 @@ public class HomePageController implements Initializable{
 
     	@Override
     	public void initialize(URL arg0, ResourceBundle arg1) {
-    		
-    		
-    		
-    		
+    		User user = DAOUser.getInstance().selectByUsername(User.getInstance().getUsername());
+            
+            displayName.setText(user.getDisplayName());
+            
+            if (user != null) {
+            	Blob imageBlob = user.getImageUser();
+                if (imageBlob != null) {
+                    try {
+                        // Chuyển đổi Blob thành mảng byte
+                        byte[] imageData = imageBlob.getBytes(1, (int) imageBlob.length());
+
+                        // Tạo đối tượng Image từ mảng byte và hiển thị trong ImageView
+                        Image image = new Image(new ByteArrayInputStream(imageData));
+                        avatarOfUser.setImage(image);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+    		instance = this;
     	    recentlyAdded = new ArrayList<>(getAllBooksFromDatabase()); // Thay đổi cách lấy danh sách sách
     	    new ArrayList<>(getAllBooksFromDatabase());
     	    
@@ -128,7 +155,6 @@ public class HomePageController implements Initializable{
     	    } catch (IOException e) {
     	        e.printStackTrace();
     	    }
-    	    
     }
     
     private void showBooks(int startIndex, int count) {
@@ -225,5 +251,33 @@ public class HomePageController implements Initializable{
         }
 		
     }
+	public void reloadDataAndRefreshUI() {
+	    
+		recentlyAdded = new ArrayList<>(getAllBooksFromDatabase()); // Lấy lại danh sách sách từ cơ sở dữ liệu
+	    allBooks.clear(); // Xóa danh sách sách hiện tại
+	    allBooks.addAll(recentlyAdded);
+	    
+	    currentPage = 1;
+	    
+	    // Hiển thị lại sách trên giao diện
+	    int startIndex = (currentPage - 1) * itemsPerPage;
+	    showBooks(startIndex, itemsPerPage);
+	    
+	    // Hiển thị lại nút "Back" nếu cần
+	    if (currentPage > 1) {
+	        backButton.setDisable(false);
+	    } else {
+	        backButton.setDisable(true);
+	    }
+	    
+	    // Hiển thị lại nút "Next" nếu cần
+	    int remainingBooks = allBooks.size() - (currentPage * itemsPerPage);
+	    if (remainingBooks > 0) {
+	        loadMoreButton.setDisable(false);
+	    } else {
+	        loadMoreButton.setDisable(true);
+	    }
+	    
+	}
 	
 }

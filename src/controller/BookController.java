@@ -31,7 +31,6 @@ public class BookController {
 	  @FXML
 	  private Label bookName;
 	  
-
 	  @FXML
 	  private Label rateOfBook;
 	  

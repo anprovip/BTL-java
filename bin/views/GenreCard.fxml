@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="399.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GenreController">
+   <children>
+      <Button fx:id="genreButton" mnemonicParsing="false" onAction="#onClickButton" prefHeight="32.0" prefWidth="399.0" stylesheets="@application2.css" text="Giả tưởng và khoa học viễn tưởng – Fantasy &amp; Science fiction">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <styleClass>
+            <String fx:value="round-layout" />
+            <String fx:value="transparent" />
+            <String fx:value="mouse-moved" />
+         </styleClass>
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+   </children>
+</HBox>

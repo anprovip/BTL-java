@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="AuthorBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AuthorController">
+   <top>
+      <HBox fx:id="titleToHide" alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="1315.0" spacing="20.0" styleClass="white-background" stylesheets="@application2.css" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" prefHeight="54.0" prefWidth="209.0" text="My Books">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
+            <Separator maxHeight="-Infinity" orientation="VERTICAL" prefHeight="33.0" prefWidth="6.0" />
+            <Pane prefHeight="200.0" prefWidth="200.0" stylesheets="@application2.css" HBox.hgrow="ALWAYS" />
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <padding>
+            <Insets left="20.0" right="20.0" />
+         </padding>
+      </HBox>
+   </top>
+   <left>
+      <VBox fx:id="boxToHide" prefHeight="200.0" prefWidth="250.0" spacing="10.0" styleClass="white-background" stylesheets="@application2.css" BorderPane.alignment="CENTER">
+         <children>
+            <VBox prefHeight="211.0" prefWidth="250.0" spacing="15.0">
+               <children>
+                  <HBox fx:id="home" alignment="CENTER" onMouseClicked="#onClickHome" prefHeight="50.0" prefWidth="200.0" spacing="15.0" styleClass="mouse-moved" stylesheets="@application2.css">
+                     <children>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/home.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="43.0" prefWidth="140.0" text="Home">
+                           <font>
+                              <Font name="Berlin Sans FB" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </HBox>
+                  <HBox fx:id="search" alignment="CENTER" onMouseClicked="#onClickSearch" prefHeight="50.0" prefWidth="200.0" spacing="15.0" styleClass="mouse-moved" stylesheets="@application2.css">
+                     <children>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/search.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="43.0" prefWidth="140.0" text="Search">
+                           <font>
+                              <Font name="Berlin Sans FB" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </HBox>
+                  <HBox fx:id="myShelves" alignment="CENTER" onMouseClicked="#switchtoMyShelves" prefHeight="50.0" prefWidth="200.0" spacing="15.0" styleClass="mouse-moved" stylesheets="@application2.css">
+                     <children>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/shelves.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="43.0" prefWidth="140.0" text="My Shelves">
+                           <font>
+                              <Font name="Berlin Sans FB" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox prefHeight="47.0" prefWidth="250.0" spacing="5.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="createButton" mnemonicParsing="false" onAction="#onClickAdd" prefHeight="31.0" prefWidth="131.0" style="-fx-background-color: #FF5056;" styleClass="selected" stylesheets="@application.css" text="Create a shelf" textFill="WHITE">
+                           <font>
+                              <Font name="Berlin Sans FB" size="16.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <Separator prefHeight="0.0" prefWidth="250.0" />
+            <VBox alignment="BOTTOM_CENTER" prefHeight="536.0" prefWidth="250.0">
+               <children>
+                  <HBox fx:id="user" alignment="CENTER" onMouseClicked="#onClickUser" prefHeight="49.0" prefWidth="250.0">
+                     <children>
+                        <Label prefHeight="43.0" prefWidth="162.0" text="\@username">
+                           <font>
+                              <Font name="Berlin Sans FB" size="18.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/banana.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                     </children>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+         <padding>
+            <Insets top="20.0" />
+         </padding>
+      </VBox>
+   </left>
+   <center>
+      <AnchorPane prefWidth="1335.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox fx:id="resizeVBox" layoutX="-181.0" layoutY="14.0" prefHeight="847.0" prefWidth="1192.0" spacing="10.0" AnchorPane.bottomAnchor="-14.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="-7.0" AnchorPane.topAnchor="14.0">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+               <children>
+                  <Label fx:id="authorName" prefHeight="35.0" prefWidth="627.0" text="Author Name">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="147.0" prefWidth="1152.0">
+                     <children>
+                        <ImageView fx:id="imageAuthor" fitHeight="150.0" fitWidth="147.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/user1.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <Label prefHeight="56.0" prefWidth="327.0" text="Author Details Information">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <TextArea fx:id="authorDetailsInformation" editable="false" prefHeight="543.0" prefWidth="1152.0" wrapText="true">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </TextArea>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

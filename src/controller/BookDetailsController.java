@@ -131,7 +131,7 @@ public class BookDetailsController implements Initializable {
     public static Book currentBook;
     @FXML
     private MyShelvesPageController myShelvesPageController;
-    
+    private HomePageController homePageController;
     @FXML
     private GridPane genreContainer;
     
@@ -185,6 +185,7 @@ public class BookDetailsController implements Initializable {
             averageRating.setText(formattedRating);
 
             summaryOfBook.setText(book.getSummary());
+            
             Blob imageBlob = book.getImageBook();
             if (imageBlob != null) {
                 try {
@@ -222,6 +223,10 @@ public class BookDetailsController implements Initializable {
             JOptionPane.showMessageDialog(null, "Add review successfully!");
             System.out.println("co update binh luan khong?");
             reloadReviewData();
+            if(homePageController!=null) {
+            	homePageController.reloadDataAndRefreshUI();
+            }
+            
         } else {
         	JOptionPane.showMessageDialog(null, "Please make sure you do not leave the review blank!");
         }
@@ -254,6 +259,7 @@ public class BookDetailsController implements Initializable {
     
     @FXML
     void onClickHome(MouseEvent event) throws IOException {
+    	
     	new ChangeScene(DBookBorderPane, "/views/HomePageScene.fxml");
     	
     }
@@ -346,6 +352,7 @@ public class BookDetailsController implements Initializable {
 	    backButton.setDisable(true);
 		userRate.getItems().addAll(rating);
 		myShelvesPageController = MyShelvesPageController.getInstance();
+		homePageController = HomePageController.getInstance();
 	}
 	@FXML
     public void onClickAddShelf(ActionEvent event) {

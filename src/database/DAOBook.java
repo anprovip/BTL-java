@@ -345,13 +345,16 @@ public class DAOBook implements DAOInterface<Book> {
 	    try {
 	        Connection connection = JDBCUtil.getConnection();
 	        String sql = "UPDATE book " +
-	                     "SET average_rating = (" +
-	                     "    SELECT AVG(rating) " +
-	                     "    FROM review " +
-	                     "    WHERE review.isbn = ? " +
-	                     "    GROUP BY isbn" +
-	                     ") " +
-	                     "WHERE isbn = ?";
+                    "SET average_rating = (" +
+                    "    SELECT CASE " +
+                    "        WHEN COUNT(*) = 1 THEN MAX(rating) " + // Nếu chỉ có một đánh giá, lấy giá trị đó
+                    "        ELSE AVG(rating) " +
+                    "    END " +
+                    "    FROM review " +
+                    "    WHERE review.isbn = ? " +
+                    "    GROUP BY isbn" +
+                    ") " +
+                    "WHERE isbn = ?";
 
 	        PreparedStatement updateStatement = connection.prepareStatement(sql);
 	        updateStatement.setString(1, bookId);
