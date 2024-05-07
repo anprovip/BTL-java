@@ -198,7 +198,7 @@ public class UserController implements Initializable{
 
     
     public void getUserInfo(String currentUsername) {
-        User user = daoUser.selectByUsername(currentUsername);
+        	User user = daoUser.selectByUsername(currentUsername);
         	displayNameLable.setText(user.getDisplayName());
         	System.out.println(user.getDisplayName()+" 1");
         if (user != null) {

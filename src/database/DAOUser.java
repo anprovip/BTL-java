@@ -51,9 +51,12 @@ public class DAOUser implements DAOInterface<User> {
                 statement.setBlob(5, defaultInputStream);
             }
             statement.executeUpdate();
-        } catch (SQLException | FileNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
-        }
+        } catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
     @Override
