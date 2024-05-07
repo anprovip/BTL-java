@@ -24,7 +24,6 @@ public class DAOUser implements DAOInterface<User> {
     private Connection connect;
     private PreparedStatement statement;
     private ResultSet result;
-    User user = User.getInstance();
     
     public DAOUser() {
         connect = JDBCUtil.getConnection();
@@ -163,7 +162,7 @@ public class DAOUser implements DAOInterface<User> {
     }
     
     public boolean selectByUsernameAndPassword(String username, String password) {
-        
+    	User user = User.getInstance();
         try {
             String sql = "SELECT * FROM user WHERE username = ? AND password = SHA2(?, 256)";
             statement = connect.prepareStatement(sql);
@@ -216,14 +215,13 @@ public class DAOUser implements DAOInterface<User> {
 		return false;
     }
     public User selectByUsername(String username) {
-    	
-        try {
+    	User user = new User();
+    	try {
             String sql = "SELECT * FROM user WHERE username = ?";
             statement = connect.prepareStatement(sql);
             statement.setString(1, username);
             result = statement.executeQuery();
             if (result.next()) {
-                user = new User();
                 user.setEmail(result.getString("email"));
                 user.setPhoneNumber(result.getString("phoneNumber"));
                 user.setPassword(result.getString("password"));

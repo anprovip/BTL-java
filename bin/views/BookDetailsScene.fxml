@@ -158,14 +158,18 @@
                         <HBox alignment="CENTER_LEFT" prefHeight="322.0" prefWidth="1150.0">
                            <children>
                               <Pane prefHeight="316.0" prefWidth="50.0" />
-                              <ImageView fx:id="bookImage" fitHeight="299.0" fitWidth="173.0" pickOnBounds="true" preserveRatio="true" styleClass="application2.css">
-                                 <image>
-                                    <Image url="@../img/book19.png" />
-                                 </image>
+                              <VBox styleClass="shadow" stylesheets="@application2.css">
                                  <HBox.margin>
                                     <Insets bottom="15.0" />
                                  </HBox.margin>
-                              </ImageView>
+                                 <children>
+                                    <ImageView fx:id="bookImage" fitHeight="299.0" fitWidth="173.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/book19.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </VBox>
                               <Pane layoutX="10.0" layoutY="10.0" prefHeight="316.0" prefWidth="50.0" />
                               <VBox prefHeight="316.0" prefWidth="936.0">
                                  <children>

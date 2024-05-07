@@ -65,87 +65,7 @@ public class LoginController implements Initializable{
     @FXML
     private Label userID;
     
-	public Button getLoginButton() {
-		return loginButton;
-	}
-
-	public void setLoginButton(Button loginButton) {
-		this.loginButton = loginButton;
-	}
-
-	public PasswordField getPassword() {
-		return password;
-	}
-
-	public void setPassword(PasswordField password) {
-		this.password = password;
-	}
-
-	public TextField getUsername() {
-		return username;
-	}
-
-	public void setUsername(TextField username) {
-		this.username = username;
-	}
-
-	public Button getSu_button() {
-		return su_button;
-	}
-
-	public void setSu_button(Button su_button) {
-		this.su_button = su_button;
-	}
-
-	public TextField getSu_email() {
-		return su_email;
-	}
-
-	public void setSu_email(TextField su_email) {
-		this.su_email = su_email;
-	}
-
-	public TextField getSu_password() {
-		return su_password;
-	}
-
-	public void setSu_password(TextField su_password) {
-		this.su_password = su_password;
-	}
-
-	public TextField getSu_phone() {
-		return su_phone;
-	}
-
-	public void setSu_phone(TextField su_phone) {
-		this.su_phone = su_phone;
-	}
-
-	public TextField getSu_reenter() {
-		return su_reenter;
-	}
-
-	public void setSu_reenter(TextField su_reenter) {
-		this.su_reenter = su_reenter;
-	}
-
-	public TextField getSu_username() {
-		return su_username;
-	}
-	
-	public void setSu_username(TextField su_username) {
-		this.su_username = su_username;
-	}
-	private User newUser = new User();
-	private static LoginController instance;
-    
-    public static LoginController getInstance() {
-        return instance;
-    }
-    @FXML
-    private MyShelvesPageController myShelvesPageController;
-    @FXML
-    private UserController userController;
+    private static User newUser = new User();
     
 	@FXML
 	public void onClickChooseAvatar(ActionEvent event) {
@@ -174,16 +94,12 @@ public class LoginController implements Initializable{
         if(daoUser.selectByUsernameAndPassword(username.getText(), password.getText())) {
         	JOptionPane.showMessageDialog(null, "Login successfully", "Admin Message", JOptionPane.INFORMATION_MESSAGE);
 		    new ChangeScene(loginBorderPane, "/views/HomePageScene.fxml");
-		    if (myShelvesPageController != null) {
-	            myShelvesPageController.reloadDataAndRefreshUI();
-	        }
 		} else {
 		    JOptionPane.showMessageDialog(null, "Wrong username or password. Please enter again.", "Admin Message", JOptionPane.ERROR_MESSAGE);
 		}
     }
 
     public void signup(ActionEvent e) {
-        
         if(su_email.getText().isEmpty() || su_username.getText().isEmpty() || su_password.getText().isEmpty() || su_phone.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "All fields are necessary to be filled", "Admin Message", JOptionPane.WARNING_MESSAGE);
         } else if(!su_password.getText().equals(su_reenter.getText())) {
@@ -216,9 +132,7 @@ public class LoginController implements Initializable{
             	if(daoUser.selectByUsernameAndPassword(username.getText(), password.getText())) {
                 	JOptionPane.showMessageDialog(null, "Login successfully", "Admin Message", JOptionPane.INFORMATION_MESSAGE);
         		    new ChangeScene(loginBorderPane, "/views/HomePageScene.fxml");
-        		    if (myShelvesPageController != null) {
-        	            myShelvesPageController.reloadDataAndRefreshUI();
-        	        }
+ 
         		} else {
         		    JOptionPane.showMessageDialog(null, "Wrong username or password. Please enter again.", "Admin Message", JOptionPane.ERROR_MESSAGE);
         		}
@@ -228,18 +142,10 @@ public class LoginController implements Initializable{
             }
         }
     }
-    public void resetApp() {
-        // Đặt lại trạng thái ban đầu của các trường nhập liệu và nhãn
-        username.setText("");
-        password.setText("");
-        // Các dòng code khác để đặt lại trạng thái ban đầu của các thành phần giao diện khác ở đây (nếu cần)
-    }
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		instance = this;
 		
-		myShelvesPageController = MyShelvesPageController.getInstance();
 	}
 
 }
