@@ -177,11 +177,6 @@ public class LoginController implements Initializable{
 		    if (myShelvesPageController != null) {
 	            myShelvesPageController.reloadDataAndRefreshUI();
 	        }
-		    userController = UserController.getInstance();
-            if (userController != null) {
-                userController.reloadDataAndRefreshUI();
-                userController.getUserInfo(username.getText());
-            }
 		} else {
 		    JOptionPane.showMessageDialog(null, "Wrong username or password. Please enter again.", "Admin Message", JOptionPane.ERROR_MESSAGE);
 		}
@@ -224,11 +219,6 @@ public class LoginController implements Initializable{
         		    if (myShelvesPageController != null) {
         	            myShelvesPageController.reloadDataAndRefreshUI();
         	        }
-        		    userController = UserController.getInstance();
-                    if (userController != null) {
-                        userController.reloadDataAndRefreshUI();
-                        userController.getUserInfo(username.getText());
-                    }
         		} else {
         		    JOptionPane.showMessageDialog(null, "Wrong username or password. Please enter again.", "Admin Message", JOptionPane.ERROR_MESSAGE);
         		}

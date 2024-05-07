@@ -16,8 +16,10 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -41,6 +43,12 @@ public class HomePageController implements Initializable{
     private HBox home;
 	
 
+	@FXML
+    private ImageView avatarOfUser;
+	
+    @FXML
+    private Label displayName;
+	
     @FXML
     private Button createButton;
     
@@ -95,7 +103,9 @@ public class HomePageController implements Initializable{
     	@Override
     	public void initialize(URL arg0, ResourceBundle arg1) {
     		
-
+    		
+    		
+    		
     	    recentlyAdded = new ArrayList<>(getAllBooksFromDatabase()); // Thay đổi cách lấy danh sách sách
     	    new ArrayList<>(getAllBooksFromDatabase());
     	    

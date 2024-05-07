@@ -29,5 +29,10 @@ public class ChangeScene {
         // Thay đổi root của Scene thành newRoot
         currentBorderPane.getScene().setRoot(newRoot);
     }
+    
+    public static void clearScenes() {
+        scenes.clear();
+    }
 }
+
 

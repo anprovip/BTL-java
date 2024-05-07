@@ -152,21 +152,18 @@ public class UserController implements Initializable{
     	}
     }
     public void switchToLogin(MouseEvent e) throws IOException {
-    	if(e.getSource() == logoutBox) {
-    		
-    		int choice = JOptionPane.showConfirmDialog(null, "Do you want to log out?", "Log Out", JOptionPane.YES_NO_OPTION);
-    		if(choice == JOptionPane.YES_OPTION) {
-    			loginController = LoginController.getInstance();
-    			loginController.resetApp();
-    			User.getInstance().clearUserData();
-    			if (myShelvesPageController != null) {
-                    myShelvesPageController.reloadDataAndRefreshUI();
-                }
-    			
-    			new ChangeScene(userBorderPane, "/views/LoginScene.fxml");
-    		}
-    	}
+        if(e.getSource() == logoutBox) {
+            
+            int choice = JOptionPane.showConfirmDialog(null, "Do you want to log out?", "Log Out", JOptionPane.YES_NO_OPTION);
+            if(choice == JOptionPane.YES_OPTION) {
+                // Làm rỗng HashMap trước khi chuyển scene
+                ChangeScene.clearScenes();
+                
+                new ChangeScene(userBorderPane, "/views/LoginScene.fxml");
+            }
+        }
     }
+
     @FXML
     private void editImage(ActionEvent event) {
     	FileChooser fileChooser = new FileChooser();
@@ -302,7 +299,7 @@ public class UserController implements Initializable{
         addBookBox.setVisible(true);
     }
     
-    public void reloadDataAndRefreshUI() {
+ /*   public void reloadDataAndRefreshUI() {
         // Lấy lại thông tin người dùng từ cơ sở dữ liệu
     	
         String currentUsername = user.getUsername();
@@ -315,7 +312,7 @@ public class UserController implements Initializable{
         newPasswordField.setText("");
         reenterPasswordField.setText("");
         System.out.println("User data reloaded and UI refreshed.");
-    }
+    } */
     
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {

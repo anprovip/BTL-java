@@ -26,3 +26,15 @@
     -fx-background-color: #001a00; /* Màu nền khi hover */
     -fx-text-fill: white; /* Màu chữ khi hover */
 }
+
+.up:hover {
+    -fx-translate-y: -20px;
+    -fx-scale-x: 1.1; 
+    -fx-scale-y: 1.1; 
+}
+
+.up2:hover {
+    -fx-translate-y: -10px;
+    -fx-scale-x: 1.1; 
+    -fx-scale-y: 1.1; 
+}

@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="bookBorderPane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BookController">
+<BorderPane fx:id="bookBorderPane" styleClass="up" stylesheets="@application3.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BookController">
    <center>
       <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="330.0" prefWidth="180.0" spacing="5.0" style="-fx-background-radius: 10;" stylesheets="@application2.css">
          <children>
@@ -43,11 +43,23 @@
                         <Font name="Berlin Sans FB" size="15.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="30.0" fitWidth="169.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/rating.png" />
-                     </image>
-                  </ImageView>
+                  <HBox alignment="CENTER_LEFT">
+                     <children>
+                        <ImageView fitHeight="23.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/star.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="rateOfBook" prefHeight="29.0" prefWidth="39.0" text="5.0" textFill="GOLD">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
                </children>
             </VBox>
          </children>

@@ -181,7 +181,7 @@ public class BookDetailsController implements Initializable {
             bookName.setText(book.getName());
             authorName.setText(book.getAuthor());
             float averageRatingValue = book.getAverageRating();
-            String formattedRating = String.format("%.2f", averageRatingValue);
+            String formattedRating = String.format("%.1f", averageRatingValue);
             averageRating.setText(formattedRating);
 
             summaryOfBook.setText(book.getSummary());

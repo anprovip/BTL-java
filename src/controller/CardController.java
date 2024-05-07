@@ -29,6 +29,9 @@ public class CardController {
     @FXML
     private HBox box;
     
+    @FXML
+    private Label rateOfBook;
+    
     private Stage stage;
 	private Scene scene;
     
@@ -54,6 +57,9 @@ public class CardController {
                 e.printStackTrace();
             }
         }
+        float averageRatingValue = book.getAverageRating();
+        String formattedRating = String.format("%.1f", averageRatingValue);
+        rateOfBook.setText(formattedRating);
         
         if (book.getName() != null) {
             bookName.setText(book.getName());

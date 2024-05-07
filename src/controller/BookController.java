@@ -31,6 +31,10 @@ public class BookController {
 	  @FXML
 	  private Label bookName;
 	  
+
+	  @FXML
+	  private Label rateOfBook;
+	  
 	  @FXML
 	  private Label bookID;
 	  
@@ -41,6 +45,9 @@ public class BookController {
         bookName.setText(book.getName());
         authorName.setText(book.getAuthor());
         bookID.setText(book.getBookID());
+        float averageRatingValue = book.getAverageRating();
+        String formattedRating = String.format("%.1f", averageRatingValue);
+        rateOfBook.setText(formattedRating);
         Blob imageBlob = book.getImageBook();
         if (imageBlob != null) {
             try {
@@ -86,6 +93,6 @@ public class BookController {
     	 stage.setScene(scene);
     	 stage.show();
      }
-        
-    
+     
+     
 }
