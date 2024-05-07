@@ -16,6 +16,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -33,11 +35,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.Author;
 import model.Book;
 import model.ChangeScene;
 import model.Genre;
 import model.Review;
 import model.Shelf;
+import model.User;
 import database.DAOBook;
 import database.DAOGenre;
 import database.DAOReview;
@@ -107,8 +111,14 @@ public class BookDetailsController implements Initializable {
     @FXML
     private TextArea summaryOfBook;
     
-    @FXML
+    private Stage stage;
+	private Scene scene;
+    
+	@FXML
     private ListView<String> genresList;
+    
+	private List<Genre> allGenres = new ArrayList<>();
+    private List<Genre> listGenres;
     
     @FXML
     private ChoiceBox<String> userRate;
@@ -121,7 +131,37 @@ public class BookDetailsController implements Initializable {
     public static Book currentBook;
     @FXML
     private MyShelvesPageController myShelvesPageController;
+    
+    @FXML
+    private GridPane genreContainer;
+    
+    private List<Genre> getAllGenresFromDatabase() {
+    	return DAOGenre.getInstance().selectByCondition(currentBook.getBookID());
+    }
+    public void showGenres() {
+        int column = 0;
+        int row = 1;
+        for (int i = 0; i < allGenres.size(); i++) {
+            Genre genre = allGenres.get(i);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/GenreCard.fxml"));
+            
+            try {
+            	HBox genrePane = loader.load();
+                GenreController genreController = loader.getController();
+                genreController.setData(genre);
 
+                if (column == 12) {
+                    column = 0;
+                    row++;
+                }
+                genreContainer.add(genrePane, column++, row);
+                GridPane.setMargin(genrePane, new Insets(5));
+               
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 	public void setData(Book book) {
     	nextButton.setDisable(false);
     	BookID.setText(book.getBookID());
@@ -134,10 +174,16 @@ public class BookDetailsController implements Initializable {
         if(allReviews.size()<=itemsPerPage) nextButton.setDisable(true);
 	    backButton.setDisable(true);
         showReviews(0, itemsPerPage);
+        listGenres = new ArrayList<>(getAllGenresFromDatabase());
+        allGenres.addAll(listGenres);
+        showGenres();
         if (book != null) {
             bookName.setText(book.getName());
             authorName.setText(book.getAuthor());
-            averageRating.setText(Float.toString(book.getAverageRating()));
+            float averageRatingValue = book.getAverageRating();
+            String formattedRating = String.format("%.2f", averageRatingValue);
+            averageRating.setText(formattedRating);
+
             summaryOfBook.setText(book.getSummary());
             Blob imageBlob = book.getImageBook();
             if (imageBlob != null) {
@@ -152,11 +198,7 @@ public class BookDetailsController implements Initializable {
                     e.printStackTrace();
                 }
             }
-            ArrayList<Genre> allGenres = DAOGenre.getInstance().selectByCondition(book.getBookID());
-    		
-    		for (Genre genre : allGenres) {
-    	        genresList.getItems().add(genre.getGenreName());
-    	    }
+            showGenres();
           
         } else {
             // Xử lý khi không tìm thấy sách
@@ -229,7 +271,20 @@ public class BookDetailsController implements Initializable {
 		new ChangeScene(DBookBorderPane, "/views/MyShelvesPageScene.fxml");
 
 	}
-
+    @FXML
+    void onClickAuthor(MouseEvent event) throws IOException {
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/AuthorScene.fxml"));
+        Parent root = loader.load();
+        AuthorController controller = loader.getController();
+        Author clickedAuthor = new Author();
+        clickedAuthor.setAuthorName(authorName.getText());
+        controller.setData(clickedAuthor);
+        
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root, 1440, 900);
+        stage.setScene(scene);
+        stage.show();
+    }
 	private void showReviews(int startIndex, int count) {
         reviewContainer.getChildren().clear(); // Xóa các sách hiện tại trước khi hiển thị sách mới
         //System.out.println("Co den day khong");

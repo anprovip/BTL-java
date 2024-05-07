@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import database.DAOBook;
+import database.DAOGenre;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,6 +31,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Book;
 import model.ChangeScene;
+import model.Genre;
+import model.Review;
 
 public class SearchPageController implements Initializable{
 	
@@ -38,6 +41,9 @@ public class SearchPageController implements Initializable{
     private HBox cardLayout;
 	@FXML
     private GridPane bookContainer;
+	
+    @FXML
+    private GridPane genreContainer;
 	
 	private List<Book> listBook;
 	
@@ -92,14 +98,19 @@ public class SearchPageController implements Initializable{
     
     private final int itemsPerPage = 10;
     private int currentPage = 1;
-    private List<Book> allBooks = new ArrayList<>();;
+    private List<Book> allBooks = new ArrayList<>();
     private List<Node> displayedBooks = new ArrayList<>();
     
-
+    private List<Genre> allGenres = new ArrayList<>();
+    private List<Genre> listGenres;
+    
     public void switchBox(MouseEvent event) throws IOException {
                 new ChangeScene(searchPageBorderPane, "/views/HomePageScene.fxml");
     }
-
+    private List<Genre> getAllGenresFromDatabase() {
+    	return DAOGenre.getInstance().selectAll();
+    }
+    
     private List<Book> getAllBooksFromDatabase() {
     	return DAOBook.getInstance().selectAll();
     }
@@ -109,13 +120,15 @@ public class SearchPageController implements Initializable{
     	@Override
     	public void initialize(URL arg0, ResourceBundle arg1) {
     	    listBook = new ArrayList<>(getAllBooksFromDatabase());
-
+    	    listGenres = new ArrayList<>(getAllGenresFromDatabase()); 
     	    loadMoreButton.setOnAction(this::loadMore);
     	    backButton.setOnAction(this::goBack);
     	    backButton.setDisable(true);
 
     	    allBooks.addAll(listBook);
+    	    allGenres.addAll(listGenres);
 			showBooks(0, itemsPerPage); 
+			showGenres();
 			myShelvesPageController = MyShelvesPageController.getInstance();
     }
     
@@ -139,6 +152,31 @@ public class SearchPageController implements Initializable{
                 bookContainer.add(bookPane, column++, row);
                 GridPane.setMargin(bookPane, new Insets(15));
                 displayedBooks.add(bookPane);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
+    public void showGenres() {
+        int column = 0;
+        int row = 1;
+        for (int i = 0; i < allGenres.size(); i++) {
+            Genre genre = allGenres.get(i);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/GenreCard.fxml"));
+            
+            try {
+            	HBox genrePane = loader.load();
+                GenreController genreController = loader.getController();
+                genreController.setData(genre);
+
+                if (column == 6) {
+                    column = 0;
+                    row++;
+                }
+                genreContainer.add(genrePane, column++, row);
+                GridPane.setMargin(genrePane, new Insets(5));
+               
             } catch (IOException e) {
                 e.printStackTrace();
             }

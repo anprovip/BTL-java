@@ -203,7 +203,7 @@ public class UserController implements Initializable{
     public void getUserInfo(String currentUsername) {
         User user = daoUser.selectByUsername(currentUsername);
         	displayNameLable.setText(user.getDisplayName());
-        	System.out.println(user.getDisplayName()+"   1");
+        	System.out.println(user.getDisplayName()+" 1");
         if (user != null) {
             emailInfo.setText(user.getEmail());
             phoneInfo.setText(user.getPhoneNumber());
@@ -336,7 +336,7 @@ public class UserController implements Initializable{
 		listView.getSelectionModel().selectedItemProperty().addListener(this::selectionChanged);
 	}
 	
-	private void selectionChanged(ObservableValue<? extends String> Obsevable,String oldVal, String newVal) {
+	private void selectionChanged(ObservableValue<? extends String> Observable,String oldVal, String newVal) {
 		ObservableList<String> selectedItems = listView.getSelectionModel().getSelectedItems();
 		String getSelectedItem = (selectedItems.isEmpty())?"Nothing selected":selectedItems.toString();
 		selection.setText(getSelectedItem);
@@ -359,7 +359,7 @@ public class UserController implements Initializable{
             try {
                 String localUrl = file.toURI().toURL().toString();
                 
-                Image image = new Image(localUrl);  
+                Image image = new Image(localUrl);
                 coverImage.setImage(image);
             } catch (MalformedURLException e) {
                 e.printStackTrace();

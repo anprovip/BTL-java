@@ -95,7 +95,7 @@ public class DAOGenre implements DAOInterface<Genre> {
 		
 		try {
 			Connection connection = JDBCUtil.getConnection();
-			String sql ="SELECT * FROM Genre;";
+			String sql ="SELECT * FROM genre;";
 			PreparedStatement st = connection.prepareStatement(sql);
 			ResultSet rs = st.executeQuery();
 			

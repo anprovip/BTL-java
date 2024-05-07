@@ -13,6 +13,7 @@ public class Book {
 	private float averageRating;
 	private String shelfName;
 	private ArrayList<Genre> GenresOfBook;
+	private String summary;
 	
 	public String getSummary() {
 		return summary;
@@ -21,8 +22,6 @@ public class Book {
 	public void setSummary(String summary) {
 		this.summary = summary;
 	}
-
-	private String summary;
 	
 
 	public Book(String bookID, String name, 
