@@ -82,7 +82,9 @@ public class HomePageController implements Initializable{
     @FXML
     private Button backButton;
     
-    private static HomePageController instance;
+    private static HomePageController instance; 
+    
+    public static RecommendedBookThread recommendedBookThread;
     
     public static HomePageController getInstance() {
         return instance;
@@ -158,7 +160,9 @@ public class HomePageController implements Initializable{
     	        e.printStackTrace();
     	    }
     	    
-    	    new RecommendedBookThread().start();
+    	    recommendedBookThread = new RecommendedBookThread();
+    	    recommendedBookThread.start();
+
     	    
     }
     

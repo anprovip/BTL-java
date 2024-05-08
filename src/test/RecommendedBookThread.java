@@ -1,6 +1,5 @@
 package test;
 
-import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,11 +8,13 @@ import javafx.stage.Stage;
 
 public class RecommendedBookThread extends Thread {
     private int count = 0;
-    private final int MAX_COUNT = 5; // Số lần lặp lại tối đa
+    private final int MAX_COUNT = 3; // Số lần lặp lại tối đa
+    private static Stage currentStage; // Biến để lưu cửa sổ hiện tại
+    private boolean running = true; // Biến để kiểm tra luồng có đang chạy không
 
     @Override
     public void run() {
-        while (count < MAX_COUNT) {
+        while (count < MAX_COUNT && running) {
             try {
                 // Tạo FXMLLoader để load scene RecommendedBook.fxml
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/RecommendedBook.fxml"));
@@ -22,31 +23,38 @@ public class RecommendedBookThread extends Thread {
                 // Tạo scene
                 Scene scene = new Scene(root);
 
+                // Kiểm tra nếu có cửa sổ đang mở và chưa đóng thì đóng cửa sổ đó
+                if (currentStage != null && currentStage.isShowing()) {
+                    Platform.runLater(() -> currentStage.close());
+                }
+
                 // Hiển thị cửa sổ trên FX application thread
                 Platform.runLater(() -> {
                     // Tạo Stage và hiển thị scene trên Stage
-                    Stage stage = new Stage();
-                    stage.setScene(scene);
-                    stage.show();
+                    currentStage = new Stage();
+                    currentStage.setScene(scene);
+                    currentStage.show();
                 });
 
                 // Tạm dừng luồng trong 15 giây (15000 milliseconds)
                 Thread.sleep(15000);
 
                 count++; // Tăng biến đếm sau mỗi lần lặp
+            } catch (InterruptedException e) {
+                // Xử lý khi bị ngắt quãng
+                System.out.println("RecommendedBookThread interrupted.");
+                running = false; // Đặt biến running thành false để kết thúc vòng lặp
+                // Thêm các bước xử lý khác nếu cần thiết
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
 
-    /*/ Ứng dụng chính của bạn để khởi chạy ứng dụng JavaFX
-    public static class RecommendedBookApplication extends Application {
-        @Override
-        public void start(Stage primaryStage) throws Exception {
-            // Khởi động luồng RecommendedBookThread để hiển thị cửa sổ RecommendedBook
-            new RecommendedBookThread().start();
+    // Phương thức để đóng cửa sổ hiện tại của luồng
+    public void closeCurrentStage() {
+        if (currentStage != null && currentStage.isShowing()) {
+            Platform.runLater(() -> currentStage.close());
         }
-    } */
+    }
 }
-

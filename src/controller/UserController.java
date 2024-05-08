@@ -42,6 +42,7 @@ import javafx.stage.Stage;
 import model.Book;
 import model.ChangeScene;
 import model.User;
+import test.RecommendedBookThread;
 import model.Genre;
 
 public class UserController implements Initializable{
@@ -156,6 +157,9 @@ public class UserController implements Initializable{
             
             int choice = JOptionPane.showConfirmDialog(null, "Do you want to log out?", "Log Out", JOptionPane.YES_NO_OPTION);
             if(choice == JOptionPane.YES_OPTION) {
+                // Đóng cửa sổ và dừng luồng
+                HomePageController.recommendedBookThread.closeCurrentStage();
+                HomePageController.recommendedBookThread.interrupt();
                 // Làm rỗng HashMap trước khi chuyển scene
                 ChangeScene.clearScenes();
                 
@@ -300,21 +304,7 @@ public class UserController implements Initializable{
         passwordBox.setVisible(false);
         addBookBox.setVisible(true);
     }
-    
- /*   public void reloadDataAndRefreshUI() {
-        // Lấy lại thông tin người dùng từ cơ sở dữ liệu
-    	
-        String currentUsername = user.getUsername();
-        getUserInfo(currentUsername);
-        
-        // Cập nhật thông tin người dùng trên giao diện
-        emailInfo.setText(user.getEmail());
-        phoneInfo.setText(user.getPhoneNumber());
-        oldPassword.setText("");
-        newPasswordField.setText("");
-        reenterPasswordField.setText("");
-        System.out.println("User data reloaded and UI refreshed.");
-    } */
+
     
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
