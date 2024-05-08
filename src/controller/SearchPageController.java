@@ -1,13 +1,17 @@
 package controller;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import database.DAOBook;
 import database.DAOGenre;
+import database.DAOUser;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,9 +21,11 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -33,6 +39,7 @@ import model.Book;
 import model.ChangeScene;
 import model.Genre;
 import model.Review;
+import model.User;
 
 public class SearchPageController implements Initializable{
 	
@@ -81,6 +88,12 @@ public class SearchPageController implements Initializable{
     private Button loadMoreButton;
     @FXML
     private Button backButton;
+    
+    @FXML
+    private ImageView avatarOfUser;
+    
+    @FXML
+    private Label displayName;
     
     @FXML
     private HBox searchBox;
@@ -133,6 +146,26 @@ public class SearchPageController implements Initializable{
 			showBooks(0, itemsPerPage); 
 			showGenres();
 			myShelvesPageController = MyShelvesPageController.getInstance();
+			
+			
+			User user = User.getInstance();
+            displayName.setText(user.getDisplayName());
+            
+            if (user != null) {
+            	Blob imageBlob = user.getImageUser();
+                if (imageBlob != null) {
+                    try {
+                        // Chuyển đổi Blob thành mảng byte
+                        byte[] imageData = imageBlob.getBytes(1, (int) imageBlob.length());
+
+                        // Tạo đối tượng Image từ mảng byte và hiển thị trong ImageView
+                        Image image = new Image(new ByteArrayInputStream(imageData));
+                        avatarOfUser.setImage(image);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
     }
     
     private void showBooks(int startIndex, int count) {

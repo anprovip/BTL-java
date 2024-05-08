@@ -23,6 +23,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -69,6 +70,12 @@ public class ShelfDetailController implements Initializable{
     
     @FXML
     private GridPane bookInShelfContainer;
+    
+    @FXML
+    private ImageView avatarOfUser;
+    
+    @FXML
+    private Label displayName;
 
     @FXML
     private HBox user;
@@ -210,5 +217,24 @@ public class ShelfDetailController implements Initializable{
 	    backButton.setOnAction(this::goBack);
 	    backButton.setDisable(true);
 	    myShelvesPageController = MyShelvesPageController.getInstance();
+	    
+	    User user = User.getInstance();
+	    displayName.setText(user.getDisplayName());
+        
+        if (user != null) {
+        	Blob imageBlob = user.getImageUser();
+            if (imageBlob != null) {
+                try {
+                    // Chuyển đổi Blob thành mảng byte
+                    byte[] imageData = imageBlob.getBytes(1, (int) imageBlob.length());
+
+                    // Tạo đối tượng Image từ mảng byte và hiển thị trong ImageView
+                    Image image = new Image(new ByteArrayInputStream(imageData));
+                    avatarOfUser.setImage(image);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 	}
 }

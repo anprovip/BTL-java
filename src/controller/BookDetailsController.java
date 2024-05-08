@@ -111,6 +111,14 @@ public class BookDetailsController implements Initializable {
     @FXML
     private TextArea summaryOfBook;
     
+    @FXML
+    private ImageView avatarOfUser;
+    
+    @FXML
+    private Label displayName;
+    
+    @FXML
+    
     private Stage stage;
 	private Scene scene;
     
@@ -353,6 +361,25 @@ public class BookDetailsController implements Initializable {
 		userRate.getItems().addAll(rating);
 		myShelvesPageController = MyShelvesPageController.getInstance();
 		homePageController = HomePageController.getInstance();
+		
+		User user = User.getInstance();
+		displayName.setText(user.getDisplayName());
+        
+        if (user != null) {
+        	Blob imageBlob = user.getImageUser();
+            if (imageBlob != null) {
+                try {
+                    // Chuyển đổi Blob thành mảng byte
+                    byte[] imageData = imageBlob.getBytes(1, (int) imageBlob.length());
+
+                    // Tạo đối tượng Image từ mảng byte và hiển thị trong ImageView
+                    Image image = new Image(new ByteArrayInputStream(imageData));
+                    avatarOfUser.setImage(image);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 	}
 	@FXML
     public void onClickAddShelf(ActionEvent event) {

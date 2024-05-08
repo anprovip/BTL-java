@@ -176,11 +176,11 @@ public class DAOUser implements DAOInterface<User> {
             	String username1 = result.getString("username");
                 String password1 = result.getString("password");
                 String email = result.getString("email");
-
+                String displayName = result.getString("display_name");
                 String phoneNumber = result.getString("phoneNumber");
                 Long userId = result.getLong("user_id");
                 
-
+                user.setDisplayName(displayName);
                 user.setUsername(username1);
                 user.setUserId(userId);
                 user.setPassword(password);

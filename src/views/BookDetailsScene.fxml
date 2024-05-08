@@ -116,12 +116,12 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="49.0" prefWidth="250.0">
                      <children>
-                        <Label onMouseClicked="#onClickUser" prefHeight="43.0" prefWidth="162.0" text="\@username">
+                        <Label fx:id="displayName" onMouseClicked="#onClickUser" prefHeight="43.0" prefWidth="162.0" text="User">
                            <font>
                               <Font name="Berlin Sans FB" size="18.0" />
                            </font>
                         </Label>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="avatarOfUser" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../img/banana.png" />
                            </image>

@@ -94,6 +94,12 @@ public class UserProfileController implements Initializable {
     
     @FXML
     private VBox resizeVBox;
+    
+    @FXML
+    private ImageView avatarOfUser;
+    
+    @FXML
+    private Label displayName;
 
     @FXML
     private GridPane ShelfContainer;
@@ -226,6 +232,24 @@ public class UserProfileController implements Initializable {
     }
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		User user = User.getInstance();
+		displayName.setText(user.getDisplayName());
+        
+        if (user != null) {
+        	Blob imageBlob = user.getImageUser();
+            if (imageBlob != null) {
+                try {
+                    // Chuyển đổi Blob thành mảng byte
+                    byte[] imageData = imageBlob.getBytes(1, (int) imageBlob.length());
+
+                    // Tạo đối tượng Image từ mảng byte và hiển thị trong ImageView
+                    Image image = new Image(new ByteArrayInputStream(imageData));
+                    avatarOfUser.setImage(image);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 		
 	}
 	public void afterUI() {

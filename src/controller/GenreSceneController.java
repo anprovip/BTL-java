@@ -87,6 +87,12 @@ public class GenreSceneController implements Initializable {
     @FXML
     private HBox user;
     
+    @FXML
+    private ImageView avatarOfUser;
+    
+    @FXML
+    private Label displayName;
+    
     private MyShelvesPageController myShelvesPageController;
     
     private final int itemsPerPage = 10;
@@ -122,7 +128,24 @@ public class GenreSceneController implements Initializable {
     }
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		
+    	User user = User.getInstance();
+    	displayName.setText(user.getDisplayName());
+        
+        if (user != null) {
+        	Blob imageBlob = user.getImageUser();
+            if (imageBlob != null) {
+                try {
+                    // Chuyển đổi Blob thành mảng byte
+                    byte[] imageData = imageBlob.getBytes(1, (int) imageBlob.length());
+
+                    // Tạo đối tượng Image từ mảng byte và hiển thị trong ImageView
+                    Image image = new Image(new ByteArrayInputStream(imageData));
+                    avatarOfUser.setImage(image);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 	}
     @FXML
     private void loadMore(ActionEvent event) {
