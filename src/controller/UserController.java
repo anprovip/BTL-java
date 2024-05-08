@@ -244,7 +244,9 @@ public class UserController implements Initializable{
             updatedUser.setImageSrc(absolutePath);
             // Gọi phương thức updateUserInfo từ DAOUser để cập nhật thông tin trong cơ sở dữ liệu
             boolean success = daoUser.updateUserInfo(updatedUser);
-            
+            //update
+            User.getInstance().setDisplayName(dName);
+            displayNameLable.setText(dName);
             if (success) {
                 // Thông báo cho người dùng rằng thông tin đã được cập nhật thành công
                 JOptionPane.showMessageDialog(null, "User information updated successfully!");
@@ -253,7 +255,7 @@ public class UserController implements Initializable{
                 JOptionPane.showMessageDialog(null, "Failed to update user information!");
             }
             homePageController = HomePageController.getInstance();
-            homePageController.refreshDisplayName(User.getInstance().getUsername());
+            
         }
     
     @FXML

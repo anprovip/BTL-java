@@ -45,7 +45,7 @@ public class HomePageController implements Initializable{
     private HBox cardLayout;
 	@FXML
     private GridPane bookContainer;
-	private List<Book> recentlyAdded;
+
 	
 	@FXML
     private HBox home;
@@ -110,11 +110,6 @@ public class HomePageController implements Initializable{
             new ChangeScene(homePageBorderPane, "/views/SearchPageScene.fxml");
     }
 
-    
-    private List<Book> getAllBooksFromDatabase() {
-    		return DAOBook.getInstance().selectAll();
-    }
-
     	@Override
     	public void initialize(URL arg0, ResourceBundle arg1) {
     		User user = DAOUser.getInstance().selectByUsername(User.getInstance().getUsername());
@@ -137,15 +132,14 @@ public class HomePageController implements Initializable{
                 }
             }
     		instance = this;
-    	    recentlyAdded = new ArrayList<>(getAllBooksFromDatabase()); // Thay đổi cách lấy danh sách sách
-    	    new ArrayList<>(getAllBooksFromDatabase());
+    		List<Book> top10Books = DAOBook.getInstance().top10Book();
     	    
     	    // Thêm sự kiện cho nút "Xem thêm"
     	    loadMoreButton.setOnAction(this::loadMore);
     	    backButton.setOnAction(this::goBack);
     	    backButton.setDisable(true); // Vô hiệu hóa nút "Back" khi chưa có gì để quay lại
     	    try {
-    	        for (Book value : recentlyAdded) {
+    	        for (Book value : top10Books) {
     	            FXMLLoader loader = new FXMLLoader();
     	            loader.setLocation(getClass().getResource("/views/card.fxml"));
     	            HBox cardBox = loader.load();
@@ -154,7 +148,7 @@ public class HomePageController implements Initializable{
     	            cardLayout.getChildren().add(cardBox);
     	        }
 
-    	        allBooks.addAll(recentlyAdded); // Sử dụng danh sách sách từ cơ sở dữ liệu
+    	        allBooks.addAll(top10Books); // Sử dụng danh sách sách từ cơ sở dữ liệu
     	        showBooks(0, itemsPerPage); // Hiển thị các cuốn sách ban đầu
     	    } catch (IOException e) {
     	        e.printStackTrace();
@@ -263,9 +257,9 @@ public class HomePageController implements Initializable{
     }
 	public void reloadDataAndRefreshUI() {
 	    
-		recentlyAdded = new ArrayList<>(getAllBooksFromDatabase()); // Lấy lại danh sách sách từ cơ sở dữ liệu
+		
 	    allBooks.clear(); // Xóa danh sách sách hiện tại
-	    allBooks.addAll(recentlyAdded);
+	    allBooks.addAll(DAOBook.getInstance().BooksAddedRecently(User.getInstance().getUserId()));
 	    
 	    currentPage = 1;
 	    
@@ -289,10 +283,10 @@ public class HomePageController implements Initializable{
 	    }
 	    
 	}
-	public void refreshDisplayName(String currentUsername) {
+	/* public void refreshDisplayName(String currentUsername) {
 	    User user = DAOUser.getInstance().selectByUsername(currentUsername);
 	    displayName.setText(user.getDisplayName());
 	}
-
+	*/
 	
 }

@@ -478,4 +478,87 @@ public ArrayList<Book> selectByAuthor(String authorName) {
 	    return listBook;
 	}
 
+	public ArrayList<Book> top10Book() {
+		ArrayList<Book> listBook = new ArrayList<Book>();
+		try {
+			Connection connection = JDBCUtil.getConnection();
+			String sql = "SELECT b.*, IFNULL(num_reviews, 0) AS num_reviews " +
+		             "FROM book b " +
+		             "LEFT JOIN ( " +
+		             "    SELECT isbn, COUNT(id) AS num_reviews " +
+		             "    FROM review " +
+		             "    GROUP BY isbn " +
+		             ") r ON b.isbn = r.isbn " +
+		             "ORDER BY num_reviews DESC " +
+		             "LIMIT 10;";
+
+			PreparedStatement st = connection.prepareStatement(sql);
+			ResultSet rs = st.executeQuery();
+			while(rs.next()) {
+			    Book book = new Book();
+			    book.setName(rs.getString("book_title"));
+			    book.setBookID(rs.getString("isbn"));
+			    book.setAverageRating(rs.getFloat("average_rating"));
+			    // Đọc dữ liệu ảnh từ cột "book_image"
+			    Blob imageBlob = rs.getBlob("book_image");
+			    if (imageBlob != null) {
+			        // Chuyển đổi Blob thành mảng byte
+			        byte[] imageData = imageBlob.getBytes(1, (int) imageBlob.length());
+			        
+			        // Lưu dữ liệu ảnh vào thuộc tính imageBook của đối tượng Book
+			        book.setImageBook(new SerialBlob(imageData));
+			    }
+			    
+			    listBook.add(book);
+			}
+			JDBCUtil.closeConnection(connection);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		
+		
+		return listBook;
+		}
+
+	public ArrayList<Book> BooksAddedRecently(Long user_id) {
+		ArrayList<Book> listBook = new ArrayList<Book>();
+		try {
+			Connection connection = JDBCUtil.getConnection();
+			String sql = "SELECT b.* " +
+		             "FROM book b " +
+		             "JOIN shelf t ON b.isbn = t.isbn " +
+		             "WHERE t.user_id = ? " +
+		             "ORDER BY t.added_date DESC " +
+		             "LIMIT 20;";
+
+			PreparedStatement st = connection.prepareStatement(sql);
+			st.setLong(1, user_id);
+			ResultSet rs = st.executeQuery();
+			while(rs.next()) {
+			    Book book = new Book();
+			    book.setName(rs.getString("book_title"));
+			    book.setBookID(rs.getString("isbn"));
+			    book.setAverageRating(rs.getFloat("average_rating"));
+			    // Đọc dữ liệu ảnh từ cột "book_image"
+			    Blob imageBlob = rs.getBlob("book_image");
+			    if (imageBlob != null) {
+			        // Chuyển đổi Blob thành mảng byte
+			        byte[] imageData = imageBlob.getBytes(1, (int) imageBlob.length());
+			        
+			        // Lưu dữ liệu ảnh vào thuộc tính imageBook của đối tượng Book
+			        book.setImageBook(new SerialBlob(imageData));
+			    }
+			    
+			    listBook.add(book);
+			}
+			JDBCUtil.closeConnection(connection);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		
+		
+		return listBook;
+		}
 }
