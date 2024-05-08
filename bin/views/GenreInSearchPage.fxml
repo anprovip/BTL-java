@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox fx:id="box" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="240.0" prefWidth="240.0" style="-fx-background-radius: 10;" stylesheets="@application2.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GenreInSearchPageController">
+   <children>
+      <Label fx:id="genreButton" alignment="TOP_LEFT" onMouseClicked="#onClickButton" prefHeight="209.0" prefWidth="220.0" text="Label" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Label>
+   </children>
+   <styleClass>
+      <String fx:value="shadow" />
+      <String fx:value="up3" />
+   </styleClass>
+</HBox>
