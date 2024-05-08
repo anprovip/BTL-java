@@ -18,11 +18,10 @@ public class Main extends Application {
 			
 
 	        stage.setTitle("Goodreads");
-	        stage.setTitle("Tacoreads");
 
 			stage.setScene(scene);
 			stage.setResizable(false);
-			Image icon = new Image(getClass().getResourceAsStream("/img/taco.png"));
+			Image icon = new Image(getClass().getResourceAsStream("/img/bookIconforApp.png"));
 			stage.getIcons().add(icon);
 			stage.show();
 		} catch(Exception e) {
