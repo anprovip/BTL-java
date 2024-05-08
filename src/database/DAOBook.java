@@ -482,13 +482,15 @@ public ArrayList<Book> selectByAuthor(String authorName) {
 		ArrayList<Book> listBook = new ArrayList<Book>();
 		try {
 			Connection connection = JDBCUtil.getConnection();
-			String sql = "SELECT b.*, IFNULL(num_reviews, 0) AS num_reviews " +
+			String sql = "SELECT b.*, IFNULL(num_reviews, 0) AS num_reviews, author_name " +
 		             "FROM book b " +
 		             "LEFT JOIN ( " +
 		             "    SELECT isbn, COUNT(id) AS num_reviews " +
 		             "    FROM review " +
 		             "    GROUP BY isbn " +
 		             ") r ON b.isbn = r.isbn " +
+		             "LEFT JOIN book_author ba ON b.isbn = ba.isbn " +
+		             "LEFT JOIN author ON ba.author_id = author.author_id " +
 		             "ORDER BY num_reviews DESC " +
 		             "LIMIT 10;";
 
@@ -499,6 +501,7 @@ public ArrayList<Book> selectByAuthor(String authorName) {
 			    book.setName(rs.getString("book_title"));
 			    book.setBookID(rs.getString("isbn"));
 			    book.setAverageRating(rs.getFloat("average_rating"));
+			    book.setAuthor(rs.getString("author_name"));
 			    // Đọc dữ liệu ảnh từ cột "book_image"
 			    Blob imageBlob = rs.getBlob("book_image");
 			    if (imageBlob != null) {
@@ -525,8 +528,10 @@ public ArrayList<Book> selectByAuthor(String authorName) {
 		ArrayList<Book> listBook = new ArrayList<Book>();
 		try {
 			Connection connection = JDBCUtil.getConnection();
-			String sql = "SELECT DISTINCT b.* " +
+			String sql = "SELECT DISTINCT b.*, author_name " +
                     "FROM book b " +
+                    "LEFT JOIN book_author ba ON b.isbn = ba.isbn " +
+                    "LEFT JOIN author ON ba.author_id = author.author_id " +
                     "WHERE EXISTS ( " +
                     "    SELECT 1 " +
                     "    FROM shelf t " +
@@ -535,7 +540,6 @@ public ArrayList<Book> selectByAuthor(String authorName) {
                     "    ORDER BY t.added_date DESC " +
                     "    LIMIT 20 " +
                     ");";
-
 			PreparedStatement st = connection.prepareStatement(sql);
 			st.setLong(1, user_id);
 			ResultSet rs = st.executeQuery();
@@ -544,6 +548,7 @@ public ArrayList<Book> selectByAuthor(String authorName) {
 			    book.setName(rs.getString("book_title"));
 			    book.setBookID(rs.getString("isbn"));
 			    book.setAverageRating(rs.getFloat("average_rating"));
+			    book.setAuthor(rs.getString("author_name"));
 			    // Đọc dữ liệu ảnh từ cột "book_image"
 			    Blob imageBlob = rs.getBlob("book_image");
 			    if (imageBlob != null) {

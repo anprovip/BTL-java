@@ -46,7 +46,7 @@ public class RecommendedBookController implements Initializable {
     public static Book currentBook;
     @FXML
     private MyShelvesPageController myShelvesPageController;
-    
+    private HomePageController homePageController; 
 	private List<Genre> allGenres = new ArrayList<>();
     private List<Genre> listGenres;
     
@@ -87,13 +87,17 @@ public class RecommendedBookController implements Initializable {
     		DAOShelf.getInstance().insert(shelf);
     		if(myShelvesPageController!=null) {
             	myShelvesPageController.reloadDataAndRefreshUI();
-		}
+    		}
+    		if(homePageController!=null) {
+    			homePageController.reloadDataAndRefreshUI();
+    		}
     }
     
     
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		homePageController = HomePageController.getInstance();
 		currentBook = DAOBook.getInstance().getRandomBook();
 		bookName.setText(currentBook.getName());
         authorName.setText(currentBook.getAuthor());

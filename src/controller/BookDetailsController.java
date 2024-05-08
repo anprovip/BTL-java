@@ -393,7 +393,7 @@ public class BookDetailsController implements Initializable {
             // Load nội dung từ file FXML
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/AddShelfPopup.fxml"));
             VBox root = loader.load();
-
+            
             // Gán controller cho cửa sổ popup
             //AddShelfPopupController controller = loader.getController();
             popupStage.setScene(new Scene(root));
@@ -401,6 +401,7 @@ public class BookDetailsController implements Initializable {
             if(myShelvesPageController!=null) {
             	myShelvesPageController.reloadDataAndRefreshUI();
             }
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -415,6 +416,9 @@ public class BookDetailsController implements Initializable {
     		DAOShelf.getInstance().insert(shelf);
     		if(myShelvesPageController!=null) {
             	myShelvesPageController.reloadDataAndRefreshUI();
+            }
+    		if(homePageController!=null) {
+            	homePageController.reloadDataAndRefreshUI();
             }
 		}
     }
@@ -432,6 +436,9 @@ public class BookDetailsController implements Initializable {
 
 	            popupStage.setScene(new Scene(root));
 	            popupStage.showAndWait();
+	            if(homePageController!=null) {
+	            	homePageController.reloadDataAndRefreshUI();
+	            }
 	        } catch (IOException e) {
 	            e.printStackTrace();
 	        }

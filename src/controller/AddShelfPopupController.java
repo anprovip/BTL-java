@@ -44,6 +44,7 @@ public class AddShelfPopupController {
     		JOptionPane.showMessageDialog(null, "Add shelf successfully!");
     		addButton.setDisable(true);
     		
+    		
     	}
     	else {
         	JOptionPane.showMessageDialog(null, "Please make sure you do not leave the shelf name blank!");
