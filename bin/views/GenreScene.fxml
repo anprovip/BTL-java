@@ -22,7 +22,7 @@
 
 <BorderPane fx:id="genreSceneBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GenreSceneController">
    <top>
-      <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="1315.0" spacing="20.0" style="-fx-background-color: #FFF2D7;" styleClass="white-background" stylesheets="@application2.css" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="1315.0" spacing="20.0" styleClass="white-background" stylesheets="@application2.css" BorderPane.alignment="CENTER">
          <children>
             <Label alignment="CENTER" prefHeight="54.0" prefWidth="209.0" text="My Books">
                <font>

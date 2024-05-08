@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import database.DAOBook;
+import database.DAOShelf;
 import database.DAOUser;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -35,6 +36,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Book;
 import model.ChangeScene;
+import model.Shelf;
 import model.User;
 import test.RecommendedBookThread;
 
@@ -104,7 +106,12 @@ public class HomePageController implements Initializable{
     private int currentPage = 1;
     private List<Book> allBooks = new ArrayList<>();
     private List<Node> displayedBooks = new ArrayList<>();
+    private List<Book> recentlyAdded;
     
+    private List<Book> getRecentlyBooksFromDatabase(User user) {
+		return DAOBook.getInstance().BooksAddedRecently(user.getUserId());
+		
+}
     
     public void switchBox(MouseEvent event) throws IOException {
             new ChangeScene(homePageBorderPane, "/views/SearchPageScene.fxml");
@@ -113,7 +120,7 @@ public class HomePageController implements Initializable{
     	@Override
     	public void initialize(URL arg0, ResourceBundle arg1) {
     		User user = DAOUser.getInstance().selectByUsername(User.getInstance().getUsername());
-            
+    		recentlyAdded = new ArrayList<>(getRecentlyBooksFromDatabase(User.getInstance()));
             displayName.setText(user.getDisplayName());
             
             if (user != null) {
@@ -133,7 +140,6 @@ public class HomePageController implements Initializable{
             }
     		instance = this;
     		List<Book> top10Books = DAOBook.getInstance().top10Book();
-    	    
     	    // Thêm sự kiện cho nút "Xem thêm"
     	    loadMoreButton.setOnAction(this::loadMore);
     	    backButton.setOnAction(this::goBack);
@@ -148,7 +154,7 @@ public class HomePageController implements Initializable{
     	            cardLayout.getChildren().add(cardBox);
     	        }
 
-    	        allBooks.addAll(top10Books); // Sử dụng danh sách sách từ cơ sở dữ liệu
+    	        allBooks.addAll(recentlyAdded); // Sử dụng danh sách sách từ cơ sở dữ liệu
     	        showBooks(0, itemsPerPage); // Hiển thị các cuốn sách ban đầu
     	    } catch (IOException e) {
     	        e.printStackTrace();
