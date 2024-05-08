@@ -43,6 +43,7 @@ public class ShelfController implements Initializable {
     private HBox user;
     @FXML
     private MyShelvesPageController myShelvesPageController;
+    private HomePageController homePageController;
     private static ShelfController instance;
     
     public static ShelfController getInstance() {
@@ -123,7 +124,14 @@ public class ShelfController implements Initializable {
             	if(dialogResult == JOptionPane.YES_OPTION) {
             		DAOShelf.getInstance().delete(currentShelf);
             		myShelvesPageController = MyShelvesPageController.getInstance();
-                    myShelvesPageController.reloadDataAndRefreshUI();
+            		if(myShelvesPageController != null) {
+                    	myShelvesPageController.reloadDataAndRefreshUI();
+                    }
+            		homePageController = HomePageController.getInstance();
+            		if(homePageController != null) {
+            			homePageController.reloadDataAndRefreshUI();
+                    }
+                    
             	}
             } else {
                 // Xử lý khi không có tủ sách hiện tại
@@ -142,6 +150,10 @@ public class ShelfController implements Initializable {
                     myShelvesPageController = MyShelvesPageController.getInstance();
                     if(myShelvesPageController != null) {
                     	myShelvesPageController.reloadDataAndRefreshUI();
+                    }
+                    homePageController = HomePageController.getInstance();
+            		if(homePageController != null) {
+            			homePageController.reloadDataAndRefreshUI();
                     }
             	}
             } else {
