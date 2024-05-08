@@ -137,6 +137,9 @@ public class HomePageController implements Initializable{
     		instance = this;
     		List<Book> top10Books = DAOBook.getInstance().top10Book();
     	    // Thêm sự kiện cho nút "Xem thêm"
+    		if(recentlyAdded.size() <= 10) {
+    			loadMoreButton.setDisable(true);
+    		}
     	    loadMoreButton.setOnAction(this::loadMore);
     	    backButton.setOnAction(this::goBack);
     	    backButton.setDisable(true); // Vô hiệu hóa nút "Back" khi chưa có gì để quay lại
@@ -190,10 +193,10 @@ public class HomePageController implements Initializable{
 
     @FXML
     private void loadMore(ActionEvent event) {
-        int startIndex = currentPage * itemsPerPage;
-        int remainingBooks = allBooks.size() - startIndex;
-        int count = Math.min(remainingBooks, itemsPerPage); // Hiển thị tối đa số sách mỗi trang
-        if (count > 0) {
+    	int startIndex = currentPage * itemsPerPage;
+        if (startIndex < allBooks.size()) { // Kiểm tra số lượng sách còn lại
+            int remainingBooks = allBooks.size() - startIndex;
+            int count = Math.min(remainingBooks, itemsPerPage); // Hiển thị tối đa số sách mỗi trang
             showBooks(startIndex, count);
             currentPage++;
             if (startIndex + count >= allBooks.size()) {
