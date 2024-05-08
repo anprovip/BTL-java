@@ -249,7 +249,22 @@ public class UserController implements Initializable{
             User.getInstance().setDisplayName(dName);
             displayNameLable.setText(dName);
             
-            
+            // Chuyển đổi hình ảnh thành byte array
+            Image image = imageInfo.getImage();
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            try {
+                ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", outputStream);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            byte[] imageData = outputStream.toByteArray();
+            Blob imageBlob = null;
+            try {
+                imageBlob = new javax.sql.rowset.serial.SerialBlob(imageData);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+             User.getInstance().setImageUser(imageBlob);
             if (success) {
                 // Thông báo cho người dùng rằng thông tin đã được cập nhật thành công
                 JOptionPane.showMessageDialog(null, "User information updated successfully!");

@@ -1,6 +1,8 @@
 /application/
 /controller/
-/database/
+/img/
 /model/
-/module-info.class
 /test/
+/views/
+/database/
+/module-info.class
