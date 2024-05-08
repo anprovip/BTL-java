@@ -11,22 +11,21 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="loginBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
    <left>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="635.0" spacing="50.0" style="-fx-background-color: #f5f5f5;" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="635.0" spacing="50.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
          <children>
             <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="102.0" prefWidth="447.0">
                <children>
-                  <Label prefHeight="47.0" prefWidth="290.0" text="Enter your">
+                  <Label prefHeight="47.0" prefWidth="290.0" text="Enter your" textFill="#803d3b">
                      <font>
                         <Font name="Bell MT" size="48.0" />
                      </font>
                   </Label>
-                  <Label prefHeight="28.0" prefWidth="290.0" text="Username and password" textFill="#9cbfdd">
+                  <Label prefHeight="28.0" prefWidth="290.0" text="Username and password" textFill="#322c2b">
                      <font>
                         <Font name="Bell MT" size="24.0" />
                      </font>
@@ -35,37 +34,21 @@
             </VBox>
             <HBox maxWidth="-Infinity" prefHeight="52.0" prefWidth="430.0" spacing="10.0">
                <children>
-                  <ImageView fitHeight="52.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="91.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../img/taco.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="52.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/taco.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="52.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/taco.png" />
-                     </image>
-                  </ImageView>
-                  <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
-                     <children>
-                        <Label fx:id="userID" layoutX="164.0" layoutY="18.0" prefHeight="17.0" prefWidth="0.0" />
-                     </children></Pane>
-                  <ImageView fitHeight="52.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/taco.png" />
+                        <Image url="@../img/app_icon.png" />
                      </image>
                   </ImageView>
                </children>
+               <VBox.margin>
+                  <Insets right="30.0" />
+               </VBox.margin>
             </HBox>
             <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="245.0" prefWidth="430.0" spacing="30.0">
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="200.0" styleClass="input" stylesheets="@application.css">
                      <children>
-                        <Label prefHeight="30.0" prefWidth="138.0" text="Username" textFill="#9cbfdd">
+                        <Label prefHeight="30.0" prefWidth="138.0" text="Username" textFill="#322c2b">
                            <font>
                               <Font name="Bell MT" size="24.0" />
                            </font>
@@ -79,7 +62,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="200.0" styleClass="input" stylesheets="@application.css">
                      <children>
-                        <Label prefHeight="30.0" prefWidth="138.0" text="Password" textFill="#9cbfdd">
+                        <Label prefHeight="30.0" prefWidth="138.0" text="Password" textFill="#322c2b">
                            <font>
                               <Font name="Bell MT" size="24.0" />
                            </font>
@@ -87,7 +70,7 @@
                         <PasswordField fx:id="password" onKeyPressed="#OnPressedEnter" prefHeight="31.0" prefWidth="320.0" styleClass="transparent" stylesheets="@application.css" />
                      </children>
                   </HBox>
-                  <Button fx:id="loginButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#login" prefHeight="42.0" prefWidth="200.0" style="-fx-background-color: #1d3b55;" stylesheets="@application.css" text="Login" textFill="#8496a9">
+                  <Button fx:id="loginButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#login" prefHeight="42.0" prefWidth="200.0" stylesheets="@application.css" text="Login" textFill="#fff2d7">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -96,7 +79,7 @@
                      </VBox.margin>
                      <styleClass>
                         <String fx:value="radius" />
-                        <String fx:value="button" />
+                        <String fx:value="up4" />
                      </styleClass>
                   </Button>
                </children>
@@ -115,17 +98,17 @@
          <children>
             <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="135.0" prefWidth="447.0">
                <children>
-                  <Label prefHeight="47.0" prefWidth="290.0" text="Sign up" textFill="#ece99b">
+                  <Label prefHeight="47.0" prefWidth="290.0" text="Sign up" textFill="#803d3b">
                      <font>
-                        <Font name="Bell MT" size="36.0" />
+                        <Font name="Bell MT" size="48.0" />
                      </font>
                   </Label>
-                  <Label prefHeight="28.0" prefWidth="380.0" text="Sign up to see what are you reading" textFill="#9cbfdd">
+                  <Label prefHeight="28.0" prefWidth="380.0" text="Sign up to see what you are reading" textFill="#322c2b">
                      <font>
                         <Font name="Bell MT" size="20.0" />
                      </font>
                   </Label>
-                  <Button fx:id="chooseAvatar" mnemonicParsing="false" onAction="#onClickChooseAvatar" stylesheets="@application2.css" text="Choose avatar" textFill="#dad0d0">
+                  <Button fx:id="chooseAvatar" mnemonicParsing="false" onAction="#onClickChooseAvatar" stylesheets="@application2.css" text="Choose avatar" textFill="#322c2b">
                      <VBox.margin>
                         <Insets left="180.0" top="50.0" />
                      </VBox.margin>
@@ -140,7 +123,7 @@
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="200.0" styleClass="input" stylesheets="@application.css">
                      <children>
-                        <Label prefHeight="30.0" prefWidth="138.0" text="Name" textFill="#9cbfdd">
+                        <Label prefHeight="30.0" prefWidth="138.0" text="Name" textFill="#322c2b">
                            <font>
                               <Font name="Bell MT" size="24.0" />
                            </font>
@@ -158,7 +141,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="200.0" styleClass="input" stylesheets="@application.css">
                      <children>
-                        <Label prefHeight="30.0" prefWidth="138.0" text="Email" textFill="#9cbfdd">
+                        <Label prefHeight="30.0" prefWidth="138.0" text="Email" textFill="#322c2b">
                            <font>
                               <Font name="Bell MT" size="24.0" />
                            </font>
@@ -176,7 +159,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="200.0" styleClass="input" stylesheets="@application.css">
                      <children>
-                        <Label prefHeight="30.0" prefWidth="138.0" text="Phone" textFill="#9cbfdd">
+                        <Label prefHeight="30.0" prefWidth="138.0" text="Phone" textFill="#322c2b">
                            <font>
                               <Font name="Bell MT" size="24.0" />
                            </font>
@@ -194,7 +177,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="200.0" styleClass="input" stylesheets="@application.css">
                      <children>
-                        <Label prefHeight="30.0" prefWidth="138.0" text="Password" textFill="#9cbfdd">
+                        <Label prefHeight="30.0" prefWidth="138.0" text="Password" textFill="#322c2b">
                            <font>
                               <Font name="Bell MT" size="24.0" />
                            </font>
@@ -212,7 +195,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="200.0" styleClass="input" stylesheets="@application.css">
                      <children>
-                        <Label prefHeight="30.0" prefWidth="138.0" text="Re-enter" textFill="#9cbfdd">
+                        <Label prefHeight="30.0" prefWidth="138.0" text="Re-enter" textFill="#322c2b">
                            <font>
                               <Font name="Bell MT" size="24.0" />
                            </font>
@@ -233,7 +216,7 @@
                         <Font size="16.0" />
                      </font>
                   </RadioButton>
-                  <Button fx:id="su_button" alignment="CENTER" mnemonicParsing="false" onAction="#signup" prefHeight="153.0" prefWidth="215.0" style="-fx-background-color: #1d3b55;" stylesheets="@application.css" text="Sign up" textFill="#8496a9">
+                  <Button fx:id="su_button" alignment="CENTER" mnemonicParsing="false" onAction="#signup" prefHeight="153.0" prefWidth="215.0" stylesheets="@application.css" text="Sign up" textFill="#fff2d7">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -242,7 +225,7 @@
                      </VBox.margin>
                      <styleClass>
                         <String fx:value="radius" />
-                        <String fx:value="button" />
+                        <String fx:value="up4" />
                      </styleClass>
                   </Button>
                </children>

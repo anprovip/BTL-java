@@ -1,6 +1,6 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
 .primary-color{
-	-fx-background-color: #3e5c74;
+	-fx-background-color: #FFF2D7;
 }
 .radius{
 	-fx-background-radius: 30;
@@ -16,8 +16,16 @@
 	-fx-border-color: #7c8184;
 }
 .custom-text-field{
-	-fx-text-inner-color: #ece99b;
+	-fx-text-inner-color: #322C2B;
 }
 .button{
 	-fx-cursor: hand;
+}
+
+.up4 {
+    -fx-background-color: #D8AE7E;
+}
+
+.up4:hover {
+    -fx-background-color: #AF8260;
 }
