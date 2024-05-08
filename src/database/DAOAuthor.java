@@ -9,8 +9,7 @@ import java.util.ArrayList;
 import javax.sql.rowset.serial.SerialBlob;
 
 import model.Author;
-import model.Review;
-import model.User;
+
 
 public class DAOAuthor implements DAOInterface<Author> {
 	

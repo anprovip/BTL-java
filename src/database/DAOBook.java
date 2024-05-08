@@ -1,6 +1,6 @@
 package database;
 
-import java.io.*;
+
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,7 +14,7 @@ import javax.sql.rowset.serial.SerialBlob;
 
 import model.Book;
 import model.Genre;
-import model.User;
+
 
 public class DAOBook implements DAOInterface<Book> {
 	
