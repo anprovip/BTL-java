@@ -182,16 +182,17 @@ public class MyShelvesPageController implements Initializable{
 
     @FXML
     private void goBack(ActionEvent event) {
-        if (currentPage <= 1) {
-            backButton.setDisable(true); // Nếu là trang đầu tiên, vô hiệu hóa nút "Back"
-        } else {
-            int startIndex = Math.max(0, (currentPage - 2) * itemsPerPage); // Lấy về trang trước đó
-            showShelves(startIndex, itemsPerPage);
+        
+        if (currentPage > 1) {
+        	int startIndex = Math.max(0, (currentPage - 2) * itemsPerPage); // Lấy về trang trước đó
+        	showShelves(startIndex, itemsPerPage);
             currentPage--; // Giảm trang hiện tại về trang trước đó
 
             // Bật lại nút "Load More" nếu đã vô hiệu hóa trước đó
             nextButton.setDisable(false);
+            
         }
+        backButton.setDisable(currentPage <= 1);
     }
 
     

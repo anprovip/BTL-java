@@ -37,7 +37,7 @@ public class RecommendedBookThread extends Thread {
                 });
 
                 // Tạm dừng luồng trong 15 giây (15000 milliseconds)
-                Thread.sleep(15000);
+                Thread.sleep(60000);
 
                 count++; // Tăng biến đếm sau mỗi lần lặp
             } catch (InterruptedException e) {
