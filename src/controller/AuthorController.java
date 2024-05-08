@@ -84,6 +84,12 @@ public class AuthorController implements Initializable {
     
     @FXML
     private GridPane bookContainer;
+    @FXML
+    private ImageView avatarOfUser;
+
+    @FXML
+    private Label displayName;
+    
     
     private List<Book> listBook;
     private List<Book> allBooks = new ArrayList<>();
@@ -194,6 +200,24 @@ public class AuthorController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		myShelvesPageController = MyShelvesPageController.getInstance();
+		User user = User.getInstance();
+		displayName.setText(user.getDisplayName());
+        
+        if (user != null) {
+        	Blob imageBlob = user.getImageUser();
+            if (imageBlob != null) {
+                try {
+                    // Chuyển đổi Blob thành mảng byte
+                    byte[] imageData = imageBlob.getBytes(1, (int) imageBlob.length());
+
+                    // Tạo đối tượng Image từ mảng byte và hiển thị trong ImageView
+                    Image image = new Image(new ByteArrayInputStream(imageData));
+                    avatarOfUser.setImage(image);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 		
 	}
 }
