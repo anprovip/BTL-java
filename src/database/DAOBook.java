@@ -525,12 +525,16 @@ public ArrayList<Book> selectByAuthor(String authorName) {
 		ArrayList<Book> listBook = new ArrayList<Book>();
 		try {
 			Connection connection = JDBCUtil.getConnection();
-			String sql = "SELECT b.* " +
-		             "FROM book b " +
-		             "JOIN shelf t ON b.isbn = t.isbn " +
-		             "WHERE t.user_id = ? " +
-		             "ORDER BY t.added_date DESC " +
-		             "LIMIT 20;";
+			String sql = "SELECT DISTINCT b.* " +
+                    "FROM book b " +
+                    "WHERE EXISTS ( " +
+                    "    SELECT 1 " +
+                    "    FROM shelf t " +
+                    "    WHERE t.user_id = ? " +
+                    "    AND t.isbn = b.isbn " +
+                    "    ORDER BY t.added_date DESC " +
+                    "    LIMIT 20 " +
+                    ");";
 
 			PreparedStatement st = connection.prepareStatement(sql);
 			st.setLong(1, user_id);
