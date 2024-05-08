@@ -266,7 +266,10 @@ public class UserController implements Initializable{
         }
         String newPassword = newPasswordField.getText(); // Sử dụng newPasswordField thay vì newPassword
         String reenteredPassword = reenterPasswordField.getText(); // Sử dụng reenterPasswordField thay vì reenterPassword
-        
+        if(oldPass.equals(newPassword)) {
+        	JOptionPane.showMessageDialog(null, "Your new password must be different from your new password!");
+            return;
+        }
         // Kiểm tra xem mật khẩu mới và mật khẩu nhập lại có khớp nhau không
         if (!newPassword.equals(reenteredPassword)) {
             // Thông báo lỗi nếu mật khẩu nhập lại không trùng khớp với mật khẩu mới
