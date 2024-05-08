@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.sql.rowset.serial.SerialBlob;
 
@@ -567,7 +568,11 @@ public ArrayList<Book> selectByAuthor(String authorName) {
 				e.printStackTrace();
 			}
 		
-		
+		reverseArrayList(listBook);
 		return listBook;
 		}
+	
+	public static void reverseArrayList(ArrayList<Book> list) {
+        Collections.reverse(list);
+    }
 }
