@@ -10,10 +10,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import database.DAOBook;
-import database.DAOFollow;
 import database.DAOGenre;
-import database.DAOShelf;
-import database.DAOUser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -100,9 +97,6 @@ public class GenreSceneController implements Initializable {
     private List<Book> allBooks = new ArrayList<>();
     private List<Node> displayedBooks = new ArrayList<>();
     private List<Book> listBook;
-    
-    private List<Genre> allGenres = new ArrayList<>();
-    private List<Genre> listGenres;
     
     public Genre currentGenre;
     

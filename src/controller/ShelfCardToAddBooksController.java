@@ -1,29 +1,14 @@
 package controller;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.net.URL;
-import java.sql.Blob;
-import java.sql.SQLException;
-import java.util.ResourceBundle;
-
 import javax.swing.JOptionPane;
 
-import database.DAOBook;
 import database.DAOShelf;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
-import model.Book;
 import model.Shelf;
 import model.User;
 
@@ -36,9 +21,7 @@ public class ShelfCardToAddBooksController{
 
     @FXML
     private Label shelfName;
-    
-    private Stage stage;
-	private Scene scene;
+
 	private String bookID;
 	
     

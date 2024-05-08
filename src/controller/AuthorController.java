@@ -11,9 +11,6 @@ import java.util.ResourceBundle;
 
 import database.DAOAuthor;
 import database.DAOBook;
-import database.DAOFollow;
-import database.DAOShelf;
-import database.DAOUser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

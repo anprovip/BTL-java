@@ -24,7 +24,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -42,7 +41,6 @@ import javafx.stage.Stage;
 import model.Book;
 import model.ChangeScene;
 import model.User;
-import test.RecommendedBookThread;
 import model.Genre;
 
 public class UserController implements Initializable{
@@ -132,8 +130,6 @@ public class UserController implements Initializable{
 
     @FXML
     private BorderPane userBorderPane;
-
-    private LoginController loginController;
     
     private static UserController instance;
     
@@ -145,7 +141,7 @@ public class UserController implements Initializable{
     User user = User.getInstance();
     @FXML
     private MyShelvesPageController myShelvesPageController;
-    private HomePageController homePageController;
+
     public void switchToHome(MouseEvent e) throws IOException {
     	if(e.getSource() == backBox) {
     		ChangeScene.clearScenes();
@@ -206,27 +202,22 @@ public class UserController implements Initializable{
         	User user = daoUser.selectByUsername(currentUsername);
         	displayNameLable.setText(user.getDisplayName());
         	System.out.println(user.getDisplayName()+" 1");
-        if (user != null) {
-            emailInfo.setText(user.getEmail());
-            phoneInfo.setText(user.getPhoneNumber());
-            displayName.setText(user.getDisplayName());
-            Blob imageBlob = user.getImageUser();
-            if (imageBlob != null) {
-                try {
-                    // Chuyển đổi Blob thành mảng byte
-                    byte[] imageData = imageBlob.getBytes(1, (int) imageBlob.length());
+        emailInfo.setText(user.getEmail());
+		phoneInfo.setText(user.getPhoneNumber());
+		displayName.setText(user.getDisplayName());
+		Blob imageBlob = user.getImageUser();
+		if (imageBlob != null) {
+		    try {
+		        // Chuyển đổi Blob thành mảng byte
+		        byte[] imageData = imageBlob.getBytes(1, (int) imageBlob.length());
 
-                    // Tạo đối tượng Image từ mảng byte và hiển thị trong ImageView
-                    Image image = new Image(new ByteArrayInputStream(imageData));
-                    imageInfo.setImage(image);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        } else {
-            
-            System.out.println("User not found!");
-        }
+		        // Tạo đối tượng Image từ mảng byte và hiển thị trong ImageView
+		        Image image = new Image(new ByteArrayInputStream(imageData));
+		        imageInfo.setImage(image);
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		    }
+		}
     }
     
     @FXML
@@ -272,7 +263,6 @@ public class UserController implements Initializable{
                 // Thông báo lỗi nếu không thể cập nhật thông tin
                 JOptionPane.showMessageDialog(null, "Failed to update user information!");
             }
-            homePageController = HomePageController.getInstance();
             
         }
     

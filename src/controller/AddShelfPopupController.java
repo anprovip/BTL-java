@@ -7,15 +7,9 @@ import javax.swing.JOptionPane;
 import database.DAOShelf;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import model.ChangeScene;
 import model.Shelf;
 
 public class AddShelfPopupController {
@@ -24,10 +18,6 @@ public class AddShelfPopupController {
 
     @FXML
     private Button addButton;
-    
-    private Stage stage;
-    
-    private Scene scene;
     
     @FXML
     private VBox addShelfBox;

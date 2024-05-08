@@ -11,9 +11,7 @@ import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
 
-import database.DAOBook;
 import database.DAOFollow;
-import database.DAOReview;
 import database.DAOShelf;
 import database.DAOUser;
 import javafx.event.ActionEvent;
@@ -34,7 +32,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.Book;
 import model.ChangeScene;
 import model.Follow;
 import model.Shelf;

@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import database.DAOFollow;
-import database.DAOShelf;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -15,10 +14,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import model.Follow;
-import model.Shelf;
-import model.User;
 
 public class FollowerPopupController implements Initializable {
     @FXML

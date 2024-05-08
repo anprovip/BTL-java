@@ -10,14 +10,12 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import database.DAOBook;
-import database.DAOReview;
 import database.DAOShelf;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -33,16 +31,12 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Book;
 import model.ChangeScene;
-import model.Review;
 import model.Shelf;
 import model.User;
 
 public class ShelfDetailController implements Initializable{
 	@FXML
     private Label shelfName;
-    
-    private Stage stage;  
-    private Scene scene;
     
     @FXML
     private Button createButton;

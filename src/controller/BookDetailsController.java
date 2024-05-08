@@ -209,8 +209,6 @@ public class BookDetailsController implements Initializable {
             }
             showGenres();
           
-        } else {
-            // Xử lý khi không tìm thấy sách
         }
     }
     

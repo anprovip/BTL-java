@@ -10,10 +10,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import database.DAOBook;
-import database.DAOShelf;
 import database.DAOUser;
-import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -36,7 +33,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Book;
 import model.ChangeScene;
-import model.Shelf;
 import model.User;
 import test.RecommendedBookThread;
 
@@ -102,7 +98,6 @@ public class HomePageController implements Initializable{
     private BorderPane homePageBorderPane;
     @FXML
     private MyShelvesPageController myShelvesPageController;
-    private UserController userController;
     private final int itemsPerPage = 10;
     private int currentPage = 1;
     private List<Book> allBooks = new ArrayList<>();
@@ -290,10 +285,5 @@ public class HomePageController implements Initializable{
 	    }
 	    
 	}
-	/* public void refreshDisplayName(String currentUsername) {
-	    User user = DAOUser.getInstance().selectByUsername(currentUsername);
-	    displayName.setText(user.getDisplayName());
-	}
-	*/
 	
 }

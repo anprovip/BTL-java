@@ -21,8 +21,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-
 import model.ChangeScene;
 import model.User;
 

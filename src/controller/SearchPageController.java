@@ -11,8 +11,6 @@ import java.util.ResourceBundle;
 
 import database.DAOBook;
 import database.DAOGenre;
-import database.DAOUser;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -38,7 +36,6 @@ import javafx.stage.Stage;
 import model.Book;
 import model.ChangeScene;
 import model.Genre;
-import model.Review;
 import model.User;
 
 public class SearchPageController implements Initializable{
