@@ -144,7 +144,7 @@ public class UserController implements Initializable{
     User user = User.getInstance();
     @FXML
     private MyShelvesPageController myShelvesPageController;
-    
+    private HomePageController homePageController;
     public void switchToHome(MouseEvent e) throws IOException {
     	if(e.getSource() == backBox) {
     		new ChangeScene(userBorderPane, "/views/HomePageScene.fxml");
@@ -198,7 +198,7 @@ public class UserController implements Initializable{
 
     
     public void getUserInfo(String currentUsername) {
-        User user = daoUser.selectByUsername(currentUsername);
+        	User user = daoUser.selectByUsername(currentUsername);
         	displayNameLable.setText(user.getDisplayName());
         	System.out.println(user.getDisplayName()+" 1");
         if (user != null) {
@@ -248,6 +248,8 @@ public class UserController implements Initializable{
                 // Thông báo lỗi nếu không thể cập nhật thông tin
                 JOptionPane.showMessageDialog(null, "Failed to update user information!");
             }
+            homePageController = HomePageController.getInstance();
+            homePageController.refreshDisplayName(User.getInstance().getUsername());
         }
     
     @FXML

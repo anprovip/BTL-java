@@ -62,7 +62,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </HBox>
-                  <HBox fx:id="search" alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="15.0" stylesheets="@application2.css">
+                  <HBox fx:id="search" alignment="CENTER" onMouseClicked="#switchtoSearch" prefHeight="50.0" prefWidth="200.0" spacing="15.0" stylesheets="@application2.css">
                      <children>
                         <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                            <image>

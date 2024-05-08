@@ -235,7 +235,13 @@ public class UserProfileController implements Initializable {
 
 	    allShelves.addAll(recentlyAddedShelf);
 		showShelves();
-		
+		long currentUserId = User.getInstance().getUserId();
+	    if (DAOFollow.getInstance().checkIfFollowed(currentUserId, currentUserInReview.getUserId())) {
+	    	followButton.setVisible(false);
+		    followButton.setDisable(true);
+		    unfollowButton.setVisible(true);
+		    unfollowButton.setDisable(false);
+	    }
 		//reloadDataAndRefreshUI();
 		instance = this;
 	}
@@ -272,11 +278,11 @@ public class UserProfileController implements Initializable {
 		    DAOFollow.getInstance().insert(follow);
 		    
 	    }
-	    // Cập nhật giao diện
 	    followButton.setVisible(false);
 	    followButton.setDisable(true);
 	    unfollowButton.setVisible(true);
 	    unfollowButton.setDisable(false);
+	    
 	}
 
 	@FXML

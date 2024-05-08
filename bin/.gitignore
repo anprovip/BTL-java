@@ -1,4 +1,12 @@
 /database/
+<<<<<<< HEAD
 /controller/
 /views/
 /application/
+=======
+/model/
+/module-info.class
+/test/
+/img/
+/views/
+>>>>>>> giang2004

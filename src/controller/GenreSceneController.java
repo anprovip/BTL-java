@@ -248,5 +248,10 @@ public class GenreSceneController implements Initializable {
 			new ChangeScene(genreSceneBorderPane, "/views/MyShelvesPageScene.fxml");
 		}
 	}
+	public void switchtoSearch(MouseEvent e) throws IOException {
+		if(e.getSource() == search) {
+			new ChangeScene(genreSceneBorderPane, "/views/SearchPageScene.fxml");
+		}
+	}
 
 }

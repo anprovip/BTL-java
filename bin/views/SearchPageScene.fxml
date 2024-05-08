@@ -16,6 +16,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -148,7 +149,7 @@
    <center>
       <AnchorPane BorderPane.alignment="CENTER">
          <children>
-            <VBox prefHeight="847.0" prefWidth="1190.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <VBox alignment="CENTER_LEFT" prefHeight="847.0" prefWidth="1190.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <Label prefHeight="27.0" prefWidth="85.0" text="Search">
                      <font>
@@ -169,62 +170,64 @@
                         </ImageView>
                      </children>
                   </HBox>
-                  <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="149.0" prefWidth="1150.0" styleClass="transparent" stylesheets="@application2.css">
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                     <content>
-                        <GridPane fx:id="genreContainer">
-                          <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                        </GridPane>
-                     </content>
-                  </ScrollPane>
-                  <ScrollPane fx:id="scrollPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="536.0" prefWidth="1150.0" styleClass="transparent" stylesheets="@application2.css" VBox.vgrow="ALWAYS">
-                     <content>
-                        <GridPane fx:id="bookContainer">
-                          <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                        </GridPane>
-                     </content>
-                     <VBox.margin>
-                        <Insets top="5.0" />
-                     </VBox.margin>
-                  </ScrollPane>
-                  <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="1150.0" spacing="20.0">
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="769.0" prefWidth="1150.0">
                      <children>
-                        <Button fx:id="backButton" mnemonicParsing="false" onAction="#goBack" stylesheets="@application2.css" text="Back">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <styleClass>
-                              <String fx:value="round-layout" />
-                              <String fx:value="transparent" />
-                              <String fx:value="white-background" />
-                              <String fx:value="mouse-moved" />
-                           </styleClass>
-                        </Button>
-                        <Button fx:id="loadMoreButton" mnemonicParsing="false" onAction="#loadMore" stylesheets="@application2.css" text="Next">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <styleClass>
-                              <String fx:value="round-layout" />
-                              <String fx:value="transparent" />
-                              <String fx:value="white-background" />
-                              <String fx:value="mouse-moved" />
-                           </styleClass>
-                        </Button>
+                        <StackPane prefHeight="717.0" prefWidth="1150.0">
+                           <children>
+                              <ScrollPane fx:id="genreScrollPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="713.0" prefWidth="1138.0" styleClass="transparent" stylesheets="@application2.css">
+                                 <content>
+                                    <GridPane fx:id="genreContainer">
+                                      <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                    </GridPane>
+                                 </content>
+                              </ScrollPane>
+                              <ScrollPane fx:id="scrollPane" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="708.0" prefWidth="1150.0" styleClass="transparent" stylesheets="@application2.css" visible="false">
+                                 <content>
+                                    <GridPane fx:id="bookContainer">
+                                      <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                    </GridPane>
+                                 </content>
+                              </ScrollPane>
+                           </children>
+                           <VBox.margin>
+                              <Insets left="10.0" />
+                           </VBox.margin>
+                        </StackPane>
+                        <HBox fx:id="backAndNextBox" alignment="CENTER" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="1150.0" spacing="20.0" visible="false">
+                           <children>
+                              <Button fx:id="backButton" mnemonicParsing="false" onAction="#goBack" stylesheets="@application2.css" text="Back">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <styleClass>
+                                    <String fx:value="round-layout" />
+                                    <String fx:value="transparent" />
+                                    <String fx:value="white-background" />
+                                    <String fx:value="mouse-moved" />
+                                 </styleClass>
+                              </Button>
+                              <Button fx:id="loadMoreButton" mnemonicParsing="false" onAction="#loadMore" stylesheets="@application2.css" text="Next">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <styleClass>
+                                    <String fx:value="round-layout" />
+                                    <String fx:value="transparent" />
+                                    <String fx:value="white-background" />
+                                    <String fx:value="mouse-moved" />
+                                 </styleClass>
+                              </Button>
+                           </children>
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding>
+                        </HBox>
                      </children>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                     <padding>
-                        <Insets top="10.0" />
-                     </padding>
-                  </HBox>
+                  </VBox>
                </children>
                <opaqueInsets>
                   <Insets />

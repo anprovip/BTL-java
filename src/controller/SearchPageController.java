@@ -87,9 +87,12 @@ public class SearchPageController implements Initializable{
 
     @FXML
     private GridPane searchContainer;
-
+    
     @FXML
-    private ScrollPane searchScrollPane;
+    private HBox backAndNextBox;
+    
+    @FXML
+    private ScrollPane genreScrollPane;
     
     @FXML
     private BorderPane searchPageBorderPane;
@@ -163,19 +166,19 @@ public class SearchPageController implements Initializable{
         int row = 1;
         for (int i = 0; i < allGenres.size(); i++) {
             Genre genre = allGenres.get(i);
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/GenreCard.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/GenreInSearchPage.fxml"));
             
             try {
             	HBox genrePane = loader.load();
-                GenreController genreController = loader.getController();
+                GenreInSearchPageController genreController = loader.getController();
                 genreController.setData(genre);
 
-                if (column == 6) {
+                if (column == 4) {
                     column = 0;
                     row++;
                 }
                 genreContainer.add(genrePane, column++, row);
-                GridPane.setMargin(genrePane, new Insets(5));
+                GridPane.setMargin(genrePane, new Insets(18));
                
             } catch (IOException e) {
                 e.printStackTrace();
@@ -229,12 +232,22 @@ public class SearchPageController implements Initializable{
 	
     @FXML
     private void onClickSearch(MouseEvent event) {
+    	scrollPane.setVisible(true);
+    	scrollPane.setDisable(false);
+    	genreScrollPane.setVisible(false);
+    	genreScrollPane.setDisable(true);
+    	
         performSearch();
     }
 
     @FXML
     private void onPressedEnter(KeyEvent event) {
         if (event.getCode().toString().equals("ENTER")) {
+        	scrollPane.setVisible(true);
+        	scrollPane.setDisable(false);
+        	genreScrollPane.setVisible(false);
+        	genreScrollPane.setDisable(true);
+        	
             performSearch();
         }
     }
@@ -250,6 +263,16 @@ public class SearchPageController implements Initializable{
     	    if(allBooks.size()<=itemsPerPage) loadMoreButton.setDisable(true);
     	    backButton.setDisable(true);
     	    showBooks(0, itemsPerPage);
+    	    backAndNextBox.setVisible(true);
+        	backAndNextBox.setDisable(false);
+        }
+        else {
+        	scrollPane.setVisible(false);
+        	scrollPane.setDisable(true);
+        	genreScrollPane.setVisible(true);
+        	genreScrollPane.setDisable(false);
+        	backAndNextBox.setVisible(false);
+        	backAndNextBox.setDisable(true);
         }
     }
     @FXML

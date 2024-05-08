@@ -404,5 +404,45 @@ public class DAOBook implements DAOInterface<Book> {
 	    }
 	    return listBook;
 	}
+	public ArrayList<Book> selectByAuthor(String authorName) {
+	    ArrayList<Book> listBook = new ArrayList<>();
+	    try {
+	        Connection connection = JDBCUtil.getConnection();
+	        String sql = "SELECT book.*, author_name " +
+	                     "FROM book " +
+	                     "JOIN book_author ON book.isbn = book_author.isbn " +
+	                     "JOIN author ON book_author.author_id = author.author_id " +
+	                     "WHERE author.author_name = ?";
 
+<<<<<<< HEAD
+=======
+	        PreparedStatement statement = connection.prepareStatement(sql);
+	        statement.setString(1, authorName);
+	        
+	        ResultSet rs = statement.executeQuery();
+	        while (rs.next()) {
+	            Book book = new Book();
+	            book.setName(rs.getString("book_title"));
+	            book.setAuthor(rs.getString("author_name"));
+	            book.setBookID(rs.getString("isbn"));
+	            book.setAverageRating(rs.getFloat("average_rating"));
+	            // Đọc dữ liệu ảnh từ cột "book_image"
+	            Blob imageBlob = rs.getBlob("book_image");
+	            if (imageBlob != null) {
+	                // Chuyển đổi Blob thành mảng byte
+	                byte[] imageData = imageBlob.getBytes(1, (int) imageBlob.length());
+	                // Lưu dữ liệu ảnh vào thuộc tính imageBook của đối tượng Book
+	                book.setImageBook(new SerialBlob(imageData));
+	            }
+	            
+	            listBook.add(book);
+	        }
+	        JDBCUtil.closeConnection(connection);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return listBook;
+	}
+	
+>>>>>>> giang2004
 }
