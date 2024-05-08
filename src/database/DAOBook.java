@@ -404,6 +404,7 @@ public class DAOBook implements DAOInterface<Book> {
 	    }
 	    return listBook;
 	}
+<<<<<<< HEAD
 	public ArrayList<Book> selectByAuthor(String authorName) {
 	    ArrayList<Book> listBook = new ArrayList<>();
 	    try {
@@ -413,6 +414,42 @@ public class DAOBook implements DAOInterface<Book> {
 	                     "JOIN book_author ON book.isbn = book_author.isbn " +
 	                     "JOIN author ON book_author.author_id = author.author_id " +
 	                     "WHERE author.author_name = ?";
+=======
+	
+	public Book getRandomBook() {
+		Book book = new Book();
+		
+		try {
+	        Connection connection = JDBCUtil.getConnection();
+	        String sql = "SELECT * FROM book " +
+                    "JOIN book_author ON book.isbn = book_author.isbn " +
+                    "JOIN author ON book_author.author_id = author.author_id " +
+                    "ORDER BY RAND() LIMIT 1";
+
+	        PreparedStatement statement = connection.prepareStatement(sql);
+	        ResultSet rs = statement.executeQuery();
+	        while (rs.next()) {
+	            book.setName(rs.getString("book_title"));
+	            book.setAuthor(rs.getString("author_name"));
+	            book.setBookID(rs.getString("isbn"));
+	            book.setAverageRating(rs.getFloat("average_rating"));
+	            // Đọc dữ liệu ảnh từ cột "book_image"
+	            Blob imageBlob = rs.getBlob("book_image");
+	            if (imageBlob != null) {
+	                // Chuyển đổi Blob thành mảng byte
+	                byte[] imageData = imageBlob.getBytes(1, (int) imageBlob.length());
+	                // Lưu dữ liệu ảnh vào thuộc tính imageBook của đối tượng Book
+	                book.setImageBook(new SerialBlob(imageData));
+	            }
+	        }
+	        JDBCUtil.closeConnection(connection);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+		
+		return book;
+	}
+>>>>>>> anprovip
 
 <<<<<<< HEAD
 =======

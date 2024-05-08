@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 
 import database.DAOBook;
 import database.DAOUser;
+import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -35,6 +36,8 @@ import javafx.stage.Stage;
 import model.Book;
 import model.ChangeScene;
 import model.User;
+import test.RecommendedBookThread;
+import test.RecommendedBookThread.RecommendedBookApplication;
 
 public class HomePageController implements Initializable{
 	
@@ -155,6 +158,9 @@ public class HomePageController implements Initializable{
     	    } catch (IOException e) {
     	        e.printStackTrace();
     	    }
+    	    
+    	    new RecommendedBookThread().start();
+    	    
     }
     
     private void showBooks(int startIndex, int count) {
