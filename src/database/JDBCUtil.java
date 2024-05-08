@@ -10,7 +10,7 @@ public class JDBCUtil {
 	public static Connection getConnection() {
 		Connection connection = null; 
 		try {
-			connection = DriverManager.getConnection("jdbc:mySQL://localhost:3306/sach", "root", "123456");
+			connection = DriverManager.getConnection("jdbc:mySQL://localhost:3306/sach", "root", "An123456789@");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

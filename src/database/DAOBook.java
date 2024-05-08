@@ -404,17 +404,7 @@ public class DAOBook implements DAOInterface<Book> {
 	    }
 	    return listBook;
 	}
-<<<<<<< HEAD
-	public ArrayList<Book> selectByAuthor(String authorName) {
-	    ArrayList<Book> listBook = new ArrayList<>();
-	    try {
-	        Connection connection = JDBCUtil.getConnection();
-	        String sql = "SELECT book.*, author_name " +
-	                     "FROM book " +
-	                     "JOIN book_author ON book.isbn = book_author.isbn " +
-	                     "JOIN author ON book_author.author_id = author.author_id " +
-	                     "WHERE author.author_name = ?";
-=======
+
 	
 	public Book getRandomBook() {
 		Book book = new Book();
@@ -449,9 +439,16 @@ public class DAOBook implements DAOInterface<Book> {
 		
 		return book;
 	}
->>>>>>> anprovip
-
-
+	    
+public ArrayList<Book> selectByAuthor(String authorName) {
+    ArrayList<Book> listBook = new ArrayList<>();
+    try {
+        Connection connection = JDBCUtil.getConnection();
+        String sql = "SELECT book.*, author_name " +
+                     "FROM book " +
+                     "JOIN book_author ON book.isbn = book_author.isbn " +
+                     "JOIN author ON book_author.author_id = author.author_id " +
+                     "WHERE author.author_name = ?";
 	        PreparedStatement statement = connection.prepareStatement(sql);
 	        statement.setString(1, authorName);
 	        
