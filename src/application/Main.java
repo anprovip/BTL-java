@@ -16,11 +16,10 @@ public class Main extends Application {
 			Parent root = loader.load();
 			Scene scene = new Scene(root, 1440, 900);
 			
-<<<<<<< HEAD
+
 	        stage.setTitle("Goodreads");
-=======
 	        stage.setTitle("Tacoreads");
->>>>>>> giang2004
+
 			stage.setScene(scene);
 			stage.setResizable(false);
 			Image icon = new Image(getClass().getResourceAsStream("/img/taco.png"));

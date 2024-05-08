@@ -451,8 +451,7 @@ public class DAOBook implements DAOInterface<Book> {
 	}
 >>>>>>> anprovip
 
-<<<<<<< HEAD
-=======
+
 	        PreparedStatement statement = connection.prepareStatement(sql);
 	        statement.setString(1, authorName);
 	        
@@ -480,6 +479,5 @@ public class DAOBook implements DAOInterface<Book> {
 	    }
 	    return listBook;
 	}
-	
->>>>>>> giang2004
+
 }
