@@ -40,18 +40,13 @@ public class RecommendedBookThread extends Thread {
         }
     }
 
-   /*public static void main(String[] args) {
-        // Khởi động ứng dụng JavaFX để có thể sử dụng JavaFX Toolkit
-        Application.launch(RecommendedBookApplication.class, args);
-    } */
-
-    // Ứng dụng chính của bạn để khởi chạy ứng dụng JavaFX
+    /*/ Ứng dụng chính của bạn để khởi chạy ứng dụng JavaFX
     public static class RecommendedBookApplication extends Application {
         @Override
         public void start(Stage primaryStage) throws Exception {
             // Khởi động luồng RecommendedBookThread để hiển thị cửa sổ RecommendedBook
             new RecommendedBookThread().start();
         }
-    }
+    } */
 }
 

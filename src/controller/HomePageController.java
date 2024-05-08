@@ -37,7 +37,6 @@ import model.Book;
 import model.ChangeScene;
 import model.User;
 import test.RecommendedBookThread;
-import test.RecommendedBookThread.RecommendedBookApplication;
 
 public class HomePageController implements Initializable{
 	
