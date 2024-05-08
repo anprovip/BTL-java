@@ -7,7 +7,6 @@ import java.util.Objects;
 
 import application.Main;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 
 public class ChangeScene {

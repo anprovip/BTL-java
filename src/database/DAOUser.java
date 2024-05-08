@@ -5,8 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -174,7 +173,7 @@ public class DAOUser implements DAOInterface<User> {
             result = statement.executeQuery();
             if (result.next()) {
             	String username1 = result.getString("username");
-                String password1 = result.getString("password");
+                
                 String email = result.getString("email");
                 String displayName = result.getString("display_name");
                 String phoneNumber = result.getString("phoneNumber");

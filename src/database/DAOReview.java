@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import javax.sql.rowset.serial.SerialBlob;
 
-import model.Book;
+
 import model.Review;
 import model.User;
 

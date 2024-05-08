@@ -3,7 +3,7 @@ package model;
 import java.sql.Blob;
 import java.sql.Date;
 
-import javax.sql.rowset.serial.SerialBlob;
+
 
 public class Review {
 	private int reviewId;
