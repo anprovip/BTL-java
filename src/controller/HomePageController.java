@@ -102,6 +102,7 @@ public class HomePageController implements Initializable{
     private BorderPane homePageBorderPane;
     @FXML
     private MyShelvesPageController myShelvesPageController;
+    private UserController userController;
     private final int itemsPerPage = 10;
     private int currentPage = 1;
     private List<Book> allBooks = new ArrayList<>();

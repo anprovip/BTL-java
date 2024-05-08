@@ -148,6 +148,7 @@ public class UserController implements Initializable{
     private HomePageController homePageController;
     public void switchToHome(MouseEvent e) throws IOException {
     	if(e.getSource() == backBox) {
+    		ChangeScene.clearScenes();
     		new ChangeScene(userBorderPane, "/views/HomePageScene.fxml");
     		
     	}
@@ -247,6 +248,8 @@ public class UserController implements Initializable{
             //update
             User.getInstance().setDisplayName(dName);
             displayNameLable.setText(dName);
+            
+            
             if (success) {
                 // Thông báo cho người dùng rằng thông tin đã được cập nhật thành công
                 JOptionPane.showMessageDialog(null, "User information updated successfully!");
@@ -440,6 +443,11 @@ public class UserController implements Initializable{
         book.setGenresOfBook(genres);
         
         DAOBook.getInstance().insert(book);
+    }
+    public void reloadUserInfo() {
+        String currentUsername = User.getInstance().getUsername();
+        getUserInfo(currentUsername);
+        
     }
 
 }
