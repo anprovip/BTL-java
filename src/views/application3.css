@@ -2,10 +2,10 @@
 	-fx-background-color: #FFFFFF;
 }
 .secondary-color{
-	-fx-background-color: #F6EDE4;
+	-fx-background-color: #FFF2D7;
 }
 .button{
-	-fx-background-color: #03AC13;
+	-fx-background-color: #F8C794;
 	-fx-background-radius: 30;
 }
 .text-input{
@@ -20,11 +20,11 @@
 	
 }
 .selected:hover{
-	-fx-background-color: #F6EDE4;
+	-fx-background-color: #F8C794;
 }
 .button:hover {
-    -fx-background-color: #001a00; /* Màu nền khi hover */
-    -fx-text-fill: white; /* Màu chữ khi hover */
+    -fx-background-color: #AF8260; /* Màu nền khi hover */
+    -fx-text-fill: #FFF2D7; /* Màu chữ khi hover */
 }
 
 .up:hover {

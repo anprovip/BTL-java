@@ -61,7 +61,7 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                  <Button fx:id="editButton" mnemonicParsing="false" onAction="#editImage" prefHeight="31.0" prefWidth="132.0" style="-fx-background-color: #F6EDE4;" stylesheets="@application3.css" text="Change avatar">
+                  <Button fx:id="editButton" mnemonicParsing="false" onAction="#editImage" prefHeight="31.0" prefWidth="132.0" stylesheets="@application3.css" text="Change avatar">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -221,7 +221,7 @@
                         </HBox>
                      </children>
                   </VBox>
-                  <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveUserInfo" prefHeight="50.0" prefWidth="155.0" style="-fx-background-color: #FFFFFF;" styleClass="selected" stylesheets="@application3.css" text="Save Changes">
+                  <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveUserInfo" prefHeight="50.0" prefWidth="155.0" styleClass="selected" stylesheets="@application3.css" text="Save Changes">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
@@ -286,7 +286,7 @@
                         </HBox>
                      </children>
                   </VBox>
-                  <Button fx:id="saveButton1" mnemonicParsing="false" onAction="#savePassword" prefHeight="50.0" prefWidth="155.0" style="-fx-background-color: #FFFFFF;" styleClass="selected" stylesheets="@application3.css" text="Save Changes">
+                  <Button fx:id="saveButton1" mnemonicParsing="false" onAction="#savePassword" prefHeight="50.0" prefWidth="155.0" styleClass="selected" stylesheets="@application3.css" text="Save Changes">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
@@ -308,7 +308,7 @@
                               <Image url="@../img/dragonCover.png" />
                            </image>
                         </ImageView>
-                        <Button fx:id="addCover" mnemonicParsing="false" onAction="#addBookCover" prefHeight="31.0" prefWidth="132.0" style="-fx-background-color: #FFFFFF;" stylesheets="@application3.css" text="add book cover">
+                        <Button fx:id="addCover" mnemonicParsing="false" onAction="#addBookCover" prefHeight="31.0" prefWidth="132.0" styleClass="selected" stylesheets="@application3.css" text="add book cover">
                            <font>
                               <Font size="13.0" />
                            </font>
@@ -375,7 +375,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Button mnemonicParsing="false" onAction="#onClickAddBook" prefHeight="50.0" prefWidth="155.0" style="-fx-background-color: #FFFFFF;" styleClass="selected" stylesheets="@application3.css" text="Add book">
+                        <Button mnemonicParsing="false" onAction="#onClickAddBook" prefHeight="50.0" prefWidth="155.0" styleClass="selected" stylesheets="@application3.css" text="Add book">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
