@@ -414,8 +414,7 @@ public class DAOBook implements DAOInterface<Book> {
 	                     "JOIN author ON book_author.author_id = author.author_id " +
 	                     "WHERE author.author_name = ?";
 
-<<<<<<< HEAD
-=======
+
 	        PreparedStatement statement = connection.prepareStatement(sql);
 	        statement.setString(1, authorName);
 	        
@@ -443,6 +442,5 @@ public class DAOBook implements DAOInterface<Book> {
 	    }
 	    return listBook;
 	}
-	
->>>>>>> giang2004
+
 }
