@@ -53,7 +53,6 @@ public class ShelfController implements Initializable {
         shelfName.setText(shelf.getShelfName());
         //shelf.setUserID(User.getInstance().getUserId());
         currentShelf = shelf;
-        System.out.println(currentShelf.getUserID());
         
     }
     
@@ -106,9 +105,7 @@ public class ShelfController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ShelfDetailsScene.fxml"));
         Parent root = loader.load();
         ShelfDetailController controller = loader.getController();
-        System.out.println(currentShelf.getUserID() + " Sao luc truoc no la nhu nay ma");
         controller.setData(currentShelf);
-        System.out.println(currentShelf.getUserID() + " Sao luc sau no lai la nhu nay ????");
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root, 1440, 900);
         stage.setScene(scene);

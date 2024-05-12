@@ -11,7 +11,7 @@ public class Book {
 	private Blob imageBook;
 	private int publishDate;
 	private float averageRating;
-	private String shelfName;
+	//private String shelfName;
 	private ArrayList<Genre> GenresOfBook;
 	private String summary;
 	
@@ -26,7 +26,7 @@ public class Book {
 
 	public Book(String bookID, String name, 
 			String imageSrc, String author, Blob imageBook, int publishDate, 
-			float averageRating, String shelfName, String summary, 
+			float averageRating, /*String shelfName,*/ String summary, 
 			ArrayList<Genre> GenresOfBook) 
 	{
 		super();
@@ -37,7 +37,7 @@ public class Book {
 		this.imageBook = imageBook;
 		this.publishDate = publishDate;
 		this.averageRating = averageRating;
-		this.shelfName = shelfName;
+		//this.shelfName = shelfName;
 		this.summary = summary;
 		this.GenresOfBook = GenresOfBook;
 	}
@@ -99,7 +99,7 @@ public class Book {
 	public void setAverageRating(float averageRating) {
 		this.averageRating = averageRating;
 	}
-
+/*
 	public String getShelfName() {
 		return shelfName;
 	}
@@ -107,7 +107,7 @@ public class Book {
 	public void setShelfName(String shelfName) {
 		this.shelfName = shelfName;
 	}
-
+	*/
 	public ArrayList<Genre> getGenresOfBook() {
 		return GenresOfBook;
 	}

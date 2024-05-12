@@ -258,14 +258,14 @@ public class DAOShelf implements DAOInterface<Shelf>{
 	    }
 	    return shelf;
 	}
-	public boolean deleteBookFromShelf(Book book) {
+	public boolean deleteBookFromShelf(Book book,String ShelfName ) {
 	    try {
 	        Connection connection = JDBCUtil.getConnection();
 	        String sql = "DELETE FROM shelf WHERE isbn = ? AND user_id = ? AND shelf_name = ?";
 	        PreparedStatement statement = connection.prepareStatement(sql);
 	        statement.setString(1, book.getBookID());
 	        statement.setLong(2, User.getInstance().getUserId());
-	        statement.setString(3, book.getShelfName());
+	        statement.setString(3,ShelfName );
 
 	        int rowsAffected = statement.executeUpdate();
 

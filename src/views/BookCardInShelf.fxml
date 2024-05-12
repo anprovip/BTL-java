@@ -19,17 +19,22 @@
          <children>
             <HBox prefHeight="238.0" prefWidth="1186.0">
                <children>
-                  <ImageView fx:id="bookImage" fitHeight="190.0" fitWidth="130.0" onMouseClicked="#onClickBookImageAndName" pickOnBounds="true" preserveRatio="true">
+                  <VBox>
                      <HBox.margin>
                         <Insets left="5.0" />
                      </HBox.margin>
-                     <image>
-                        <Image url="@../img/book9.png" />
-                     </image>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </ImageView>
+                     <children>
+                        <ImageView fx:id="bookImage" fitHeight="190.0" fitWidth="130.0" onMouseClicked="#onClickBookImageAndName" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/book9.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                        <Label fx:id="currentShelf" prefHeight="18.0" prefWidth="98.0" text="CurrentShelf" />
+                     </children>
+                  </VBox>
                   <Label fx:id="bookName" alignment="TOP_LEFT" onMouseClicked="#onClickBookImageAndName" prefHeight="236.0" prefWidth="290.0" text="Bakemonogatari" wrapText="true">
                      <HBox.margin>
                         <Insets left="8.0" />

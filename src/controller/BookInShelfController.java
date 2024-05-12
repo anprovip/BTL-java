@@ -45,6 +45,9 @@ public class BookInShelfController implements Initializable{
 
     @FXML
     private ListView<String> shelfNameDetail;
+
+    @FXML
+    private Label currentShelf;
     
     private Book currentBook;
     
@@ -56,12 +59,14 @@ public class BookInShelfController implements Initializable{
     
     private long userID;
     
-    public void setData(Book book, long userID) {
+    public void setData(Book book, long userID, String cS) {
     	this.userID = userID;
         bookName.setText(book.getName());
         authorName.setText(book.getAuthor());
+        currentShelf.setText(cS);
         averageRating.setText(Float.toString(book.getAverageRating()));
         Blob imageBlob = book.getImageBook();
+        
         ArrayList<String> shelfNames = DAOShelf.getInstance().getShelfNamesByBookID(book.getBookID(), this.userID);
         
         if (shelfNames != null) {
@@ -91,7 +96,7 @@ public class BookInShelfController implements Initializable{
             if (currentBook != null) {
             	int dialogResult = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this book?", "Delete this book.", JOptionPane.YES_NO_OPTION);
             	if(dialogResult == JOptionPane.YES_OPTION) {
-	                boolean deleted = DAOShelf.getInstance().deleteBookFromShelf(currentBook);
+	                boolean deleted = DAOShelf.getInstance().deleteBookFromShelf(currentBook, currentShelf.getText());
 	                if (deleted) {
 	                    JOptionPane.showMessageDialog(null, "Delete successfully!");
 	                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/MyShelvesPageScene.fxml"));

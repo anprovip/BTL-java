@@ -70,6 +70,7 @@ public class ShelfDetailController implements Initializable{
     
     @FXML
     private Label displayName;
+    
 
     @FXML
     private HBox user;
@@ -85,14 +86,11 @@ public class ShelfDetailController implements Initializable{
     
     public void setData(Shelf shelf) {
     	nextButton.setDisable(false);
-    	System.out.println("Nhận được dữ liệu khi click: " + shelf.getShelfID());
-    	
-    	System.out.println(shelf.getUserID()+" LUC SANG SET DATA CUA SHELF DETAILS");
     	
     	Shelf updatedShelf = DAOShelf.getInstance().selectByID(shelf);
-    	
-    	System.out.println(updatedShelf.getUserID()+" sau khi xu ly bang db");
+
     	userID = shelf.getUserID();
+    	shelfName.setText(shelf.getShelfName());
     	
     	recentlyAdded = DAOBook.getInstance().selectByShelfName(updatedShelf.getShelfName(), updatedShelf.getUserID());
     	System.out.println(updatedShelf.getShelfName());
@@ -102,12 +100,6 @@ public class ShelfDetailController implements Initializable{
     	if(allBooksInShelf.size()<=itemsPerPage) nextButton.setDisable(true);
 	    backButton.setDisable(true);
         showBooksInShelf(0, itemsPerPage);
-        /*if (shelf != null) {
-            
-        } else {
-            // Xử lý khi không tìm thấy tủ sách
-        }
-        */
     }
     private void showBooksInShelf(int startIndex, int count) {
     	bookInShelfContainer.getChildren().clear(); // Xóa các sách hiện tại trước khi hiển thị sách mới
@@ -122,7 +114,7 @@ public class ShelfDetailController implements Initializable{
             	BorderPane bookInShelfPane = loader.load();
                 BookInShelfController bookInShelfController = loader.getController();
                 System.out.println(book.getName());
-                bookInShelfController.setData(book, userID);
+                bookInShelfController.setData(book, userID, shelfName.getText());
                 System.out.println(book.getName());
                 bookInShelfContainer.add(bookInShelfPane, column, row++);
                 GridPane.setMargin(bookInShelfPane, new Insets(15));

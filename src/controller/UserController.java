@@ -448,6 +448,7 @@ public class UserController implements Initializable{
         book.setGenresOfBook(genres);
         
         DAOBook.getInstance().insert(book);
+        
     }
     public void reloadUserInfo() {
         String currentUsername = User.getInstance().getUsername();
