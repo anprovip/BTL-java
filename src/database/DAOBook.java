@@ -416,7 +416,7 @@ public class DAOBook implements DAOInterface<Book> {
                         "JOIN book_author ON book.isbn = book_author.isbn " +
                         "JOIN author ON book_author.author_id = author.author_id " +
                         "WHERE book.isbn NOT IN (" +
-                        "SELECT isbn FROM shelf WHERE user_id = ?" +
+                        "SELECT isbn FROM shelf WHERE user_id = ? AND shelf.isbn IS NOT NULL" +
                         ") " +
                         "ORDER BY RAND() " +
                         "LIMIT 1";

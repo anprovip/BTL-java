@@ -149,7 +149,7 @@
          <children>
             <VBox fx:id="homeBox" prefHeight="716.8" prefWidth="1064.8" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Label prefHeight="18.0" prefWidth="272.0" text="Recommended for you">
+                  <Label prefHeight="18.0" prefWidth="272.0" text="Top 10 books">
                      <font>
                         <Font name="Berlin Sans FB" size="24.0" />
                      </font>

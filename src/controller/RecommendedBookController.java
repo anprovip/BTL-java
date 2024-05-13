@@ -100,7 +100,7 @@ public class RecommendedBookController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		homePageController = HomePageController.getInstance();
 		currentBook = DAOBook.getInstance().getRandomBook(User.getInstance().getUserId());
-		System.out.println(User.getInstance().getUserId());
+		if(currentBook!= null) {
 		bookName.setText(currentBook.getName());
         authorName.setText(currentBook.getAuthor());
         float averageRatingValue = currentBook.getAverageRating();
@@ -123,6 +123,12 @@ public class RecommendedBookController implements Initializable {
         listGenres = new ArrayList<>(getAllGenresFromDatabase());
         allGenres.addAll(listGenres);
         showGenres();
+		}
+		else {
+			// Đóng cửa sổ và dừng luồng
+            HomePageController.recommendedBookThread.closeCurrentStage();
+            HomePageController.recommendedBookThread.interrupt();
+		}
 	}
     
 }
