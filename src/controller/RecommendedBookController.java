@@ -25,6 +25,7 @@ import javafx.scene.layout.HBox;
 import model.Book;
 import model.Genre;
 import model.Shelf;
+import model.User;
 
 public class RecommendedBookController implements Initializable {
 
@@ -98,7 +99,8 @@ public class RecommendedBookController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		homePageController = HomePageController.getInstance();
-		currentBook = DAOBook.getInstance().getRandomBook();
+		currentBook = DAOBook.getInstance().getRandomBook(User.getInstance().getUserId());
+		System.out.println(User.getInstance().getUserId());
 		bookName.setText(currentBook.getName());
         authorName.setText(currentBook.getAuthor());
         float averageRatingValue = currentBook.getAverageRating();
